@@ -9,6 +9,7 @@ import { AccueilComponent } from './accueil/accueil.component';
 import { OffresComponent } from './offres/offres.component';
 import { AuthentificationComponent } from './authentification/authentification.component';
 import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
     AccueilComponent,
     OffresComponent,
     AuthentificationComponent,
-    FourOhFourComponent
+    FourOhFourComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

@@ -1,1 +1,63 @@
-<p>inscription works!</p>
+<div class="container">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+        <h1>Inscrivez-vous</h1>
+        <div class="well well-lg">
+            <form>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="nom">Nom:</label>
+                        <input type="text" class="form-control" id="nom" placeholder="Entrer votre nom">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="prenom">Prénom:</label>
+                        <input type="text" class="form-control" id="prenom" placeholder="Entrer votre prénom">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="telephone">Téléphone:</label>
+                        <input type="tel" class="form-control" id="telephone" placeholder="Entrer le téléphone"
+                        pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="email">Email:</label>
+                        <input type="email" class="form-control" id="email" placeholder="Entrer l'email">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="username">Nom d'utilisateur:</label>
+                        <input type="text" class="form-control" id="username" placeholder="Entrer le nom d'utilisateur">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="pwd">Mot de passe:</label>
+                        <input type="password" class="form-control" id="pwd" placeholder="Entrer le mot de passe">
+                      </div>
+                      <div class="form-group col-md-6">
+                          <label for="cpwd">Confirmer mot de passe:</label>
+                          <input type="password" class="form-control" id="cpwd" placeholder="Confirmer le mot de passe">
+                      </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="role">Role</label>
+                        <select id="role" class="form-control">
+                          <option selected>Choix...</option>
+                          <option>Candidat</option>
+                          <option>Manager</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-success">Inscrire</button>
+                    <button type="reset" class="btn btn-warning">Annuler</button>
+                </div>
+              </form>
+        </div>
+    </div>
+    
+    <div class="col-sm-3"></div>
+</div>
