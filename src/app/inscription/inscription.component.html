@@ -1,63 +1,146 @@
 <div class="container">
-    <div class="col-sm-3"></div>
-    <div class="col-sm-6">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
         <h1>Inscrivez-vous</h1>
         <div class="well well-lg">
-            <form>
+            <form [formGroup]="userForm" (ngSubmit)="onSubmitForm()">
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="nom">Nom:</label>
-                        <input type="text" class="form-control" id="nom" placeholder="Entrer votre nom">
+                        <input type="text" class="form-control" id="nom" 
+                        placeholder="Entrer votre nom" formControlName="nom" required>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="prenom">Prénom:</label>
-                        <input type="text" class="form-control" id="prenom" placeholder="Entrer votre prénom">
+                        <input type="text" class="form-control" id="prenom" 
+                        placeholder="Entrer votre prénom" formControlName="prenom" required>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-12">
                         <label for="telephone">Téléphone:</label>
-                        <input type="tel" class="form-control" id="telephone" placeholder="Entrer le téléphone"
-                        pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+                        <input type="tel" class="form-control" id="telephone" 
+                        placeholder="Entrer le téléphone"
+                        pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" formControlName="telephone" required>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="email">Email:</label>
-                        <input type="email" class="form-control" id="email" placeholder="Entrer l'email">
+                        <input type="email" class="form-control" id="email"
+                         placeholder="Entrer l'email" formControlName="email" required>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="username">Nom d'utilisateur:</label>
-                        <input type="text" class="form-control" id="username" placeholder="Entrer le nom d'utilisateur">
+                        <input type="text" class="form-control" id="username"
+                         placeholder="Entrer le nom d'utilisateur" formControlName="username" required>
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-6">
+                      <div class="form-group col-md-6">
                         <label for="pwd">Mot de passe:</label>
-                        <input type="password" class="form-control" id="pwd" placeholder="Entrer le mot de passe">
+                        <input type="password" class="form-control" id="pwd" 
+                        placeholder="Entrer le mot de passe" formControlName="mdp1" required>
                       </div>
                       <div class="form-group col-md-6">
                           <label for="cpwd">Confirmer mot de passe:</label>
-                          <input type="password" class="form-control" id="cpwd" placeholder="Confirmer le mot de passe">
+                          <input type="password" class="form-control" id="cpwd" 
+                          placeholder="Confirmer le mot de passe" formControlName="mdp2" required>
                       </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-12">
-                        <label for="role">Role</label>
-                        <select id="role" class="form-control">
-                          <option selected>Choix...</option>
-                          <option>Candidat</option>
-                          <option>Manager</option>
+                        <label for="role">Inscrivez-vous en tant que ?</label>
+                        <select id="role" class="form-control" 
+                        (change)="onChange($event.target.value)" required formControlName="role">
+                          <option selected value="">Choix...</option>
+                          <option value="CANDIDAT">Candidat</option>
+                          <option value="MANAGER">Manager</option>
                         </select>
                     </div>
                 </div>
-                <div>
-                    <button type="submit" class="btn btn-success">Inscrire</button>
-                    <button type="reset" class="btn btn-warning">Annuler</button>
+                <div *ngIf="isCandidat">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="daten">Date de naissance</label>
+                            <input type="date" class="form-control" id="daten" 
+                            formControlName="date_naissance" placeholder="Dipôme national...">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="niveau">Niveau ?</label>
+                            <select id="niveau" class="form-control" formControlName="niveau">
+                              <option selected value="">Choix...</option>
+                              <option value="Bac">Bac</option>
+                              <option value="Licence">Licence</option>
+                              <option value="Mastère">Mastère</option>
+                              <option value="Ingénieur">Ingénieur</option>
+                              <option value="Autre">Autre</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="diplome">Diplôme</label>
+                            <input type="text" class="form-control" id="diplome" 
+                            formControlName="diplome" placeholder="Dipôme national...">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="institut">Institut</label>
+                            <input type="text" class="form-control" id="institut" 
+                            formControlName="institut" placeholder="ISAMM, ISG, ISCAE...">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="inputAddress">Adresse</label>
+                            <input type="text" class="form-control" id="inputAddress" 
+                            formControlName="adresse" placeholder="Rue, Appartement, ...">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                        <label for="inputCity">Ville</label>
+                        <input type="text" class="form-control" id="inputCity" 
+                        formControlName="ville" placeholder="Ville">
+                        </div>
+                        <div class="form-group col-md-4">
+                        <label for="inputState">Pays</label>
+                        <select id="inputState" class="form-control" formControlName="etat">
+                            <option selected value="">Choix...</option>
+                            <option value="Tunisie">Tunisie</option>
+                            <option value="Libye">Libye</option>
+                            <option value="Algérie">Algérie</option>
+                            <option value="France">France</option>
+                            <option value="Maroc">Maroc</option>
+                            <option value="Egypt">Egypt</option>
+                            <option value="Italy">Italy</option>
+                            <option value="Espagne">Espagne</option>
+                            <option value="Portugal">Portugal</option>
+                        </select>
+                        </div>
+                        <div class="form-group col-md-2">
+                        <label for="inputZip"><code>C. postal</code></label>
+                        <input type="text" class="form-control" formControlName="cp" 
+                        id="inputZip">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row" *ngIf="isManager">
+                    <div class="form-group col-md-12">
+                        <label for="entreprise">Nom d'entreprise:</label>
+                        <input type="text" class="form-control" id="entreprise" formControlName="entreprise"
+                         placeholder="Nom d'entreprise">
+                    </div>
+                </div>
+                <div class="buttons">
+                    <button type="submit" class="btn btn-success" id="btn1"
+                    [disabled]="userForm.invalid">Inscrire</button>
+                    <button type="reset" class="btn btn-warning" id="btn2" 
+                    (click)="onChange()">Annuler</button>
                 </div>
               </form>
         </div>
     </div>
     
-    <div class="col-sm-3"></div>
+    <div class="col-sm-2"></div>
 </div>

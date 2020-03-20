@@ -10,6 +10,7 @@ import { OffresComponent } from './offres/offres.component';
 import { AuthentificationComponent } from './authentification/authentification.component';
 import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
 import { FooterComponent } from './footer/footer.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,9 @@ import { FooterComponent } from './footer/footer.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
