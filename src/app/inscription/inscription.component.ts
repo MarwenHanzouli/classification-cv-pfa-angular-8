@@ -32,7 +32,7 @@ export class InscriptionComponent implements OnInit {
       Validators.pattern(/^(\+[0-9]{3})[0-9]+/)]],
       username: ['', [Validators.required, Validators.minLength(3)]],
       mdp1: ['', [Validators.required, Validators.minLength(3)]],
-      mdp2: ['', [Validators.required, Validators.minLength(3)]],
+      mdp2: ['', [Validators.required]],
       role: ['', Validators.required],
       date_naissance: '',
       diplome: '',
@@ -49,31 +49,10 @@ export class InscriptionComponent implements OnInit {
   }
   
   get f() { return this.userForm.controls; }
-  get nom() { return this.userForm.get('nom'); }
-  get prenom() { return this.userForm.get('prenom'); }
-  get telephone() { return this.userForm.get('telephone'); }
-  get username() { return this.userForm.get('username'); }
-  get email() { return this.userForm.get('email'); }
-  get mdp1() { return this.userForm.get('mdp1'); }
-  get mdp2() { return this.userForm.get('mdp2'); }
-  get role() { return this.userForm.get('role'); }
-  get institut() { return this.userForm.get('institut'); }
-  get niveau() { return this.userForm.get('niveau'); }
-  get date_naissance() { return this.userForm.get('date_naissance'); }
-  get diplome() { return this.userForm.get('diplome'); }
-  get adresse() { return this.userForm.get('adresse'); }
-  get ville() { return this.userForm.get('ville'); }
-  get etat() { return this.userForm.get('etat'); }
-  get cp() { return this.userForm.get('cp'); }
-  get entreprise() { return this.userForm.get('entreprise'); }
-  formatPhone(nameRe: RegExp): ValidatorFn {
-    return (control: AbstractControl): {[key: string]: any} | null => {
-      const forbidden = nameRe.test(control.value);
-      return forbidden ? {'formatTel': {value: control.value}} : null;
-    };
-  }
+
   onChange(value?)
   {
+    this.submitted=false;
     if (value == "MANAGER" ) 
     {
       this.isManager=true;
@@ -196,22 +175,8 @@ export class InscriptionComponent implements OnInit {
       formValue['cp'],
       formValue['entreprise'],  
     ];
-    console.log(newUser);
+    alert(newUser);
     //this.router.navigate(['/users']);
-  }
-  mdpIsValid(mdp2)
-  {
-    console.log(this.userForm['mdp1'].value)
-    console.log(mdp2)
-    
-    if(mdp2!== this.userForm['mdp1'].value)
-    {
-      this.mdpValide=false;
-    }
-    else
-    {
-      this.mdpValide=true;
-    }
   }
 
   MustMatch(controlName: string, matchingControlName: string) 
