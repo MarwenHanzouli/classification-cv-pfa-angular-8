@@ -11,7 +11,7 @@ import { AuthentificationComponent } from './authentification/authentification.c
 import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
 import { FooterComponent } from './footer/footer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +27,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
