@@ -12,6 +12,7 @@ import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
 import { FooterComponent } from './footer/footer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { RegistrationService } from './services/registration.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +31,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     ReactiveFormsModule,
     FontAwesomeModule
   ],
-  providers: [],
+  providers: [
+    RegistrationService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
