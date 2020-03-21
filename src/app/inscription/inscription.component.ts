@@ -102,14 +102,16 @@ export class InscriptionComponent implements OnInit {
 
       this.userForm.get('cp').setValidators(Validators.required);
       this.userForm.get('etat').setValidators(Validators.required);
+      this.userForm.get('etat').setValue('');
       this.userForm.get('date_naissance').setValidators(Validators.required);
       this.userForm.get('adresse').setValidators(Validators.required);
       this.userForm.get('niveau').setValidators(Validators.required);
+      this.userForm.get('niveau').setValue('');
       this.userForm.get('institut').setValidators(Validators.required);
       this.userForm.get('diplome').setValidators(Validators.required);
       this.userForm.get('ville').setValidators(Validators.required);
     }
-    else
+    else if(value=="")
     {
       this.isManager=false;
       this.isCandidat=false;
