@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,6 +13,8 @@ export class InscriptionComponent implements OnInit {
   isManager:boolean=false;
   user:string;
   userForm: FormGroup;
+  mdpValide:boolean=false;
+  submitted = false;
 
   constructor(private formBuilder: FormBuilder,
               private router: Router) { }
@@ -26,23 +28,154 @@ export class InscriptionComponent implements OnInit {
       nom: ['', [Validators.required,Validators.minLength(3)]],
       prenom: ['', [Validators.required,Validators.minLength(3)]],
       email: ['', [Validators.required,Validators.email]],
-      telephone: ['', [Validators.required,Validators.minLength(8)]],
-      username: ['', Validators.required],
-      mdp1: ['', Validators.required],
-      mdp2: ['', Validators.required],
+      telephone: ['', [Validators.required,Validators.minLength(8),
+      Validators.pattern(/^(\+[0-9]{3})[0-9]+/)]],
+      username: ['', [Validators.required, Validators.minLength(3)]],
+      mdp1: ['', [Validators.required, Validators.minLength(3)]],
+      mdp2: ['', [Validators.required, Validators.minLength(3)]],
       role: ['', Validators.required],
-      date_naissance: ['', Validators.required],
-      diplome: ['', Validators.required],
-      institut: ['', Validators.required],
-      niveau: ['', Validators.required],
-      adresse: ['', Validators.required],
-      ville: ['', Validators.required],
-      etat: ['', Validators.required],
-      cp: ['', Validators.required],
-      entreprise:['', Validators.required]
+      date_naissance: '',
+      diplome: '',
+      institut: '',
+      niveau: '',
+      adresse: '',
+      ville: '',
+      etat: '',
+      cp: '',
+      entreprise:''
+    },{
+      validator: this.MustMatch('mdp1', 'mdp2')
     });
   }
+  
+  get f() { return this.userForm.controls; }
+  get nom() { return this.userForm.get('nom'); }
+  get prenom() { return this.userForm.get('prenom'); }
+  get telephone() { return this.userForm.get('telephone'); }
+  get username() { return this.userForm.get('username'); }
+  get email() { return this.userForm.get('email'); }
+  get mdp1() { return this.userForm.get('mdp1'); }
+  get mdp2() { return this.userForm.get('mdp2'); }
+  get role() { return this.userForm.get('role'); }
+  get institut() { return this.userForm.get('institut'); }
+  get niveau() { return this.userForm.get('niveau'); }
+  get date_naissance() { return this.userForm.get('date_naissance'); }
+  get diplome() { return this.userForm.get('diplome'); }
+  get adresse() { return this.userForm.get('adresse'); }
+  get ville() { return this.userForm.get('ville'); }
+  get etat() { return this.userForm.get('etat'); }
+  get cp() { return this.userForm.get('cp'); }
+  get entreprise() { return this.userForm.get('entreprise'); }
+  formatPhone(nameRe: RegExp): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} | null => {
+      const forbidden = nameRe.test(control.value);
+      return forbidden ? {'formatTel': {value: control.value}} : null;
+    };
+  }
+  onChange(value?)
+  {
+    if (value == "MANAGER" ) 
+    {
+      this.isManager=true;
+      this.isCandidat=false;
+      this.userForm.get('entreprise').setValidators(Validators.required);
+      this.userForm.get('entreprise').updateValueAndValidity();
+
+      this.userForm.get('institut').setValue('');
+      this.userForm.get('institut').clearValidators();
+      this.userForm.get('institut').updateValueAndValidity();
+
+      this.userForm.get('diplome').setValue('');
+      this.userForm.get('diplome').clearValidators();
+      this.userForm.get('diplome').updateValueAndValidity();
+
+      this.userForm.get('niveau').setValue('');
+      this.userForm.get('niveau').clearValidators();
+      this.userForm.get('niveau').updateValueAndValidity();
+
+      this.userForm.get('adresse').setValue('');
+      this.userForm.get('adresse').clearValidators();
+      this.userForm.get('adresse').updateValueAndValidity();
+
+      this.userForm.get('etat').setValue('');
+      this.userForm.get('etat').clearValidators();
+      this.userForm.get('etat').updateValueAndValidity();
+
+      this.userForm.get('ville').setValue('');
+      this.userForm.get('ville').clearValidators();
+      this.userForm.get('ville').updateValueAndValidity();
+
+      this.userForm.get('cp').setValue('');
+      this.userForm.get('cp').clearValidators();
+      this.userForm.get('cp').updateValueAndValidity();
+
+      this.userForm.get('date_naissance').setValue('');
+      this.userForm.get('date_naissance').clearValidators();
+      this.userForm.get('date_naissance').updateValueAndValidity();
+    }
+    else if(value == "CANDIDAT")
+    {
+      this.isManager=false;
+      this.isCandidat=true;
+      this.userForm.get('entreprise').setValue('');
+      this.userForm.get('entreprise').clearValidators();
+      this.userForm.get('entreprise').updateValueAndValidity();
+
+      this.userForm.get('cp').setValidators(Validators.required);
+      this.userForm.get('etat').setValidators(Validators.required);
+      this.userForm.get('date_naissance').setValidators(Validators.required);
+      this.userForm.get('adresse').setValidators(Validators.required);
+      this.userForm.get('niveau').setValidators(Validators.required);
+      this.userForm.get('institut').setValidators(Validators.required);
+      this.userForm.get('diplome').setValidators(Validators.required);
+      this.userForm.get('ville').setValidators(Validators.required);
+    }
+    else
+    {
+      this.isManager=false;
+      this.isCandidat=false;
+      this.userForm.get('institut').setValue('');
+      this.userForm.get('institut').clearValidators();
+      this.userForm.get('institut').updateValueAndValidity();
+
+      this.userForm.get('diplome').setValue('');
+      this.userForm.get('diplome').clearValidators();
+      this.userForm.get('diplome').updateValueAndValidity();
+
+      this.userForm.get('niveau').setValue('');
+      this.userForm.get('niveau').clearValidators();
+      this.userForm.get('niveau').updateValueAndValidity();
+
+      this.userForm.get('adresse').setValue('');
+      this.userForm.get('adresse').clearValidators();
+      this.userForm.get('adresse').updateValueAndValidity();
+
+      this.userForm.get('etat').setValue('');
+      this.userForm.get('etat').clearValidators();
+      this.userForm.get('etat').updateValueAndValidity();
+
+      this.userForm.get('ville').setValue('');
+      this.userForm.get('ville').clearValidators();
+      this.userForm.get('ville').updateValueAndValidity();
+
+      this.userForm.get('cp').setValue('');
+      this.userForm.get('cp').clearValidators();
+      this.userForm.get('cp').updateValueAndValidity();
+
+      this.userForm.get('date_naissance').setValue('');
+      this.userForm.get('date_naissance').clearValidators();
+      this.userForm.get('date_naissance').updateValueAndValidity();
+
+      this.userForm.get('entreprise').setValue('');
+      this.userForm.get('entreprise').clearValidators();
+      this.userForm.get('entreprise').updateValueAndValidity();
+    }
+  }
   onSubmitForm() {
+    this.submitted = true;
+    // stop here if form is invalid
+    if (this.userForm.invalid) {
+      return;}
     const formValue = this.userForm.value;
     const newUser = [
       formValue['nom'],
@@ -66,21 +199,39 @@ export class InscriptionComponent implements OnInit {
     console.log(newUser);
     //this.router.navigate(['/users']);
   }
-  onChange(value?){
-  if (value == "MANAGER" ) 
+  mdpIsValid(mdp2)
   {
-    this.isManager=true;
-    this.isCandidat=false;
+    console.log(this.userForm['mdp1'].value)
+    console.log(mdp2)
+    
+    if(mdp2!== this.userForm['mdp1'].value)
+    {
+      this.mdpValide=false;
+    }
+    else
+    {
+      this.mdpValide=true;
+    }
   }
-  else if(value == "CANDIDAT")
+
+  MustMatch(controlName: string, matchingControlName: string) 
   {
-    this.isManager=false;
-    this.isCandidat=true;
+    return (formGroup: FormGroup) => {
+        const control = formGroup.controls[controlName];
+        const matchingControl = formGroup.controls[matchingControlName];
+
+        if (matchingControl.errors && !matchingControl.errors.mustMatch) {
+            // return if another validator has already found an error on the matchingControl
+            return;
+        }
+
+        // set error on matchingControl if validation fails
+        if (control.value !== matchingControl.value) {
+            matchingControl.setErrors({ mustMatch: true });
+        } else {
+            matchingControl.setErrors(null);
+        }
+    }
   }
-  else
-  {
-    this.isManager=false;
-    this.isCandidat=false;
-  }
-  }
+
 }

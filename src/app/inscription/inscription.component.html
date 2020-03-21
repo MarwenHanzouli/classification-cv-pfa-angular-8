@@ -1,146 +1,277 @@
 <div class="container">
-    <div class="col-sm-2"></div>
-    <div class="col-sm-8">
-        <h1>Inscrivez-vous</h1>
-        <div class="well well-lg">
-            <form [formGroup]="userForm" (ngSubmit)="onSubmitForm()">
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="nom">Nom:</label>
-                        <input type="text" class="form-control" id="nom" 
-                        placeholder="Entrer votre nom" formControlName="nom" required>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="prenom">Prénom:</label>
-                        <input type="text" class="form-control" id="prenom" 
-                        placeholder="Entrer votre prénom" formControlName="prenom" required>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-12">
-                        <label for="telephone">Téléphone:</label>
-                        <input type="tel" class="form-control" id="telephone" 
-                        placeholder="Entrer le téléphone"
-                        pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" formControlName="telephone" required>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="email">Email:</label>
-                        <input type="email" class="form-control" id="email"
-                         placeholder="Entrer l'email" formControlName="email" required>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="username">Nom d'utilisateur:</label>
-                        <input type="text" class="form-control" id="username"
-                         placeholder="Entrer le nom d'utilisateur" formControlName="username" required>
-                    </div>
-                </div>
-                <div class="form-row">
-                      <div class="form-group col-md-6">
-                        <label for="pwd">Mot de passe:</label>
-                        <input type="password" class="form-control" id="pwd" 
-                        placeholder="Entrer le mot de passe" formControlName="mdp1" required>
-                      </div>
-                      <div class="form-group col-md-6">
-                          <label for="cpwd">Confirmer mot de passe:</label>
-                          <input type="password" class="form-control" id="cpwd" 
-                          placeholder="Confirmer le mot de passe" formControlName="mdp2" required>
-                      </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-12">
-                        <label for="role">Inscrivez-vous en tant que ?</label>
-                        <select id="role" class="form-control" 
-                        (change)="onChange($event.target.value)" required formControlName="role">
-                          <option selected value="">Choix...</option>
-                          <option value="CANDIDAT">Candidat</option>
-                          <option value="MANAGER">Manager</option>
-                        </select>
-                    </div>
-                </div>
-                <div *ngIf="isCandidat">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-10">
+        <div class="card m-3">
+            <div class="card-header"><h3>Inscrivez-vous</h3></div>
+            <div class="card-body">
+                <form [formGroup]="userForm" (ngSubmit)="onSubmitForm()">
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="daten">Date de naissance</label>
-                            <input type="date" class="form-control" id="daten" 
-                            formControlName="date_naissance" placeholder="Dipôme national...">
+                            <label for="nom">Nom:</label>
+                            <input class="form-control" id="nom" 
+                            placeholder="Entrer votre nom" formControlName="nom" 
+                            [ngClass]="{ 'is-invalid': submitted && nom.errors }">
+                            <div *ngIf="submitted && nom.errors" class="invalid-feedback">
+                                <div *ngIf="nom.errors.required">Nom est obligatoire</div>
+                                <div *ngIf="nom.errors.minlength">
+                                    Le nom doit comporter au moins 3 caractères.
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="niveau">Niveau ?</label>
-                            <select id="niveau" class="form-control" formControlName="niveau">
-                              <option selected value="">Choix...</option>
-                              <option value="Bac">Bac</option>
-                              <option value="Licence">Licence</option>
-                              <option value="Mastère">Mastère</option>
-                              <option value="Ingénieur">Ingénieur</option>
-                              <option value="Autre">Autre</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="diplome">Diplôme</label>
-                            <input type="text" class="form-control" id="diplome" 
-                            formControlName="diplome" placeholder="Dipôme national...">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="institut">Institut</label>
-                            <input type="text" class="form-control" id="institut" 
-                            formControlName="institut" placeholder="ISAMM, ISG, ISCAE...">
+                            <label for="prenom">Prénom:</label>
+                            <input type="text" class="form-control" id="prenom" 
+                            placeholder="Entrer votre prénom" formControlName="prenom"
+                            [ngClass]="{ 'is-invalid': f.prenom.errors &&(prenom.dirty || prenom.touched || submitted)}">
+                            <div *ngIf="submitted && nom.errors" class="invalid-feedback">
+                                <div *ngIf="prenom.errors.required">
+                                    Le prénom est obligatoire.
+                                </div>
+                                <div *ngIf="prenom.errors.minlength">
+                                    Le prénom doit comporter au moins 3 caractères.
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-12">
-                            <label for="inputAddress">Adresse</label>
-                            <input type="text" class="form-control" id="inputAddress" 
-                            formControlName="adresse" placeholder="Rue, Appartement, ...">
+                            <label for="telephone">Téléphone:</label>
+                            <input type="tel" class="form-control" id="telephone" 
+                            placeholder="Entrer le téléphone" formControlName="telephone">
+                            <!-- oninput="this.value=this.value.replace(/(?![0-9\-\+])./gmi,'')" -->
+                            <div *ngIf="telephone.invalid && (telephone.dirty || telephone.touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="telephone.errors.required">
+                                    Le numéro de téléphone est obligatoire.
+                                </div>
+                                <div *ngIf="telephone.errors.minlength">
+                                    Le téléphone doit comporter au moins 8 caractères.
+                                </div>
+                                <div *ngIf="telephone.errors.pattern">
+                                    Le téléphone doit être sous le format international.
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                        <label for="inputCity">Ville</label>
-                        <input type="text" class="form-control" id="inputCity" 
-                        formControlName="ville" placeholder="Ville">
+                            <label for="email">Email:</label>
+                            <input type="email" class="form-control" id="email"
+                             placeholder="Entrer l'email" formControlName="email">
+                             <div *ngIf="email.invalid && (email.dirty || email.touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="email.errors.required">
+                                    L'email est obligatoire.
+                                </div>
+                                <div *ngIf="email.errors.email">
+                                    L'email doit être sous le format correct.
+                                </div>
+                            </div> 
                         </div>
-                        <div class="form-group col-md-4">
-                        <label for="inputState">Pays</label>
-                        <select id="inputState" class="form-control" formControlName="etat">
-                            <option selected value="">Choix...</option>
-                            <option value="Tunisie">Tunisie</option>
-                            <option value="Libye">Libye</option>
-                            <option value="Algérie">Algérie</option>
-                            <option value="France">France</option>
-                            <option value="Maroc">Maroc</option>
-                            <option value="Egypt">Egypt</option>
-                            <option value="Italy">Italy</option>
-                            <option value="Espagne">Espagne</option>
-                            <option value="Portugal">Portugal</option>
-                        </select>
-                        </div>
-                        <div class="form-group col-md-2">
-                        <label for="inputZip"><code>C. postal</code></label>
-                        <input type="text" class="form-control" formControlName="cp" 
-                        id="inputZip">
+                        <div class="form-group col-md-6">
+                            <label for="username">Nom d'utilisateur:</label>
+                            <input type="text" class="form-control" id="username"
+                             placeholder="Entrer le nom d'utilisateur" formControlName="username">
+                             <div *ngIf="username.invalid && (username.dirty || username.touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="username.errors.required">
+                                    L'email est obligatoire.
+                                </div>
+                                <div *ngIf="username.errors.minlength">
+                                    Minimum 3 caractères.
+                                </div>
+                            </div> 
+                            </div>
+                    </div>
+                    <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label for="pwd">Mot de passe:</label>
+                            <input type="password" class="form-control" id="pwd" 
+                            placeholder="Entrer le mot de passe" formControlName="mdp1">
+                            <div *ngIf="mdp1.invalid && (mdp1.dirty || mdp1.touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="mdp1.errors.required">
+                                    Le mot de passe est obligatoire.
+                                </div>
+                                <div *ngIf="mdp1.errors.minlength">
+                                    Le mot de passe doit comporter au moins 6 caractères..
+                                </div>
+                            </div> 
+                          </div>
+                          <div class="form-group col-md-6">
+                              <label for="cpwd">Confirmer mot de passe:</label>
+                              <input type="password" class="form-control" id="cpwd" 
+                              placeholder="Confirmer le mot de passe" formControlName="mdp2"
+                              (input)="mdpIsValid($event.target.value)">
+                                <div *ngIf="mdp2.invalid && (mdp2.dirty || mdp2.touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="mdp2.errors.required">
+                                        Confirme le mot de passe.
+                                    </div>
+                                    <div *ngIf="mdp2.errors.minlength">
+                                        Le mot de passe doit comporter au moins 6 caractères..
+                                    </div>
+                                </div> 
+                                <div *ngIf="mdp2.errors.mustMatch"
+                                    class="alert alert-warning">
+                                        Vous devez confirmer le mot de passe..
+                                </div> 
+                          </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="role">Inscrivez-vous en tant que ?</label>
+                            <select id="role" class="form-control" 
+                            (change)="onChange($event.target.value)" formControlName="role">
+                              <option selected value="">Choix...</option>
+                              <option value="CANDIDAT">Candidat</option>
+                              <option value="MANAGER">Manager</option>
+                            </select>
+                            <div *ngIf="role.invalid && (role.dirty || role.touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="role.errors.required">
+                                    Le profil est obligatoire.
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="form-row" *ngIf="isManager">
-                    <div class="form-group col-md-12">
-                        <label for="entreprise">Nom d'entreprise:</label>
-                        <input type="text" class="form-control" id="entreprise" formControlName="entreprise"
-                         placeholder="Nom d'entreprise">
+                    <div *ngIf="isCandidat">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="daten">Date de naissance</label>
+                                <input type="date" class="form-control" id="daten" 
+                                formControlName="date_naissance" placeholder="Dipôme national...">
+                                <div *ngIf="date_naissance.invalid && (date_naissance.dirty || date_naissance.touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="date_naissance.errors.required">
+                                        Champs obligatoire.
+                                    </div>
+                                </div> 
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="niveau">Niveau ?</label>
+                                <select id="niveau" class="form-control" formControlName="niveau">
+                                  <option selected value="">Choix...</option>
+                                  <option value="Bac">Bac</option>
+                                  <option value="Licence">Licence</option>
+                                  <option value="Mastère">Mastère</option>
+                                  <option value="Ingénieur">Ingénieur</option>
+                                  <option value="Autre">Autre</option>
+                                </select>
+                                <div *ngIf="niveau.invalid && (niveau.dirty || niveau.touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="niveau.errors.required">
+                                        Champs obligatoire.
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="diplome">Diplôme</label>
+                                <input type="text" class="form-control" id="diplome" 
+                                formControlName="diplome" placeholder="Dipôme national...">
+                                <div *ngIf="diplome.invalid && (diplome.dirty || diplome.touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="diplome.errors.required">
+                                        Champs obligatoire.
+                                    </div>
+                                </div> 
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="institut">Institut</label>
+                                <input type="text" class="form-control" id="institut" 
+                                formControlName="institut" placeholder="ISAMM, ISG, ISCAE...">
+                                <div *ngIf="institut.invalid && (institut.dirty || institut.touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="institut.errors.required">
+                                        Champs obligatoire.
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="inputAddress">Adresse</label>
+                                <input type="text" class="form-control" id="inputAddress" 
+                                    formControlName="adresse" placeholder="Rue, Appartement, ...">
+                                <div *ngIf="adresse.invalid && (adresse.dirty || adresse.touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="adresse.errors.required">
+                                        Champs obligatoire.
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputCity">Ville</label>
+                                <input type="text" class="form-control" id="inputCity" 
+                                formControlName="ville" placeholder="Ville">
+                                <div *ngIf="ville.invalid && (ville.dirty || ville.touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="ville.errors.required">
+                                        Champs obligatoire.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="inputState">Pays</label>
+                                <select id="inputState" class="form-control" formControlName="etat">
+                                    <option selected value="">Choix...</option>
+                                    <option value="Tunisie">Tunisie</option>
+                                    <option value="Libye">Libye</option>
+                                    <option value="Algérie">Algérie</option>
+                                    <option value="France">France</option>
+                                    <option value="Maroc">Maroc</option>
+                                    <option value="Egypt">Egypt</option>
+                                    <option value="Italy">Italy</option>
+                                    <option value="Espagne">Espagne</option>
+                                    <option value="Portugal">Portugal</option>
+                                </select>
+                                <div *ngIf="etat.invalid && (etat.dirty || etat.touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="etat.errors.required">
+                                        Champs obligatoire.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="inputZip"><code>C. postal</code></label>
+                                <input type="text" class="form-control" formControlName="cp" 
+                                id="inputZip">
+                                <div *ngIf="cp.invalid && (cp.dirty || cp.touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="cp.errors.required">
+                                        Champs obligatoire.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="buttons">
-                    <button type="submit" class="btn btn-success" id="btn1"
-                    [disabled]="userForm.invalid">Inscrire</button>
-                    <button type="reset" class="btn btn-warning" id="btn2" 
-                    (click)="onChange()">Annuler</button>
-                </div>
-              </form>
+                    <div class="form-row" *ngIf="isManager">
+                        <div class="form-group col-md-12">
+                            <label for="entreprise">Nom d'entreprise:</label>
+                            <input type="text" class="form-control" id="entreprise" formControlName="entreprise"
+                             placeholder="Nom d'entreprise">
+                             <div *ngIf="entreprise.invalid && (entreprise.dirty || entreprise.touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="entreprise.errors.required">
+                                        Champs obligatoire.
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="buttons">
+                        <button type="submit" class="btn btn-success" id="btn1"
+                        >Inscrire</button>
+                        <button type="reset" class="btn btn-warning" id="btn2" 
+                        (click)="onChange()">Annuler</button>
+                    </div>
+                  </form>
+            </div>
         </div>
     </div>
     
-    <div class="col-sm-2"></div>
+    <div class="col-sm-1"></div>
 </div>
