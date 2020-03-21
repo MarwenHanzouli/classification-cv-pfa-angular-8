@@ -1,22 +1,32 @@
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>                        
-        </button>
-        <a class="navbar-brand">Logo</a>
-      </div>
-      <div class="collapse navbar-collapse" id="myNavbar">
-        <ul class="nav navbar-nav">
-          <li routerLinkActive="active"><a routerLink="accueil">Accueil</a></li>
-          <li routerLinkActive="active"><a routerLink="offres" >Offres</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li routerLinkActive="active"><a routerLink="authentification"><span class="glyphicon glyphicon-log-in"></span> Connexion</a></li>
-          <li routerLinkActive="active"><a routerLink="inscription"><span class="glyphicon glyphicon-user"></span> S'inscrire</a></li>
-        </ul>
-      </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand">Logo</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <li class="nav-item" routerLinkActive="active">
+          <a routerLink="accueil" class="nav-link">Accueil</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a routerLink="offres" class="nav-link">Offres</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav my-2 my-lg-0">
+        <li routerLinkActive="active" class="nav-item">
+          <a routerLink="authentification" class="nav-link">
+            <fa-icon [icon]="faSignInAlt"></fa-icon>
+            Connexion
+          </a>
+        </li>
+        <li routerLinkActive="active" class="nav-item">
+          <a routerLink="inscription" class="nav-link" >
+            <fa-icon [icon]="faUserPlus"></fa-icon>
+            S'inscrire
+          </a>
+        </li>
+      </ul>
     </div>
   </nav>
+  
