@@ -1,13 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { User } from '../models/User.model';
+import { Address } from '../models/Address.model';
+import { RegistrationService } from '../services/registration.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-inscription',
   templateUrl: './inscription.component.html',
   styleUrls: ['./inscription.component.css']
 })
-export class InscriptionComponent implements OnInit {
+export class InscriptionComponent implements OnInit,OnDestroy {
+
 
   isCandidat:boolean=false;
   isManager:boolean=false;
@@ -15,14 +20,18 @@ export class InscriptionComponent implements OnInit {
   userForm: FormGroup;
   mdpValide:boolean=false;
   submitted = false;
+  registerSubscription: Subscription;
 
   constructor(private formBuilder: FormBuilder,
-              private router: Router) { }
+              private router: Router,
+              private registrationService: RegistrationService) { }
 
   ngOnInit() {
     this.initForm();
   }
-
+  ngOnDestroy() {
+    this.registerSubscription.unsubscribe();
+  }
   initForm() {
     this.userForm = this.formBuilder.group({
       nom: ['', [Validators.required,Validators.minLength(3)]],
@@ -158,7 +167,37 @@ export class InscriptionComponent implements OnInit {
     if (this.userForm.invalid) {
       return;}
     const formValue = this.userForm.value;
-    const newUser = [
+    let u: User=new User(null,null,null,null,null,null,null,null);
+    let adresse: Address=new  Address(null,null,null,null);
+    u.username=formValue['username'];
+    u.password=formValue['mdp1'];
+    u.repassword=formValue['mdp2'];
+    u.telephone=formValue['telephone'];
+    u.email=formValue['email'];
+    u.name=formValue['nom'];
+    u.lastName=formValue['prenom'];
+    u.roleName=formValue['role'];
+    u.institut=formValue['institut'];
+    u.niveau=formValue['niveau'];
+    u.date_naissance=formValue['date_naissance'];
+    u.diplome=formValue['diplome'];
+    adresse.address=formValue['adresse'];
+    adresse.city=formValue['ville'];
+    adresse.country=formValue['etat'];
+    adresse.postcode=formValue['cp'];
+    u.address=adresse;
+    u.nameEntreprise=formValue['entreprise'];
+    this.registerSubscription=this.registrationService.register(u).subscribe(
+    (data)=>{
+      console.log(data);
+    },
+    (error)=>{
+      console.log(error['error']['message']);
+    });
+    
+    //console.log(u);
+    //alert(JSON.stringify(u));
+    /*const newUser = [
       formValue['nom'],
       formValue['prenom'],
       formValue['telephone'],
@@ -175,9 +214,9 @@ export class InscriptionComponent implements OnInit {
       formValue['ville'],
       formValue['etat'],
       formValue['cp'],
-      formValue['entreprise'],  
+      formValue['entreprise'] 
     ];
-    alert(newUser);
+    alert(newUser);*/
     //this.router.navigate(['/users']);
   }
 
