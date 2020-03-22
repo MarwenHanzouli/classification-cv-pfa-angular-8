@@ -18,6 +18,10 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoaderComponent } from './loader/loader.component';
+
+import { LoaderInterceptorService } from './interceptors/loader.interceptor';
+import { LoaderService } from './services/loader.service';
+import { WrapperComponent } from './wrapper/wrapper.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +32,8 @@ import { LoaderComponent } from './loader/loader.component';
     AuthentificationComponent,
     FourOhFourComponent,
     FooterComponent,
-    LoaderComponent
+    LoaderComponent,
+    WrapperComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +47,9 @@ import { LoaderComponent } from './loader/loader.component';
   ],
   providers: [
     RegistrationService,
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+    LoaderService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptorService, multi: true }
   ],
   bootstrap: [AppComponent]
 })
