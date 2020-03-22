@@ -1,1 +1,16 @@
-<p>loader works!</p>
+<div [class.hidden]="!show" class="loader">
+    <div class="lds-spinner" *ngIf="show">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
