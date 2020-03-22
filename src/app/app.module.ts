@@ -14,7 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RegistrationService } from './services/registration.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
@@ -39,7 +39,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ToastrModule.forRoot() // ToastrModule added
   ],
   providers: [
-    RegistrationService
+    RegistrationService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
