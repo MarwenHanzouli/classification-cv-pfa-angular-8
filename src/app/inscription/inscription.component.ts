@@ -5,6 +5,7 @@ import { User } from '../models/User.model';
 import { Address } from '../models/Address.model';
 import { RegistrationService } from '../services/registration.service';
 import { Subscription } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-inscription',
@@ -24,7 +25,8 @@ export class InscriptionComponent implements OnInit,OnDestroy {
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
-              private registrationService: RegistrationService) { }
+              private registrationService: RegistrationService,
+              private toastr: ToastrService) { }
 
   ngOnInit() {
     this.initForm();
@@ -190,9 +192,25 @@ export class InscriptionComponent implements OnInit,OnDestroy {
     this.registerSubscription=this.registrationService.register(u).subscribe(
     (data)=>{
       console.log(data);
+      this.toastr.success("L'inscription est enregistrée avec succès","Succès")
     },
     (error)=>{
-      console.log(error['error']['message']);
+      console.log(error['status']);
+      if(error['status']==0)
+      {
+        this.toastr.error("Connexion vers le serveur backend est échouée!","Erreur");
+        console.log("Connexion vers le serveur backend est échouée!");
+      }
+      else if(error['status']==504)
+      {
+        this.toastr.warning("Impossible de charger la ressource, actualiser la page ou de répéter la demande","Gateway Timeout");
+      }
+      else if(error['status']==404)
+      {
+        this.toastr.error(error['error']['message'],"Erreur d'inscription");
+      }
+      console.log(error);
+      //console.log(error['error']['message']);
     });
     
     //console.log(u);

@@ -14,10 +14,10 @@ export class JwtInterceptor implements HttpInterceptor {
             setHeaders: { 
                 Authorization: `Bearer marweeeeeeeeeeeeeeen`
             }
-        });
+        });*/
 
-        return next.handle(request);*/
-        return next.handle(request).pipe(
+        return next.handle(request);
+        /*return next.handle(request).pipe(
             retry(2),
             catchError((error: HttpErrorResponse) => {
               if (error.status !== 401) {
@@ -26,6 +26,6 @@ export class JwtInterceptor implements HttpInterceptor {
               }
               return throwError(error);
             })
-          );
+          );*/
     }
 }
