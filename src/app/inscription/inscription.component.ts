@@ -22,6 +22,7 @@ export class InscriptionComponent implements OnInit,OnDestroy {
   mdpValide:boolean=false;
   submitted = false;
   registerSubscription: Subscription;
+  loading=false;
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
@@ -32,7 +33,7 @@ export class InscriptionComponent implements OnInit,OnDestroy {
     this.initForm();
   }
   ngOnDestroy() {
-    this.registerSubscription.unsubscribe();
+    //this.registerSubscription.unsubscribe();
   }
   initForm() {
     this.userForm = this.formBuilder.group({
@@ -168,6 +169,7 @@ export class InscriptionComponent implements OnInit,OnDestroy {
     // stop here if form is invalid
     if (this.userForm.invalid) {
       return;}
+    this.loading=true;
     const formValue = this.userForm.value;
     let u: User=new User(null,null,null,null,null,null,null,null);
     let adresse: Address=new  Address(null,null,null,null);
@@ -193,6 +195,8 @@ export class InscriptionComponent implements OnInit,OnDestroy {
     (data)=>{
       console.log(data);
       this.toastr.success("L'inscription est enregistrée avec succès","Succès")
+      this.loading=false;
+      //this.router.navigate(['/authentification']);
     },
     (error)=>{
       console.log(error['status']);
@@ -210,31 +214,9 @@ export class InscriptionComponent implements OnInit,OnDestroy {
         this.toastr.error(error['error']['message'],"Erreur d'inscription");
       }
       console.log(error);
+      this.loading=false;
       //console.log(error['error']['message']);
     });
-    
-    //console.log(u);
-    //alert(JSON.stringify(u));
-    /*const newUser = [
-      formValue['nom'],
-      formValue['prenom'],
-      formValue['telephone'],
-      formValue['username'],
-      formValue['email'],
-      formValue['mdp1'],
-      formValue['mdp2'],
-      formValue['role'],
-      formValue['institut'],
-      formValue['niveau'],
-      formValue['date_naissance'],
-      formValue['diplome'],
-      formValue['adresse'],
-      formValue['ville'],
-      formValue['etat'],
-      formValue['cp'],
-      formValue['entreprise'] 
-    ];
-    alert(newUser);*/
     //this.router.navigate(['/users']);
   }
 
