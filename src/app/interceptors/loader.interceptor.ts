@@ -9,6 +9,9 @@ import { LoaderService } from '../services/loader.service';
 export class LoaderInterceptorService implements HttpInterceptor {
   constructor(private loaderService: LoaderService) { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    if (req.url.indexOf('/signup') === -1) {
+      return next.handle(req); // do nothing
+    }
     this.showLoader();
     console.log("chargement--------------------");
     return next.handle(req).pipe(tap((event: HttpEvent<any>) => { 
