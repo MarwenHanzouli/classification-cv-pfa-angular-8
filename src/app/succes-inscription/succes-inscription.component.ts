@@ -8,6 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class SuccesInscriptionComponent implements OnInit {
 
   @Input() email:string;
+  @Input() message:string[];
   constructor() { }
 
   ngOnInit() {
