@@ -35,13 +35,17 @@ export class AuthentificationService {
           this.currentUserSubject.next(response['user']);
       }
 
-      return user;
+      return response;
   }));;
   }
   logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
-}
+  }
 
+  resetPassword(email):Observable<any>{
+    return this.httpClient.post('http://127.0.0.1:9004/microservice-users/users/reset',email, 
+    {headers: this.headers});
+  }
 }
