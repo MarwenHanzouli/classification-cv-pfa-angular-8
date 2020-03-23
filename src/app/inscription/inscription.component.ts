@@ -23,6 +23,7 @@ export class InscriptionComponent implements OnInit,OnDestroy {
   submitted = false;
   registerSubscription: Subscription;
   loading=false;
+  private message:string[]=["Votre inscription a été effectuée avec succès.", "Un email de confirmation a été envoyé à l'adresse: ","Vous devez confirmer votre compte."];
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,

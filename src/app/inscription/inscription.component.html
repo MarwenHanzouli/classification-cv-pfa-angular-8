@@ -308,4 +308,5 @@
 </div>  
     
 
-<app-succes-inscription [email]="userForm.value['email']" *ngIf="registred"></app-succes-inscription>
+<app-succes-inscription [email]="userForm.value['email']" *ngIf="registred"
+  [message]="message"></app-succes-inscription>
