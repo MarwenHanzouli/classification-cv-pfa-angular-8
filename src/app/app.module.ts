@@ -23,6 +23,7 @@ import { LoaderInterceptorService } from './interceptors/loader.interceptor';
 import { LoaderService } from './services/loader.service';
 import { WrapperComponent } from './wrapper/wrapper.component';
 import { SuccesInscriptionComponent } from './succes-inscription/succes-inscription.component';
+import { MotDePasseOublierComponent } from './mot-de-passe-oublier/mot-de-passe-oublier.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +36,8 @@ import { SuccesInscriptionComponent } from './succes-inscription/succes-inscript
     FooterComponent,
     LoaderComponent,
     WrapperComponent,
-    SuccesInscriptionComponent
+    SuccesInscriptionComponent,
+    MotDePasseOublierComponent
   ],
   imports: [
     BrowserModule,
