@@ -14,7 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class InscriptionComponent implements OnInit,OnDestroy {
 
-
+  registred:boolean;
   isCandidat:boolean=false;
   isManager:boolean=false;
   user:string;
@@ -30,6 +30,7 @@ export class InscriptionComponent implements OnInit,OnDestroy {
               private toastr: ToastrService) { }
 
   ngOnInit() {
+    this.registred=false;
     this.initForm();
   }
   ngOnDestroy() {
@@ -196,6 +197,7 @@ export class InscriptionComponent implements OnInit,OnDestroy {
       console.log(data);
       this.toastr.success("L'inscription est enregistrée avec succès","Succès")
       this.loading=false;
+      this.registred=true;
       //this.router.navigate(['/authentification']);
     },
     (error)=>{

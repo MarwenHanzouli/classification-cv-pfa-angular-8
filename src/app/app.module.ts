@@ -22,6 +22,7 @@ import { LoaderComponent } from './loader/loader.component';
 import { LoaderInterceptorService } from './interceptors/loader.interceptor';
 import { LoaderService } from './services/loader.service';
 import { WrapperComponent } from './wrapper/wrapper.component';
+import { SuccesInscriptionComponent } from './succes-inscription/succes-inscription.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +34,8 @@ import { WrapperComponent } from './wrapper/wrapper.component';
     FourOhFourComponent,
     FooterComponent,
     LoaderComponent,
-    WrapperComponent
+    WrapperComponent,
+    SuccesInscriptionComponent
   ],
   imports: [
     BrowserModule,
