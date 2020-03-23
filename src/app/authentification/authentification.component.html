@@ -7,19 +7,47 @@
                     <img src="../../favicon.ico" id="logo">
                     <h4 class="m-2">Connectez-vous à ce site</h4>
                     <div class="formLog col-md-7">
-                        <form action="">
+                        <div class="alert alert-danger" *ngIf="error">
+                          <strong>Oups!</strong> Compte introuvable.
+                        </div>
+                        <form [formGroup]="authForm" (ngSubmit)="onSubmitForm()">
                             <div class="form-group">
                               <label for="email"><strong>Email ou nom d'utilisateur</strong></label>
-                              <input type="email" class="form-control" placeholder="Entrer l'email ou username" id="email">
-                            </div>
+                              <input type="email" class="form-control" 
+                              placeholder="Entrer l'email ou username" id="email"
+                              formControlName="emailOrUsername"
+                              [ngClass]="{ 'is-invalid': f.emailOrUsername.errors 
+                                &&(f.emailOrUsername.dirty || f.emailOrUsername.touched || submitted)}">
+                                <div *ngIf="f.emailOrUsername.errors && (f.emailOrUsername.dirty || f.emailOrUsername.touched || submitted)" 
+                                class="invalid-feedback">
+                                  <div *ngIf="f.emailOrUsername.errors.required">
+                                    Entrer un email ou username
+                                  </div>
+                              </div>
+                              </div>
                             <div class="form-group">
                               <label for="pwd"><strong>Mot de passe</strong></label>
-                              <input type="password" class="form-control" placeholder="Entrer le mot de passe" id="pwd">
-                              <a class="mdp-oublier m-1" routerLink="/authentification/motDePasseOublier">
-                                Mot de passe oublier</a>
+                              <input type="password" class="form-control" 
+                              placeholder="Entrer le mot de passe" id="pwd"
+                              formControlName="password"
+                              [ngClass]="{ 'is-invalid': f.password.errors 
+                              &&(f.password.dirty || f.emailOrUsername.touched || submitted)}">
+                              <div *ngIf="f.password.errors && (f.password.dirty || f.password.touched || submitted)" 
+                                class="invalid-feedback">
+                                  <div *ngIf="f.password.errors.required">
+                                    Entrer un mot de passe
+                                  </div>
+                              </div>
+                              
                             </div>
-                            
-                            <button type="submit" class="btn btn-success " id="btn-submit">Connexion</button>
+                            <a class="mdp-oublier" routerLink="/authentification/motDePasseOublier">
+                              Mot de passe oublier
+                            </a>
+                            <button type="submit" class="btn btn-success" id="btn-submit"
+                            [disabled]="loading">
+                            <span class="spinner-border spinner-border-sm" *ngIf="loading"></span>
+                            Connexion
+                            </button>
                           </form>
                     </div>
                     <div class="inscrire col-md-7 m-2">
