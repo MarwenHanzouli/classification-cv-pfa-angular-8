@@ -24,6 +24,7 @@ import { LoaderService } from './services/loader.service';
 import { WrapperComponent } from './wrapper/wrapper.component';
 import { SuccesInscriptionComponent } from './succes-inscription/succes-inscription.component';
 import { MotDePasseOublierComponent } from './mot-de-passe-oublier/mot-de-passe-oublier.component';
+import { AuthentificationService } from './services/authentification.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,6 +53,7 @@ import { MotDePasseOublierComponent } from './mot-de-passe-oublier/mot-de-passe-
   providers: [
     RegistrationService,
     LoaderService,
+    AuthentificationService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptorService, multi: true }
   ],
