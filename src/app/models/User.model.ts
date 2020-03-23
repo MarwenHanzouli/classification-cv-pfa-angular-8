@@ -1,4 +1,5 @@
 import { Address } from "./Address.model";
+import { Photo } from './Photo.model';
 
 export class User{
     constructor(
@@ -11,6 +12,7 @@ export class User{
         public telephone:string,
         public roleName:string,
         public id?:number,
+        public photo?:Photo,
         public active?:number,
         public isLoacked?:boolean,
         public isExpired?:boolean,
