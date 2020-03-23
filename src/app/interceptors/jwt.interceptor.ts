@@ -15,6 +15,14 @@ export class JwtInterceptor implements HttpInterceptor {
         console.log("pas de token à l'authentification");
         return next.handle(request); // do nothing
       }
+      if (request.url.indexOf('signup') !== -1) {
+        console.log("pas de token à l'inscription");
+        return next.handle(request); // do nothing
+      }
+      if (request.url.endsWith('/reset')) {
+        console.log("pas de token mot de passe oublier");
+        return next.handle(request); // do nothing
+      }
       let currentUser = this.authService.currentUserValue;
       if (currentUser && currentUser.token) {
         console.log("token---------------------");
@@ -24,23 +32,24 @@ export class JwtInterceptor implements HttpInterceptor {
               }
           });
       }
-        // add authorization header with jwt token if available
-        /*request = request.clone({
-            setHeaders: { 
-                Authorization: `Bearer marweeeeeeeeeeeeeeen`
-            }
-        });*/
+      return next.handle(request);
+      // add authorization header with jwt token if available
+      /*request = request.clone({
+          setHeaders: { 
+              Authorization: `Bearer marweeeeeeeeeeeeeeen`
+          }
+      });*/
 
-        return next.handle(request);
-        /*return next.handle(request).pipe(
-            retry(2),
-            catchError((error: HttpErrorResponse) => {
-              if (error.status !== 401) {
-                // 401 handled in auth.interceptor
-                this.toastr.error(error.message);      
-              }
-              return throwError(error);
-            })
-          );*/
+      
+      /*return next.handle(request).pipe(
+          retry(2),
+          catchError((error: HttpErrorResponse) => {
+            if (error.status !== 401) {
+              // 401 handled in auth.interceptor
+              this.toastr.error(error.message);      
+            }
+            return throwError(error);
+          })
+        );*/
     }
 }
