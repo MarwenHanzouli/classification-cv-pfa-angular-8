@@ -41,7 +41,7 @@ export class InscriptionComponent implements OnInit,OnDestroy {
       prenom: ['', [Validators.required,Validators.minLength(3)]],
       email: ['', [Validators.required,Validators.email]],
       telephone: ['', [Validators.required,Validators.minLength(8),
-      Validators.pattern(/^(\+[0-9]{3})[0-9]+/)]],
+      Validators.pattern(/^([0-9]{3})[0-9]+/)]],
       username: ['', [Validators.required, Validators.minLength(3)]],
       mdp1: ['', [Validators.required, Validators.minLength(3)]],
       mdp2: ['', [Validators.required]],
@@ -213,6 +213,11 @@ export class InscriptionComponent implements OnInit,OnDestroy {
       {
         this.toastr.error(error['error']['message'],"Erreur d'inscription");
       }
+      else if(error['status']==500)
+      {
+        this.toastr.error("Répéter votre demande","Erreur d'inscription");
+      }
+      
       console.log(error);
       this.loading=false;
       //console.log(error['error']['message']);
