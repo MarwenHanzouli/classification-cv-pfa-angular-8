@@ -14,7 +14,7 @@ export class MotDePasseOublierComponent implements OnInit {
   private submitted:boolean=false;
   private loading:boolean=false;
   private sent:boolean=false;
-  private message:string[]=["Votre demande de récupération a été envoyée avec succès.", "Un email de confirmation a été envoyé à l'adresse: ","Vous pouvez réinitialiser votre mot de passe."];
+  private message:string[]=["Votre demande de récupération a été envoyée avec succès.", "Un email de récupération a été envoyé à l'adresse: ","Vous pouvez réinitialiser votre mot de passe."];
   constructor(private formBuilder: FormBuilder,
               private authService: AuthentificationService,
               private toastr: ToastrService) { }
@@ -48,7 +48,10 @@ export class MotDePasseOublierComponent implements OnInit {
       this.loading=false;
     },
     (error)=>{
-      this.toastr.warning("Ce email ne correspond à aucun compte");
+      if(error['status']==401 || error['status']==500)
+      {
+        this.toastr.warning("Ce email ne correspond à aucun compte");
+      }
       this.loading=false;
       this.sent=false;
     })
