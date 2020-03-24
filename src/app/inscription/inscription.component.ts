@@ -203,12 +203,7 @@ export class InscriptionComponent implements OnInit,OnDestroy {
     },
     (error)=>{
       console.log(error['status']);
-      if(error['status']==0)
-      {
-        this.toastr.error("Connexion vers le serveur backend est échouée!","Erreur");
-        console.log("Connexion vers le serveur backend est échouée!");
-      }
-      else if(error['status']==504)
+       if(error['status']==504)
       {
         this.toastr.warning("Impossible de charger la ressource, actualiser la page ou de répéter la demande","Gateway Timeout");
       }
