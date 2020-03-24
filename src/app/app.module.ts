@@ -25,6 +25,10 @@ import { WrapperComponent } from './wrapper/wrapper.component';
 import { SuccesInscriptionComponent } from './succes-inscription/succes-inscription.component';
 import { MotDePasseOublierComponent } from './mot-de-passe-oublier/mot-de-passe-oublier.component';
 import { AuthentificationService } from './services/authentification.service';
+import { MenuComponent } from './menu/menu.component';
+import { AccueilCandidatComponent } from './accueil-candidat/accueil-candidat.component';
+
+import { ErrServeurInterceptor } from './interceptors/err-serveur.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +42,9 @@ import { AuthentificationService } from './services/authentification.service';
     LoaderComponent,
     WrapperComponent,
     SuccesInscriptionComponent,
-    MotDePasseOublierComponent
+    MotDePasseOublierComponent,
+    MenuComponent,
+    AccueilCandidatComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +61,8 @@ import { AuthentificationService } from './services/authentification.service';
     LoaderService,
     AuthentificationService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptorService, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptorService, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrServeurInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
