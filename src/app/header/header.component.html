@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-secondary">
     <a class="navbar-brand">Logo</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -13,7 +13,7 @@
           <a routerLink="offres" class="nav-link">Offres</a>
         </li>
       </ul>
-      <ul class="navbar-nav my-2 my-lg-0">
+      <ul class="navbar-nav my-2 my-lg-0" *ngIf="!connected">
         <li routerLinkActive="active" class="nav-item">
           <a routerLink="authentification" class="nav-link">
             <fa-icon [icon]="faSignInAlt"></fa-icon>
@@ -27,6 +27,24 @@
           </a>
         </li>
       </ul>
+      <ul class="navbar-nav my-2 my-lg-0" *ngIf="connected">
+        <li routerLinkActive="active" class="nav-item">
+          <a  class="nav-link deconnexion"  (click)="logout()">
+            <fa-icon [icon]="faSignOutAlt"></fa-icon>
+            Déconnexion
+          </a>
+        </li>
+        <li routerLinkActive="active" class="nav-item">
+          <a  class="nav-link deconnexion"  >
+            <fa-icon [icon]="faBell"></fa-icon>
+          </a>
+        </li>
+        <li routerLinkActive="active" class="nav-item">
+          <a  class="nav-link deconnexion"  >
+            <fa-icon [icon]="faUserCircle"></fa-icon>
+          </a>
+        </li>
+        
+      </ul>
     </div>
   </nav>
-  
