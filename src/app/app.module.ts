@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { InscriptionComponent } from './components/inscription/inscription.component';
 import { AccueilComponent } from './components/accueil/accueil.component';
-import { OffresComponent } from './offres/offres.component';
+
 import { AuthentificationComponent } from './components/authentification/authentification.component';
 import { FourOhFourComponent } from './components/four-oh-four/four-oh-four.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -25,23 +25,20 @@ import { WrapperComponent } from './components/wrapper/wrapper.component';
 import { SuccesInscriptionComponent } from './components/succes-inscription/succes-inscription.component';
 import { MotDePasseOublierComponent } from './components/mot-de-passe-oublier/mot-de-passe-oublier.component';
 import { AuthentificationService } from './services/authentification.service';
-import { MenuComponent } from './authenticated-components/menu/menu.component';
-import { AccueilCandidatComponent } from './authenticated-components/accueil-candidat/accueil-candidat.component';
 
 import { ErrServeurInterceptor } from './interceptors/err-serveur.interceptor';
-import { MonCvComponent } from './candidat/mon-cv/mon-cv.component';
 import { ActualitesComponent } from './authenticated-components/actualites/actualites.component';
 import { MonCompteComponent } from './authenticated-components/mon-compte/mon-compte.component';
 import { NotificationComponent } from './authenticated-components/notification/notification.component';
-import { MesPostulesComponent } from './candidat/mes-postules/mes-postules.component';
 import { CandidatModule } from './candidat/candidat.module';
+import { OffersModule } from './offers/offers.module';
+import { AdministrationModule } from './administration/administration.module';
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     InscriptionComponent,
     AccueilComponent,
-    OffresComponent,
     AuthentificationComponent,
     FourOhFourComponent,
     FooterComponent,
@@ -49,13 +46,6 @@ import { CandidatModule } from './candidat/candidat.module';
     WrapperComponent,
     SuccesInscriptionComponent,
     MotDePasseOublierComponent,
-    MenuComponent,
-    AccueilCandidatComponent,
-    MonCvComponent,
-    ActualitesComponent,
-    MonCompteComponent,
-    NotificationComponent,
-    MesPostulesComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +56,9 @@ import { CandidatModule } from './candidat/candidat.module';
     HttpClientModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
-    CandidatModule
+    CandidatModule,
+    OffersModule,
+    AdministrationModule
   ],
   providers: [
     RegistrationService,
