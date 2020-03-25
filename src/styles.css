@@ -3,3 +3,8 @@ body{
     background-color: rgb(236, 236, 227);
     height: 100%;
 }
+.badge-notification{
+    position: relative; 
+    right: 1px;
+    top: 0;
+}
