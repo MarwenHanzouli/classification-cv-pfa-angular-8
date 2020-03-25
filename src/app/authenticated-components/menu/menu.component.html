@@ -2,19 +2,29 @@
     <div class="row content">
         <div class="col-md-2 sidenav">
             <div class="menu-choix">
-                <div (click)="changeStyle(0) ; naviguer('actualites')" (mouseover)="changeHover(0)" (mouseleave)="hoverLeaved(0)" class="choix" [ngClass]="{'clicked': tableau_clicked[0]}">
+                <div (click)="changeStyle(0)" [routerLink]="[{outlets:{authenticated:['actualites']}}]" 
+                (mouseover)="changeHover(0)" (mouseleave)="hoverLeaved(0)" 
+                class="choix" [ngClass]="{'clicked': tableau_clicked[0]}">
                     <pre> <a [ngClass]="{'text-blanc': tableau_clicked[0] && tableau_hovered[0]==false}"><fa-icon [icon]="faNewspaper"></fa-icon> Actualités </a></pre>
                 </div>
-                <div (click)="changeStyle(1) ; naviguer('mon-cv')" (mouseover)="changeHover(1)" (mouseleave)="hoverLeaved(1)" class="choix" [ngClass]="{'clicked': tableau_clicked[1]}">
+                <div (click)="changeStyle(1)" [routerLink]="[{outlets:{authenticated:['mon-cv']}}]"
+                (mouseover)="changeHover(1)" (mouseleave)="hoverLeaved(1)" 
+                class="choix" [ngClass]="{'clicked': tableau_clicked[1]}">
                     <pre> <a [ngClass]="{'text-blanc': tableau_clicked[1] && tableau_hovered[1]==false}" routerLinkActive="active"><fa-icon [icon]="faAddressCard"></fa-icon> Mon CV </a></pre>
                 </div>
-                <div (click)="changeStyle(2) ; naviguer('mes-postules')" (mouseover)="changeHover(2)" (mouseleave)="hoverLeaved(2)" class="choix" [ngClass]="{'clicked': tableau_clicked[2]}">
+                <div (click)="changeStyle(2)" [routerLink]="[{outlets:{authenticated:['mes-postules']}}]"
+                (mouseover)="changeHover(2)" (mouseleave)="hoverLeaved(2)" 
+                class="choix" [ngClass]="{'clicked': tableau_clicked[2]}">
                     <pre> <a [ngClass]="{'text-blanc': tableau_clicked[2] && tableau_hovered[2]==false}" routerLinkActive="active"><fa-icon [icon]="faMailBulk"></fa-icon> Mes postules </a></pre>
                 </div>
-                <div (click)="changeStyle(3) ; naviguer('mon-compte')" (mouseover)="changeHover(3)" (mouseleave)="hoverLeaved(3)" class="choix" [ngClass]="{'clicked': tableau_clicked[3]}">
+                <div (click)="changeStyle(3)" [routerLink]="[{outlets:{authenticated:['mon-compte']}}]"
+                (mouseover)="changeHover(3)" (mouseleave)="hoverLeaved(3)" 
+                class="choix" [ngClass]="{'clicked': tableau_clicked[3]}">
                     <pre> <a [ngClass]="{'text-blanc': tableau_clicked[3] && tableau_hovered[3]==false}" routerLinkActive="active"><fa-icon [icon]="faUserPlus"></fa-icon> Mon compte </a></pre>
                 </div>
-                <div (click)="changeStyle(4) ; naviguer('notifications')" (mouseover)="changeHover(4)" (mouseleave)="hoverLeaved(4)" class="choix" [ngClass]="{'clicked': tableau_clicked[4]}">
+                <div (click)="changeStyle(4)" [routerLink]="[{outlets:{authenticated:['notifications']}}]"
+                 (mouseover)="changeHover(4)" (mouseleave)="hoverLeaved(4)" 
+                 class="choix" [ngClass]="{'clicked': tableau_clicked[4]}">
                     <pre> <a [ngClass]="{'text-blanc': tableau_clicked[4] && tableau_hovered[4]==false}" routerLinkActive="active" ><fa-icon [icon]="faBell"></fa-icon> Notifications <span class="badge badge-success badge-notification">5</span></a></pre>
                 </div>     
             </div>
