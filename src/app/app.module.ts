@@ -27,9 +27,6 @@ import { MotDePasseOublierComponent } from './components/mot-de-passe-oublier/mo
 import { AuthentificationService } from './services/authentification.service';
 
 import { ErrServeurInterceptor } from './interceptors/err-serveur.interceptor';
-import { ActualitesComponent } from './authenticated-components/actualites/actualites.component';
-import { MonCompteComponent } from './authenticated-components/mon-compte/mon-compte.component';
-import { NotificationComponent } from './authenticated-components/notification/notification.component';
 import { CandidatModule } from './candidat/candidat.module';
 import { OffersModule } from './offers/offers.module';
 import { AdministrationModule } from './administration/administration.module';
