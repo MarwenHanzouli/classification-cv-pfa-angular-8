@@ -56,7 +56,7 @@ export class AuthentificationComponent implements OnInit {
       //console.log(this.authService.currentUserValue);
       if(response['user']['role']==="CANDIDAT")
       {
-        this.router.navigate(['/candidat',{ outlets: {
+        this.router.navigate(['/authenticated',{ outlets: {
           authenticated: ['actualites']}}]);
       }
       else if(response['user']['role']==="MANAGER")

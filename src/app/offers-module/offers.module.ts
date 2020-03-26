@@ -4,9 +4,9 @@ import { CommonModule } from '@angular/common';
 import { OffersRoutingModule } from './offers-routing.module';
 import { OffresComponent } from './offres/offres.component';
 import { OffreComponent } from './offre/offre.component';
-import { ActualitesComponent } from '../authenticated-components/actualites/actualites.component';
-import { NotificationsComponent } from '../authenticated-components/notifications/notifications.component';
-import { CandidatModule } from '../candidat/candidat.module';
+import { ActualitesComponent } from '../authenticated-module/actualites/actualites.component';
+import { NotificationsComponent } from '../authenticated-module/notifications/notifications.component';
+import { CandidatModule } from '../candidat-module/candidat.module';
 
 
 @NgModule({

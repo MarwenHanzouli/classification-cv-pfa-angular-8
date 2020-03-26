@@ -6,7 +6,7 @@ import { Address } from '../../models/Address.model';
 import { RegistrationService } from '../../services/registration.service';
 import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
-import { MustMatch } from 'src/app/validators';
+import { MustMatch } from 'src/app/helpers/validators';
 
 @Component({
   selector: 'app-inscription',

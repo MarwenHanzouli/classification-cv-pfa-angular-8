@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { InscriptionComponent } from './components/inscription/inscription.component';
 import { AccueilComponent } from './components/accueil/accueil.component';
-import { OffresComponent } from './offers/offres/offres.component';
+import { OffresComponent } from './offers-module/offres/offres.component';
 import { AuthentificationComponent } from './components/authentification/authentification.component';
 import { FourOhFourComponent } from './components/four-oh-four/four-oh-four.component';
 import { MotDePasseOublierComponent } from './components/mot-de-passe-oublier/mot-de-passe-oublier.component';
-import { AccueilCandidatComponent } from './candidat/accueil-candidat/accueil-candidat.component';
+import { AccueilAuthUserComponent } from './authenticated-module/accueil-authenticated-user/accueil-auth-user.component';
 
 const routes: Routes = [
   { path:'', component:AccueilComponent },
@@ -16,11 +16,15 @@ const routes: Routes = [
   { path:'authentification/motDePasseOublier', component: MotDePasseOublierComponent },
   { 
     path:'offres', component: OffresComponent ,
-    loadChildren:'./offers/offers.module#OffersModule'
+    loadChildren:'./offers-module/offers.module#OffersModule'
   },
+  // { 
+  //   path:'candidat', component: AccueilAuthUserComponent ,
+  //   loadChildren: './candidat-module/candidat.module#CandidatModule'
+  // },
   { 
-    path:'candidat', component: AccueilCandidatComponent ,
-    loadChildren: './candidat/candidat.module#CandidatModule'
+    path:'authenticated', component: AccueilAuthUserComponent ,
+    loadChildren: './candidat-module/candidat.module#CandidatModule'
   },
   { path: 'not-found', component: FourOhFourComponent },
   { path: '**', redirectTo: 'not-found' }

@@ -27,10 +27,11 @@ import { MotDePasseOublierComponent } from './components/mot-de-passe-oublier/mo
 import { AuthentificationService } from './services/authentification.service';
 
 import { ErrServeurInterceptor } from './interceptors/err-serveur.interceptor';
-import { CandidatModule } from './candidat/candidat.module';
-import { OffersModule } from './offers/offers.module';
-import { AdministrationModule } from './administration/administration.module';
+import { CandidatModule } from './candidat-module/candidat.module';
+import { OffersModule } from './offers-module/offers.module';
+import { AdministrationModule } from './administration-module/administration.module';
 import { NotificationService } from './services/notification.service';
+import { AuthenticatedModule } from './authenticated-module/authenticated.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,7 +57,8 @@ import { NotificationService } from './services/notification.service';
     ToastrModule.forRoot(), // ToastrModule added
     CandidatModule,
     OffersModule,
-    AdministrationModule
+    AdministrationModule,
+    AuthenticatedModule
   ],
   providers: [
     RegistrationService,
