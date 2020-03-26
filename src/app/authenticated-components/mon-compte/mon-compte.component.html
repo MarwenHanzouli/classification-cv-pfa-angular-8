@@ -1,7 +1,12 @@
 <div class="card">
     <div class="card-header">Modifier les informations personnelles</div>
     <div class="card-body">Content</div>
-    <div class="card-footer">Footer</div>
+    <div class="card-footer">
+        <div class="btns-donnees-personnelles">
+            <button type="reset" (click)="annulerPhoto()"   class="btn btn-danger" style="color: white;">Annuler</button>
+            <button type="submit"  class="btn btn-success">Modifier</button>
+        </div>
+    </div>
 </div>
 
 <div class="row">
@@ -9,17 +14,24 @@
         <div class="card">
             <div class="card-header">Modifier la photo</div>
             <div class="card-body">
-              <img class="rounded-circle img-fluid float-right" src="../../../assets/images/taswirti.JPG" alt="Photo de profil" >
-              <h4 class="card-title">Marwen Hanzouli</h4>
-              <form>
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="customFile" (ngModel)="photo">
-                    <label class="custom-file-label" for="customFile">{{photo | json}}Choose file</label>
+              <img class="rounded-circle img-fluid float-right" 
+              [src]="(urlImg && photoSubmitted) ? urlImg : '../../../assets/images/taswirti.JPG'" 
+              alt="Photo de profil" id="photoDeProfil">
+              <form [formGroup]="formPhoto">
+                <app-file-upload formControlName="file" (fileUrlToSend)="getFile($event)"></app-file-upload>
+                <div *ngIf="f.file.errors && (f.file.dirty || f.file.touched || photoSubmitted)" 
+                        class="invalid-feedback">
+                    <div *ngIf="f.file.errors.required">
+                        Uploader une photo
+                    </div>
+                    <div *ngIf="f.file.errors.requiredFileType">
+                        L'image doit être de type .png
+                    </div>
                 </div>
                 <br><br>
                 <div class="btns-photo">
-                    <button type="submit"  class="btn btn-info">Appliquer</button>
-                    <button type="reset"   class="btn btn-warning" style="color: white;">Annuler</button>
+                    <button type="submit" (click)="updatePhoto()"  class="btn btn-info">Appliquer</button>
+                    <button type="reset" (click)="annulerPhoto()"   class="btn btn-danger" style="color: white;">Annuler</button>
                     <button type="submit"  class="btn btn-success">Modifier</button>
                 </div>
               </form>

@@ -43,7 +43,7 @@ import { NotificationService } from './services/notification.service';
     LoaderComponent,
     WrapperComponent,
     SuccesInscriptionComponent,
-    MotDePasseOublierComponent,
+    MotDePasseOublierComponent
   ],
   imports: [
     BrowserModule,

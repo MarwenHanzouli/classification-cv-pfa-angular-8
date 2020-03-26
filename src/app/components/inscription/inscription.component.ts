@@ -6,6 +6,7 @@ import { Address } from '../../models/Address.model';
 import { RegistrationService } from '../../services/registration.service';
 import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { MustMatch } from 'src/app/validators';
 
 @Component({
   selector: 'app-inscription',
@@ -58,7 +59,7 @@ export class InscriptionComponent implements OnInit,OnDestroy {
       cp: '',
       entreprise:''
     },{
-      validator: this.MustMatch('mdp1', 'mdp2')
+      validator: MustMatch('mdp1', 'mdp2')
     });
   }
   
@@ -223,24 +224,6 @@ export class InscriptionComponent implements OnInit,OnDestroy {
     //this.router.navigate(['/users']);
   }
 
-  MustMatch(controlName: string, matchingControlName: string) 
-  {
-    return (formGroup: FormGroup) => {
-        const control = formGroup.controls[controlName];
-        const matchingControl = formGroup.controls[matchingControlName];
-
-        if (matchingControl.errors && !matchingControl.errors.mustMatch) {
-            // return if another validator has already found an error on the matchingControl
-            return;
-        }
-
-        // set error on matchingControl if validation fails
-        if (control.value !== matchingControl.value) {
-            matchingControl.setErrors({ mustMatch: true });
-        } else {
-            matchingControl.setErrors(null);
-        }
-    }
-  }
+ 
 
 }
