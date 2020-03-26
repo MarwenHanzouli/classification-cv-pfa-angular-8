@@ -24,7 +24,8 @@ export class MenuComponent implements OnInit {
 
   private URL:string;
 
-  constructor(private router: Router) { 
+  constructor(private router: Router,
+              ) { 
     
   }
 
@@ -32,6 +33,9 @@ export class MenuComponent implements OnInit {
     this.tableau_clicked=[false,false,false,false,false,false,false];
     this.tableau_hovered=[false,false,false,false,false,false,false];
     this.URL="candidat";
+    this.changeStyle(0);
+    this.changeHover(0);
+    this.hoverLeaved(0);
   }
   changeStyle(indice){
     this.tableau_clicked=this.tableau_clicked.map((element,index)=>{

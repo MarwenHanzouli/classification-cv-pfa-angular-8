@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class MonCompteComponent implements OnInit {
 
   constructor() { }
-
+  private photo={};
   ngOnInit() {
   }
 

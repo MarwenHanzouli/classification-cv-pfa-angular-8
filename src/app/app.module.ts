@@ -30,6 +30,7 @@ import { ErrServeurInterceptor } from './interceptors/err-serveur.interceptor';
 import { CandidatModule } from './candidat/candidat.module';
 import { OffersModule } from './offers/offers.module';
 import { AdministrationModule } from './administration/administration.module';
+import { NotificationService } from './services/notification.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,6 +62,7 @@ import { AdministrationModule } from './administration/administration.module';
     RegistrationService,
     LoaderService,
     AuthentificationService,
+    NotificationService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptorService, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrServeurInterceptor, multi: true }

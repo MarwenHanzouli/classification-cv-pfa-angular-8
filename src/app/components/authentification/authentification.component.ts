@@ -56,7 +56,8 @@ export class AuthentificationComponent implements OnInit {
       //console.log(this.authService.currentUserValue);
       if(response['user']['role']==="CANDIDAT")
       {
-        this.router.navigate(['/candidat']);
+        this.router.navigate(['/candidat',{ outlets: {
+          authenticated: ['actualites']}}]);
       }
       else if(response['user']['role']==="MANAGER")
       {
@@ -79,5 +80,10 @@ export class AuthentificationComponent implements OnInit {
     });
     
     
+  }
+  naviguer(path) {
+    this.router.navigate([{ outlets: {
+      authenticated: [path]
+    }}]);
   }
 }

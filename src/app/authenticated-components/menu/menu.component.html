@@ -1,10 +1,10 @@
 <div class="container-fluid text-center" id="menu">    
     <div class="row content">
-        <div class="col-md-2 sidenav">
+        <div class="col-md-12 sidenav">
             <div class="menu-choix">
                 <div (click)="changeStyle(0)" [routerLink]="[{outlets:{authenticated:['actualites']}}]" 
                 (mouseover)="changeHover(0)" (mouseleave)="hoverLeaved(0)" 
-                class="choix" [ngClass]="{'clicked': tableau_clicked[0]}">
+                class="nav-pills choix" [ngClass]="{'clicked': tableau_clicked[0]}">
                     <pre> <a [ngClass]="{'text-blanc': tableau_clicked[0] && tableau_hovered[0]==false}"><fa-icon [icon]="faNewspaper"></fa-icon> Actualités </a></pre>
                 </div>
                 <div (click)="changeStyle(1)" [routerLink]="[{outlets:{authenticated:['mon-cv']}}]"

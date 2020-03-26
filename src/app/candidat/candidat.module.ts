@@ -9,6 +9,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NotificationsComponent } from '../authenticated-components/notifications/notifications.component';
 import { ActualitesComponent } from '../authenticated-components/actualites/actualites.component';
 import { MonCompteComponent } from '../authenticated-components/mon-compte/mon-compte.component';
+import { ActualiteComponent } from '../authenticated-components/actualite/actualite.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { MonCompteComponent } from '../authenticated-components/mon-compte/mon-c
     NotificationsComponent,
     ActualitesComponent,
     MonCompteComponent,
+    ActualiteComponent
   ],
   providers:[]
   

@@ -1,5 +1,5 @@
 #menu{
-    position: fixed;
+    background-color:white;
     height: 100%;
 }
 
@@ -9,7 +9,7 @@
 }
 .sidenav {
     padding-top: 20px;
-    background-color:white;
+
     height: 100%;
     display: flex;
     justify-content: center;
