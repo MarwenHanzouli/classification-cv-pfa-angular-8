@@ -10,6 +10,7 @@ import { MenuComponent } from './menu/menu.component';
 import { AuthenticatedRoutingModule } from './authenticated-routing.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 

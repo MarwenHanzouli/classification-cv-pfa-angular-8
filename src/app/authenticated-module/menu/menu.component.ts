@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { faSignInAlt, faUserPlus, faSignOutAlt, faUserCircle, faBell, faNewspaper,
   faAddressCard , faMailBulk} from '@fortawesome/free-solid-svg-icons';
-import { Router } from '@angular/router';
+import { Router, RouterOutlet, ActivationStart } from '@angular/router';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -30,9 +30,10 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.tableau_clicked=[false,false,false,false,false,false,false];
     this.tableau_hovered=[false,false,false,false,false,false,false];
-    this.URL="candidat";
+    this.URL="/authenticated/candidat";
     this.changeStyle(0);
     this.changeHover(0);
     this.hoverLeaved(0);

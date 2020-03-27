@@ -24,7 +24,7 @@ const routes: Routes = [
   // },
   { 
     path:'authenticated', component: AccueilAuthUserComponent ,
-    loadChildren: './candidat-module/candidat.module#CandidatModule'
+    loadChildren: './authenticated-module/authenticated.module#AuthenticatedModule'
   },
   { path: 'not-found', component: FourOhFourComponent },
   { path: '**', redirectTo: 'not-found' }
