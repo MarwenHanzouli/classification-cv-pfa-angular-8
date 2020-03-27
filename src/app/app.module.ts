@@ -32,6 +32,7 @@ import { OffersModule } from './offers-module/offers.module';
 import { AdministrationModule } from './administration-module/administration.module';
 import { NotificationService } from './services/notification.service';
 import { AuthenticatedModule } from './authenticated-module/authenticated.module';
+import { GestionUsersService } from './services/gestion-users.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,6 +66,7 @@ import { AuthenticatedModule } from './authenticated-module/authenticated.module
     LoaderService,
     AuthentificationService,
     NotificationService,
+    GestionUsersService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptorService, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrServeurInterceptor, multi: true }

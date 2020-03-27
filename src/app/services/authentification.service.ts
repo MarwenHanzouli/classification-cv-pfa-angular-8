@@ -24,7 +24,17 @@ export class AuthentificationService {
     return this.currentUserSubject.value;
   }
 
-
+  changeInfoUserWhenUpdateHisProfile(user:User)
+  {
+    let newCurrentUser={
+      'user':user,
+      'token':JSON.parse(localStorage.getItem('currentUser'))['token']
+    }
+    localStorage.removeItem('currentUser');
+    this.currentUserSubject.next(user);
+    localStorage.setItem('currentUser', JSON.stringify(newCurrentUser));
+    
+  }
   login(user):Observable<any>{
     return this.httpClient.post('http://127.0.0.1:9004/authenticate',user, 
     {headers: this.headers}).pipe(map(response => {

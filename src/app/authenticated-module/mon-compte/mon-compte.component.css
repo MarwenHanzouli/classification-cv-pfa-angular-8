@@ -65,3 +65,11 @@
     max-width: 100%;
     max-height: 20%;
 }
+
+.input-group-text{
+    cursor: pointer;
+    background-color: rgb(45, 107, 117);
+}
+.input-group-text>fa-icon{
+    color: white;
+}

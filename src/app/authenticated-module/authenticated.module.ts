@@ -11,6 +11,7 @@ import { AuthenticatedRoutingModule } from './authenticated-routing.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ModalComponent } from './modal/modal.component';
 
 
 
@@ -22,7 +23,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MonCompteComponent,
     ActualiteComponent,
     FileUploadComponent,
-    MenuComponent
+    MenuComponent,
+    ModalComponent
   ],
   imports: [
     CommonModule,
@@ -38,7 +40,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ActualitesComponent,
     MonCompteComponent,
     ActualiteComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    ModalComponent
   ]
 })
 export class AuthenticatedModule { }
