@@ -6,6 +6,8 @@ import { User } from 'src/app/models/User.model';
 import { GestionUsersService } from 'src/app/services/gestion-users.service';
 import { AuthentificationService } from 'src/app/services/authentification.service';
 import { ToastrService } from 'ngx-toastr';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-mon-compte',
@@ -15,6 +17,7 @@ import { ToastrService } from 'ngx-toastr';
 export class MonCompteComponent implements OnInit {
 
   private user:User;
+  private subscription: Subscription;
 
   private userForm:FormGroup;
   private submitted:boolean=false;
@@ -33,10 +36,19 @@ export class MonCompteComponent implements OnInit {
               private fb: FormBuilder, 
               private el: ElementRef,
               private gestionUsersService:GestionUsersService,
-              private toastr:ToastrService) { 
+              private toastr:ToastrService,
+              private route: ActivatedRoute) { 
   }
   
   ngOnInit() {
+    //console.log("xx");
+    // this.subscription=this.route.data.subscribe((data: {rep: User})=>{
+    //   this.user=data.rep['user'];
+    //   console.log(this.user);
+    //       this.initForm();
+    //       this.initFormPhoto();
+    //       this.initFormPassword();
+    // });
     // this.authService.currentUser.subscribe(
     //   (rep)=>{
     //     if(rep)
@@ -175,7 +187,8 @@ export class MonCompteComponent implements OnInit {
       this.gestionUsersService.updateCandidat(this.user).subscribe((reponse)=>{
         console.log("succes de modification");
         //console.log(reponse);
-        //this.authService.changeInfoUserWhenUpdateHisProfile(this.user);
+        this.gestionUsersService.changeInfoUserWhenUpdateHisProfile(this.user);
+        //this.authService.currentUserSubject.next(this.user);
         this.loading=false;
         this.toastr.success("La modification a été éffectutée!","Succès");
       },
@@ -195,7 +208,7 @@ export class MonCompteComponent implements OnInit {
       this.gestionUsersService.updateManager(this.user).subscribe((reponse)=>{
         console.log("succes de modification");
         //console.log(reponse);
-        //this.authService.changeInfoUserWhenUpdateHisProfile(this.user);
+        this.gestionUsersService.changeInfoUserWhenUpdateHisProfile(this.user);
         this.loading=false;
         this.toastr.success("La modification a été éffectutée!","Succès");
       },

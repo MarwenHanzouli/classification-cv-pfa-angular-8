@@ -6,6 +6,7 @@ import { MesPostulesComponent } from './mes-postules/mes-postules.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthenticatedModule } from '../authenticated-module/authenticated.module';
+import { LoadUserResolver } from '../resolvers/load-user.reslover';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { AuthenticatedModule } from '../authenticated-module/authenticated.modul
     CommonModule,
     CandidatRoutingModule,
     FontAwesomeModule,
-    AuthenticatedModule
+    AuthenticatedModule,
+    LoadUserResolver
   ],
   declarations: [  
     MesPostulesComponent,

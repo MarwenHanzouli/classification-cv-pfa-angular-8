@@ -3,18 +3,21 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../models/User.model';
+import { AbstractHttpService } from '../AbstractHttpService';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthentificationService {
+export class AuthentificationService extends AbstractHttpService{
 
-  private currentUserSubject: BehaviorSubject<User>;
+  public currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
+  serverUrl=this.url;
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(private httpClient: HttpClient) {
+    super();
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
    }
@@ -24,29 +27,9 @@ export class AuthentificationService {
     return this.currentUserSubject.value;
   }
 
-  changeInfoUserWhenUpdateHisProfile(user:User)
-  {
-    let newCurrentUser={
-      'user':user,
-      'token':JSON.parse(localStorage.getItem('currentUser'))['token']
-    }
-    localStorage.removeItem('currentUser');
-    this.currentUserSubject.next(user);
-    localStorage.setItem('currentUser', JSON.stringify(newCurrentUser));
-    
-  }
   login(user):Observable<any>{
-    return this.httpClient.post('http://127.0.0.1:9004/authenticate',user, 
-    {headers: this.headers}).pipe(map(response => {
-      // login successful if there's a jwt token in the response
-      if (response && response['token']) {
-          // store user details and jwt token in local storage to keep user logged in between page refreshes
-          localStorage.setItem('currentUser', JSON.stringify(response));
-          this.currentUserSubject.next(response['user']);
-      }
-
-      return response;
-  }));;
+    return this.httpClient.post(this.serverUrl+'/authenticate',user, 
+    {headers: this.headers});
   }
   logout() {
     // remove user from local storage to log user out
@@ -55,7 +38,7 @@ export class AuthentificationService {
   }
 
   resetPassword(email):Observable<any>{
-    return this.httpClient.post('http://127.0.0.1:9004/microservice-users/users/reset',email, 
+    return this.httpClient.post(this.serverUrl+'/microservice-users/users/reset',email, 
     {headers: this.headers});
   }
 }

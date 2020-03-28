@@ -33,6 +33,7 @@ import { AdministrationModule } from './administration-module/administration.mod
 import { NotificationService } from './services/notification.service';
 import { AuthenticatedModule } from './authenticated-module/authenticated.module';
 import { GestionUsersService } from './services/gestion-users.service';
+import { LoadUserResolver } from './resolvers/load-user.reslover';
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,7 +60,8 @@ import { GestionUsersService } from './services/gestion-users.service';
     CandidatModule,
     OffersModule,
     AdministrationModule,
-    AuthenticatedModule
+    AuthenticatedModule,
+    LoadUserResolver
   ],
   providers: [
     RegistrationService,

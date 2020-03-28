@@ -6,6 +6,7 @@ import { MesPostulesComponent } from './mes-postules/mes-postules.component';
 import { NotificationsComponent } from '../authenticated-module/notifications/notifications.component';
 import { ActualitesComponent } from '../authenticated-module/actualites/actualites.component';
 import { MonCompteComponent } from '../authenticated-module/mon-compte/mon-compte.component';
+import { LoadUserResolver } from '../resolvers/load-user.reslover';
 
 const candidatRoutes: Routes = [
   { path:'notifications', component: NotificationsComponent ,outlet: "authenticated"},

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
@@ -7,10 +7,12 @@ import { AuthentificationService } from '../services/authentification.service';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
+  authService;
     constructor(private toastr: ToastrService,
-                private authService:AuthentificationService) {}
+                private inj:Injector) {}
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+      this.authService=this.inj.get(AuthentificationService);
       if (request.url.indexOf('authenticate') !== -1) {
         console.log("pas de token à l'authentification");
         return next.handle(request); // do nothing
