@@ -12,6 +12,10 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalComponent } from './modal/modal.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtInterceptor } from '../interceptors/jwt.interceptor';
+import { LoaderInterceptorService } from '../interceptors/loader.interceptor';
+import { ErrServeurInterceptor } from '../interceptors/err-serveur.interceptor';
 
 
 
@@ -42,6 +46,8 @@ import { ModalComponent } from './modal/modal.component';
     ActualiteComponent,
     FileUploadComponent,
     ModalComponent
+  ],
+  providers:[
   ]
 })
 export class AuthenticatedModule { }

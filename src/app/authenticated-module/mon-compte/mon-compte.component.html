@@ -321,7 +321,8 @@
                 <div class="btns-photo">
                     <button type="button" (click)="updatePhoto()"  class="btn btn-info">Appliquer</button>
                     <button type="reset" (click)="annulerPhoto()"   class="btn btn-danger" style="color: white;">Annuler</button>
-                    <button type="submit"  class="btn btn-success">Modifier</button>
+                    <button type="submit"  class="btn btn-success" [disabled]="loadingPhoto">
+                        <span class="spinner-border spinner-border-sm" *ngIf="loadingPhoto"></span>Modifier</button>
                 </div>
               </form>
             </div>
@@ -332,7 +333,7 @@
     <div class="col-sm-6">
         <div class="card">
             <div class="card-header">Modifier le mot de passe</div>
-            <form [formGroup]="formPassword">
+            <form [formGroup]="formPassword" (ngSubmit)="submitPassword()">
                 <div class="card-body">
                         <div class="form-group">
                           <label for="pwd">Mot de passe:</label>
@@ -369,8 +370,8 @@
                 <div class="card-footer">
                     <div class="btns-donnees-personnelles">
                         <button type="reset"   class="btn btn-danger" style="color: white;">Annuler</button>
-                        <button type="submit"  class="btn btn-success" [disabled]="loading">
-                            <span class="spinner-border spinner-border-sm" *ngIf="loading"></span> Modifier
+                        <button type="submit"  class="btn btn-success" [disabled]="loadingPass">
+                            <span class="spinner-border spinner-border-sm" *ngIf="loadingPass"></span> Modifier
                         </button>
                     </div>
                 </div>

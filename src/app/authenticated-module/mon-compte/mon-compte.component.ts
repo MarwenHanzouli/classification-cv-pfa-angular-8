@@ -5,6 +5,7 @@ import { requiredFileType, MustMatch } from '../../helpers/validators';
 import { User } from 'src/app/models/User.model';
 import { GestionUsersService } from 'src/app/services/gestion-users.service';
 import { AuthentificationService } from 'src/app/services/authentification.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-mon-compte',
@@ -22,14 +23,17 @@ export class MonCompteComponent implements OnInit {
   private formPhoto:FormGroup;
   private photoSubmitted=false;
   private urlImg:any;
+  private loadingPhoto=false;
 
   private formPassword: FormGroup;
-
+  private loadingPass=false;
+  private passSubmitted=false;
 
   constructor(private authService:AuthentificationService,
               private fb: FormBuilder, 
               private el: ElementRef,
-              private gestionUsersService:GestionUsersService) { 
+              private gestionUsersService:GestionUsersService,
+              private toastr:ToastrService) { 
   }
   
   ngOnInit() {
@@ -173,14 +177,16 @@ export class MonCompteComponent implements OnInit {
         console.log(reponse);
         this.authService.changeInfoUserWhenUpdateHisProfile(this.user);
         this.loading=false;
+        this.toastr.success("La modification a été éffectutée!","Succès");
       },
       (error)=>{
         console.log(error);
         this.loading=false;
         if(error['status']==401)
         {
-          
+
         }
+        this.toastr.error("La modification n'a pas été éffectutée!","Erreur");
       })
     }
     if(this.user['role']=='MANAGER')
@@ -216,17 +222,23 @@ export class MonCompteComponent implements OnInit {
   }
   submitPhoto(){
     this.photoSubmitted=true;
+    
     if(this.formPhoto.invalid)
     {
       console.log(this.formPhoto.errors);
       return;
     }
+    this.loadingPhoto=true;
     this.gestionUsersService.updatePhoto(this.formPhoto.get("file").value,this.user.id)
     .subscribe((reponse)=>{
       console.log(reponse);
+      this.toastr.success("La photo a été modifiée!","Succès");
+      this.loadingPhoto=false;
     },
     (error)=>{
       console.log(error);
+      this.toastr.error("La photo n'a pas été modifiée!","Erreur");
+      this.loadingPhoto=false;
     });
   }
    /*******************update mot de passe**************************/
@@ -241,4 +253,7 @@ export class MonCompteComponent implements OnInit {
      })
    }
    get fPass() { return this.formPassword.controls; }
+   submitPassword(){
+     
+   }
 }

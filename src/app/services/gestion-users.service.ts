@@ -30,6 +30,6 @@ export class GestionUsersService {
     const formData: FormData = new FormData();
     formData.append('file', photo, photo.name);
     return this.httpClient.put('http://127.0.0.1:9004/microservice-users/users/addPhoto/'+id,
-    formData,{headers:this.headers});
+    formData);
   }
 }
