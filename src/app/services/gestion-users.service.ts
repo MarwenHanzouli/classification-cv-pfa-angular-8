@@ -22,8 +22,8 @@ export class GestionUsersService {
     return this.httpClient.put('http://127.0.0.1:9004/microservice-users/managers/update/'+manager.id,
     manager,{headers:this.headers});
   }
-  updatePassword(newPasswordObject){
-    return this.httpClient.put('http://127.0.0.1:9004/microservice-users/users/update-password/'+newPasswordObject.id,
+  updatePassword(newPasswordObject,id){
+    return this.httpClient.put('http://127.0.0.1:9004/microservice-users/users/update-password/'+id,
     newPasswordObject,{headers:this.headers});
   }
   updatePhoto(photo,id){

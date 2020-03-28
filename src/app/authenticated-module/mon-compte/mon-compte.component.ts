@@ -171,11 +171,11 @@ export class MonCompteComponent implements OnInit {
       this.user.address.city=formValue['ville'] || this.user.address.city;
       this.user.address.country=formValue['etat']  || this.user.address.country;
       this.user.address.postcode=formValue['cp'] || this.user.address.postcode;
-      console.log(this.user);
+      //console.log(this.user);
       this.gestionUsersService.updateCandidat(this.user).subscribe((reponse)=>{
         console.log("succes de modification");
-        console.log(reponse);
-        this.authService.changeInfoUserWhenUpdateHisProfile(this.user);
+        //console.log(reponse);
+        //this.authService.changeInfoUserWhenUpdateHisProfile(this.user);
         this.loading=false;
         this.toastr.success("La modification a été éffectutée!","Succès");
       },
@@ -192,6 +192,42 @@ export class MonCompteComponent implements OnInit {
     if(this.user['role']=='MANAGER')
     {
       this.user.nameEntreprise=formValue['entreprise'] || this.user.nameEntreprise;
+      this.gestionUsersService.updateManager(this.user).subscribe((reponse)=>{
+        console.log("succes de modification");
+        //console.log(reponse);
+        //this.authService.changeInfoUserWhenUpdateHisProfile(this.user);
+        this.loading=false;
+        this.toastr.success("La modification a été éffectutée!","Succès");
+      },
+      (error)=>{
+        console.log(error);
+        this.loading=false;
+        if(error['status']==401)
+        {
+
+        }
+        this.toastr.error("La modification n'a pas été éffectutée!","Erreur");
+      });
+    }
+    if(this.user['role']=='ADMIN')
+    {
+      this.gestionUsersService.updateUser(this.user).subscribe((reponse)=>{
+        console.log("succes de modification");
+        console.log(reponse);
+        //this.authService.changeInfoUserWhenUpdateHisProfile(this.user);
+        this.loading=false;
+        this.toastr.success("La modification a été éffectutée!","Succès");
+      },
+      (error)=>{
+        console.log(error);
+        this.loading=false;
+        if(error['status']==401)
+        {
+
+        }
+        this.toastr.error("La modification n'a pas été éffectutée!","Erreur");
+      });
+    
     }
     //console.log(this.user);
 
@@ -253,7 +289,30 @@ export class MonCompteComponent implements OnInit {
      })
    }
    get fPass() { return this.formPassword.controls; }
-   submitPassword(){
-     
+  submitPassword(){
+    this.passSubmitted=true;
+    if(this.formPassword.invalid)
+    {
+    console.log(this.formPassword.errors);
+    return;
+    }
+    this.loadingPass=true;
+    let newPasswordObject={
+      "email":this.user.email,
+      "newPassword":this.formPassword.get("mdp1").value,
+      "confirmNewPassword":this.formPassword.get("mdp2").value
+    }
+    this.gestionUsersService.updatePassword(newPasswordObject,this.user.id).subscribe(
+      (reponse)=>{
+        console.log(reponse);
+        this.toastr.success("Le mot de passe a été modifié!","Succès");
+        this.loadingPass=false;
+      },
+      (error)=>{
+        console.log(error);
+        this.toastr.error("Le mot de passe n'a pas été modifié!","Erreur");
+        this.loadingPass=false;
+      }
+    )
    }
 }

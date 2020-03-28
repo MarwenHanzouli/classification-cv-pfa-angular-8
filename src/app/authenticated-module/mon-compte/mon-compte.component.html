@@ -340,9 +340,9 @@
                           <input type="password" class="form-control" id="pwd" 
                           placeholder="Entrer le nouveau mot de passe" formControlName="mdp1"
                           [ngClass]="{ 'is-invalid': fPass.mdp1.errors && 
-                           (fPass.mdp1.dirty || fPass.mdp1.touched || submitted) }">
+                           (fPass.mdp1.dirty || fPass.mdp1.touched || passSubmitted) }">
                           <div *ngIf="fPass.mdp1.errors && 
-                          (fPass.mdp1.dirty || fPass.mdp1.touched || submitted)" 
+                          (fPass.mdp1.dirty || fPass.mdp1.touched || passSubmitted)" 
                           class="invalid-feedback">
                               <div *ngIf="fPass.mdp1.errors.required">
                                   Le mot de passe est obligatoire.
@@ -356,8 +356,8 @@
                           <label for="cpwd">Confirmer le nouveau mot de passe:</label>
                           <input type="password" class="form-control"
                           placeholder="Confirmer le mot de passe" formControlName="mdp2"
-                          [ngClass]="{ 'is-invalid': fPass.mdp2.errors && submitted }">
-                          <div *ngIf="submitted && fPass.mdp2.errors" class="invalid-feedback">
+                          [ngClass]="{ 'is-invalid': fPass.mdp2.errors &&  passSubmitted}">
+                          <div *ngIf="passSubmitted && fPass.mdp2.errors" class="invalid-feedback">
                               <div *ngIf="fPass.mdp2.errors.required">
                                   Confirme le mot de passe.
                               </div>
