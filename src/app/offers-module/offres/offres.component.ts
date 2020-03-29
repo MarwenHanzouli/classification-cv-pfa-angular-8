@@ -1,57 +1,56 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { faEdit, faTrash, faEye, faPlusCircle} from '@fortawesome/free-solid-svg-icons';
+import { BehaviorSubject, Subscription, Observable } from 'rxjs';
+import { GestionOffresService } from 'src/app/services/gestion-offres.service';
+import { Offre } from 'src/app/models/Offre.model';
 
 @Component({
   selector: 'app-offres',
   templateUrl: './offres.component.html',
   styleUrls: ['./offres.component.css']
 })
-export class OffresComponent implements OnInit {
+export class OffresComponent implements OnInit, OnDestroy{
+  
+  ngOnDestroy(): void {
+    this.offresSubcription.unsubscribe();
+  }
 
   faEdit=faEdit;
   faTrash=faTrash;
   faEye=faEye;
   faPlusCircle=faPlusCircle;
-  
-  constructor(private router: Router,
-              private el: ElementRef) { }
 
-  private offres=[];
+  private offresSubcription:Subscription;
+  private offres:Offre[];
+
   private taille=6;
   private taillePage:number;
   private pages=[];
   private postionCourant:number=0;
-  private offresCourants=[];
+  private offresCourants:Offre[];
+  private offresCourantsObservable:Observable<any[]>;
+
+  private objStyles={'values':[false,false,true,false]};
+  private objStylesDeleteButtons={'values':[true,true,false,false]};
+
+  constructor(private router: Router,
+              private el: ElementRef,
+              private offresService:GestionOffresService,
+              private cd:ChangeDetectorRef) { 
+  }
+
+  
 
   ngOnInit() {
-    this.offres=[
-      {"titre":'Développeur JAVA',"dateOffre":"20/12/2020","entreprise":"Poulina"},
-      {"titre":'Développeur C#',"dateOffre":"20/12/2020","entreprise":"Poulina"},
-      {"titre":'Développeur sdfsdf',"dateOffre":"20/12/2020","entreprise":"Poulina"},
-      {"titre":'Développeur vxcsdf',"dateOffre":"20/12/2020","entreprise":"Poulina"},
-      {"titre":'Développeur bdgfv',"dateOffre":"20/12/2020","entreprise":"Poulina"},
-      {"titre":'Développeur zerfzer',"dateOffre":"20/12/2020","entreprise":"Poulina"},
-      {"titre":'Développeur JAqsdfqVA',"dateOffre":"20/12/2020","entreprise":"Poulina"},
-      {"titre":'sqdfxcw sdc',"dateOffre":"20/12/2020","entreprise":"Poulina"},
-      {"titre":'qscdwxc JAVA',"dateOffre":"20/12/2020","entreprise":"Poulina"},
-      {"titre":'vvc JAVA',"dateOffre":"20/12/2020","entreprise":"Poulina"},
-      {"titre":'wxcvxcv JAVA',"dateOffre":"20/12/2020","entreprise":"Poulina"},
-      {"titre":'esvd JAVA',"dateOffre":"20/12/2020","entreprise":"Poulina"},
-      {"titre":'efs ssdf',"dateOffre":"20/12/2020","entreprise":"Poulina"},
-      {"titre":'sfsd sc ',"dateOffre":"20/12/2020","entreprise":"Poulina"},
-      {"titre":'sdf JAVsdfA',"dateOffre":"20/12/2020","entreprise":"Poulina"},
-      {"titre":'dv JAVsdvA',"dateOffre":"20/12/2020","entreprise":"Poulina"},
-      {"titre":'vsdv JAVA',"dateOffre":"20/12/2020","entreprise":"Poulina"},
-      {"titre":'sff JAVAsdfgs',"dateOffre":"20/12/2020","entreprise":"Poulina"},
-      {"titre":'Dévelovcxsfvcvppeur fdg',"dateOffre":"20/12/2020","entreprise":"Poulina"},
-      {"titre":'sfdgfg JAVsfgsfA',"dateOffre":"20/12/2020","entreprise":"Poulina"}
-    ];
-    this.taillePage=Math.ceil(this.offres.length/this.taille);
-    console.log(this.taillePage);
-    this.pages=Array(this.taillePage).fill(this.taillePage).map((x,i)=>i);
-    this.offresCourants=this.offres.slice(0,this.taille);
-    console.log(this.offresCourants);
+    
+    this.offresSubcription=this.offresService.offresSubject.subscribe((data)=>{
+      console.log("new subscription");
+      this.offres=data;
+      this.taillePage=Math.ceil(this.offres.length/this.taille);
+      this.pages=Array(this.taillePage).fill(this.taillePage).map((x,i)=>i);
+      this.offresCourants=this.offres.slice(0,this.taille);
+    });
   }
 
   updateActive(i){
@@ -68,9 +67,16 @@ export class OffresComponent implements OnInit {
       }
     });
     this.offresCourants=this.offres.slice(i*this.taille,i*this.taille+this.taille);
-    console.log(this.offresCourants);
   }
-
+  deleteOffre(id){
+    let indice=0;
+    while (this.offres[indice].id!==id){
+      indice++;
+    }
+    this.offres.splice(indice,1);
+    console.log(this.offres)
+    this.offresService.offresSubject.next(this.offres);
+  }
   naviguer(path) {
     this.router.navigate([{ outlets: {
       detailOffre: [path]

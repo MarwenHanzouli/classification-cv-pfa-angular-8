@@ -1,11 +1,14 @@
-import { Component, OnInit, Input, ViewChildren, QueryList, HostListener, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, ViewChildren, QueryList, HostListener, SimpleChanges, OnChanges, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.css']
 })
-export class ModalComponent implements OnInit , OnChanges{
+export class ModalComponent implements OnInit , OnChanges, OnDestroy{
+  ngOnDestroy(): void {
+    console.log("modal destroyed!!!!");
+  }
 
   @Input() titre:string;
   @Input() tableauClasses:boolean[];

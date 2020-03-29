@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Offre } from '../models/Offre.model';
 @Injectable({
   providedIn: 'root'
@@ -7,7 +7,7 @@ import { Offre } from '../models/Offre.model';
 export class GestionOffresService {
 
   offresSubject:BehaviorSubject<Offre[]>;
-
+  offresObservable:Observable<Offre[]>;
   private offres:Offre[];
   constructor() { 
     this.offres=[
@@ -33,5 +33,6 @@ export class GestionOffresService {
       {"id":20,"titre":'sfdgfg JAVsfgsfA',"dateOffre":new Date("2020/12/20"),"entreprise":"Poulina"}
     ];
     this.offresSubject=new BehaviorSubject(this.offres);
+    this.offresObservable=this.offresSubject.asObservable();
   }
 }
