@@ -7,25 +7,44 @@
                 class="nav-pills choix" [ngClass]="{'clicked': tableau_clicked[0]}">
                     <pre> <a [ngClass]="{'text-blanc': tableau_clicked[0] && tableau_hovered[0]==false}"><fa-icon [icon]="faNewspaper"></fa-icon> Actualités </a></pre>
                 </div>
-                <div (click)="changeStyle(1)" [routerLink]="[URL,{outlets:{authenticated:['mon-cv']}}]"
+                <div *ngIf="role=='CANDIDAT'" (click)="changeStyle(1)" [routerLink]="[URL,{outlets:{authenticated:['mon-cv']}}]"
                 (mouseover)="changeHover(1)" (mouseleave)="hoverLeaved(1)" 
                 class="choix" [ngClass]="{'clicked': tableau_clicked[1]}">
                     <pre> <a [ngClass]="{'text-blanc': tableau_clicked[1] && tableau_hovered[1]==false}" routerLinkActive="active"><fa-icon [icon]="faAddressCard"></fa-icon> Mon CV </a></pre>
                 </div>
-                <div (click)="changeStyle(2)" [routerLink]="[URL,{outlets:{authenticated:['mes-postules']}}]"
+                <div *ngIf="role=='CANDIDAT'" (click)="changeStyle(2)" [routerLink]="[URL,{outlets:{authenticated:['mes-postules']}}]"
                 (mouseover)="changeHover(2)" (mouseleave)="hoverLeaved(2)" 
                 class="choix" [ngClass]="{'clicked': tableau_clicked[2]}">
                     <pre> <a [ngClass]="{'text-blanc': tableau_clicked[2] && tableau_hovered[2]==false}" routerLinkActive="active"><fa-icon [icon]="faMailBulk"></fa-icon> Mes postules </a></pre>
                 </div>
+
+
+                <div *ngIf="role=='MANAGER'" (click)="changeStyle(4)" [routerLink]="[URL,{outlets:{authenticated:['offres']}}]"
+                 (mouseover)="changeHover(4)" (mouseleave)="hoverLeaved(4)" 
+                 class="choix" [ngClass]="{'clicked': tableau_clicked[4]}">
+                    <pre> <a [ngClass]="{'text-blanc': tableau_clicked[4] && tableau_hovered[4]==false}" routerLinkActive="active" ><fa-icon [icon]="faBell"></fa-icon> Gérer les offres <span class="badge badge-success badge-notification">5</span></a></pre>
+                </div>
+                <div *ngIf="role=='MANAGER'" (click)="changeStyle(5)" [routerLink]="[URL,{outlets:{authenticated:['cvs']}}]"
+                 (mouseover)="changeHover(5)" (mouseleave)="hoverLeaved(5)" 
+                 class="choix" [ngClass]="{'clicked': tableau_clicked[5]}">
+                    <pre> <a [ngClass]="{'text-blanc': tableau_clicked[5] && tableau_hovered[5]==false}" routerLinkActive="active" ><fa-icon [icon]="faBell"></fa-icon> Rechercher les meilleurs CVs <span class="badge badge-success badge-notification">5</span></a></pre>
+                </div>
+
+                <div *ngIf="role=='ADMIN'" (click)="changeStyle(7)" [routerLink]="[URL,{outlets:{authenticated:['gerer-users']}}]"
+                 (mouseover)="changeHover(7)" (mouseleave)="hoverLeaved(7)" 
+                 class="choix" [ngClass]="{'clicked': tableau_clicked[7]}">
+                    <pre> <a [ngClass]="{'text-blanc': tableau_clicked[7] && tableau_hovered[7]==false}" routerLinkActive="active" ><fa-icon [icon]="faBell"></fa-icon> Gérer les utilisateurs <span class="badge badge-success badge-notification">5</span></a></pre>
+                </div>
+
                 <div (click)="changeStyle(3)" [routerLink]="[URL,{outlets:{authenticated:['mon-compte']}}]"
                 (mouseover)="changeHover(3)" (mouseleave)="hoverLeaved(3)" 
                 class="choix" [ngClass]="{'clicked': tableau_clicked[3]}">
                     <pre> <a [ngClass]="{'text-blanc': tableau_clicked[3] && tableau_hovered[3]==false}" routerLinkActive="active"><fa-icon [icon]="faUserPlus"></fa-icon> Mon compte </a></pre>
                 </div>
-                <div (click)="changeStyle(4)" [routerLink]="[URL,{outlets:{authenticated:['notifications']}}]"
-                 (mouseover)="changeHover(4)" (mouseleave)="hoverLeaved(4)" 
-                 class="choix" [ngClass]="{'clicked': tableau_clicked[4]}">
-                    <pre> <a [ngClass]="{'text-blanc': tableau_clicked[4] && tableau_hovered[4]==false}" routerLinkActive="active" ><fa-icon [icon]="faBell"></fa-icon> Notifications <span class="badge badge-success badge-notification">5</span></a></pre>
+                <div (click)="changeStyle(6)" [routerLink]="[URL,{outlets:{authenticated:['notifications']}}]"
+                 (mouseover)="changeHover(6)" (mouseleave)="hoverLeaved(6)" 
+                 class="choix" [ngClass]="{'clicked': tableau_clicked[6]}">
+                    <pre> <a [ngClass]="{'text-blanc': tableau_clicked[6] && tableau_hovered[6]==false}" routerLinkActive="active" ><fa-icon [icon]="faBell"></fa-icon> Notifications <span class="badge badge-success badge-notification">5</span></a></pre>
                 </div>     
             </div>
             

@@ -61,7 +61,8 @@ export class AuthentificationComponent implements OnInit {
       }
       else if(response['user']['role']==="MANAGER")
       {
-        this.router.navigate(['/accueil']);
+        this.router.navigate(['/authenticated/manager',{ outlets: {
+          authenticated: ['actualites']}}]);
       }
       else if(response['user']['role']==="ADMIN")
       {

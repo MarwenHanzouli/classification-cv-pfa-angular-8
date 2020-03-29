@@ -23,7 +23,7 @@ export class MenuComponent implements OnInit {
   private tableau_hovered:boolean[];
 
   private URL:string;
-
+  private role:string;
   constructor(private router: Router,
               ) { 
     
@@ -33,7 +33,27 @@ export class MenuComponent implements OnInit {
 
     this.tableau_clicked=[false,false,false,false,false,false,false];
     this.tableau_hovered=[false,false,false,false,false,false,false];
-    this.URL="/authenticated/candidat";
+    this.role=JSON.parse(localStorage.getItem('currentUser'))['user']['role'];
+    switch (this.role)
+    {
+      case 'CANDIDAT':
+        {
+          this.URL='/authenticated/candidat';
+          break;
+        }
+      case 'MANAGER':
+        {
+          this.URL="/authenticated/manager";
+          break;
+        }
+      case 'ADMIN':
+      {
+        this.URL="/authenticated/admin";
+        break;
+      }
+    }
+    
+    
     this.changeStyle(0);
     this.changeHover(0);
     this.hoverLeaved(0);
