@@ -9,8 +9,10 @@ export class ModalComponent implements OnInit , OnChanges{
 
   @Input() titre:string;
   @Input() tableauClasses:boolean[];
-  private classStyle;
+  @Input() idModal:string;
 
+  private classStyle;
+  private id;
   constructor() {
   }
 
@@ -28,6 +30,8 @@ export class ModalComponent implements OnInit , OnChanges{
       'modal-lg':this.tableauClasses[2],
       'modal-xl':this.tableauClasses[3]
     }
+    this.id=changes['idModal'].currentValue.toString();
+    console.log(this.idModal)
   }
 
 }
