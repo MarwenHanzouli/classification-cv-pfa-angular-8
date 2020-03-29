@@ -12,6 +12,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ModalComponent } from './modal/modal.component';
 import { LoadUserResolver } from '../resolvers/load-user.reslover';
+import { PipeOffresPipe } from '../pipes/pipe-offres.pipe';
 
 
 
@@ -24,7 +25,8 @@ import { LoadUserResolver } from '../resolvers/load-user.reslover';
     ActualiteComponent,
     FileUploadComponent,
     MenuComponent,
-    ModalComponent
+    ModalComponent,
+    PipeOffresPipe
   ],
   imports: [
     CommonModule,
