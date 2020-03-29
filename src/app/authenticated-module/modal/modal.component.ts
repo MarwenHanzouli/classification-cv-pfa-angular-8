@@ -31,7 +31,6 @@ export class ModalComponent implements OnInit , OnChanges{
       'modal-xl':this.tableauClasses[3]
     }
     this.id=changes['idModal'].currentValue.toString();
-    console.log(this.idModal)
   }
 
 }
