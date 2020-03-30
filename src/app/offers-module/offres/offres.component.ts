@@ -84,12 +84,24 @@ export class OffresComponent implements OnInit, OnDestroy, DoCheck{
     this.objStylesDelete={'values':[true,true,false,false]};
     this.objStylesModifer={'values':[false,false,false,false]};
     this.objStylesDetails={'values':[false,false,false,false]};
-    let newTaillePage=Math.ceil((indice)/this.taille);
-    this.pages=Array(newTaillePage).fill(newTaillePage).map((x,i)=>i);
-    console.log(this.pages)
-    console.log(newTaillePage)
-    console.log(this.pages.length)
-    this.updateActive(newTaillePage-1);
+    this.taillePage=Math.ceil(this.offres.length/this.taille);
+    this.pages=Array(this.taillePage).fill(this.taillePage).map((x,i)=>i);
+    if(indice%this.taille==0 && this.offres[indice])
+    {
+      this.updateActive(this.postionCourant);
+      console.log(this.postionCourant)
+    }
+    else if(indice%this.taille==0 && !this.offres[indice])
+    {
+      this.updateActive(this.postionCourant-1);
+      console.log(this.postionCourant)
+    }
+    else
+    {
+      let newPageActive=Math.ceil((indice)/this.taille);
+      this.updateActive(newPageActive-1);
+      console.log(this.postionCourant)
+    }
     
   }
   modifierOffre(id){
