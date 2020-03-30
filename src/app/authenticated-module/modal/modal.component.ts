@@ -1,9 +1,10 @@
-import { Component, OnInit, Input, ViewChildren, QueryList, HostListener, SimpleChanges, OnChanges, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, OnChanges, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.css']
+  styleUrls: ['./modal.component.css'],
+  changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class ModalComponent implements OnInit , OnChanges, OnDestroy{
   ngOnDestroy(): void {

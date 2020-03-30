@@ -31,18 +31,40 @@
         <th></th>
       </tr>
     </thead>
-    <tbody>  
+    <tbody> 
+      <tr *ngIf="offres.length==0" class="table-light"> Aucun offre...</tr> 
       <tr class="table-light" *ngFor="let offre of offresCourants; let i=index">
         <td>{{offre.titre}}</td>
         <td>{{offre.dateOffre | date :'short'}}</td>
         <td>{{offre.entreprise}}</td>
         <td class="actions">
-            <button type="button" class="btn btn-outline-info"><fa-icon [icon]="faEye"></fa-icon></button>
-            <button type="button" class="btn btn-outline-primary"><fa-icon [icon]="faEdit" ></fa-icon></button>
+            <button type="button" class="btn btn-outline-info"
+            data-toggle="modal" [attr.data-target]="'#voir-details-offre'+i"><fa-icon [icon]="faEye"></fa-icon></button>
+            <button type="button" class="btn btn-outline-primary"
+            data-toggle="modal" [attr.data-target]="'#modifier-offre'+i"><fa-icon [icon]="faEdit" ></fa-icon></button>
             <button type="button" class="btn btn-outline-danger"
             data-toggle="modal" [attr.data-target]="'#supprimer-offre'+i"><fa-icon [icon]="faTrash"></fa-icon></button>
           </td>
-          <app-modal titre="Confirmer" idModal="supprimer-offre{{i}}" [tableauClasses]="objStylesDeleteButtons">
+          <app-modal titre="Voir les détails de cette offre" idModal="voir-details-offre{{i}}" [tableauClasses]="objStylesDetails">
+            <div>
+              <strong>{{offre.titre}}</strong>
+              <hr>
+              <div class="float-right">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Annuler</button>
+              </div>
+            </div>
+          </app-modal>
+          <app-modal titre="Modifier cette offre" idModal="modifier-offre{{i}}" [tableauClasses]="objStylesModifer">
+            <div>
+              <strong>{{offre.titre}}</strong>
+              <hr>
+              <div class="float-right">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-success" (click)="modifierOffre(offre.id)" data-dismiss="modal">Oui</button>
+              </div>
+            </div>
+          </app-modal>
+          <app-modal titre="Confirmer" idModal="supprimer-offre{{i}}" [tableauClasses]="objStylesDelete">
             <div>
               <h6>Voulez-vous supprimer cette offre?</h6>
               <strong>{{offre.titre}}</strong>

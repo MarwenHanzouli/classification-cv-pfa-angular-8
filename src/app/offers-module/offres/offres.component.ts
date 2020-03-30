@@ -1,14 +1,14 @@
-import { Component, OnInit, ElementRef, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ElementRef, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { faEdit, faTrash, faEye, faPlusCircle} from '@fortawesome/free-solid-svg-icons';
 import { BehaviorSubject, Subscription, Observable } from 'rxjs';
 import { GestionOffresService } from 'src/app/services/gestion-offres.service';
 import { Offre } from 'src/app/models/Offre.model';
-
 @Component({
   selector: 'app-offres',
   templateUrl: './offres.component.html',
-  styleUrls: ['./offres.component.css']
+  styleUrls: ['./offres.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OffresComponent implements OnInit, OnDestroy{
   
@@ -32,8 +32,9 @@ export class OffresComponent implements OnInit, OnDestroy{
   private offresCourantsObservable:Observable<any[]>;
 
   private objStyles={'values':[false,false,true,false]};
-  private objStylesDeleteButtons={'values':[true,true,false,false]};
-
+  private objStylesDelete={'values':[true,true,false,false]};
+  private objStylesModifer={'values':[false,false,false,false]};
+  private objStylesDetails={'values':[false,false,false,false]};
   constructor(private router: Router,
               private el: ElementRef,
               private offresService:GestionOffresService,
@@ -43,7 +44,7 @@ export class OffresComponent implements OnInit, OnDestroy{
   
 
   ngOnInit() {
-    
+    //this.offresCourantsObservable=this.offresService.offresObservable
     this.offresSubcription=this.offresService.offresSubject.subscribe((data)=>{
       console.log("new subscription");
       this.offres=data;
@@ -76,6 +77,9 @@ export class OffresComponent implements OnInit, OnDestroy{
     this.offres.splice(indice,1);
     console.log(this.offres)
     this.offresService.offresSubject.next(this.offres);
+  }
+  modifierOffre(id){
+
   }
   naviguer(path) {
     this.router.navigate([{ outlets: {
