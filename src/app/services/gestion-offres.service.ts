@@ -30,7 +30,8 @@ export class GestionOffresService {
       {"id":17,"titre":'vsdv JAVA',"dateOffre":new Date("2020/12/20"),"entreprise":"Poulina"},
       {"id":18,"titre":'sff JAVAsdfgs',"dateOffre":new Date("2020/12/20"),"entreprise":"Poulina"},
       {"id":19,"titre":'Dévelovcxsfvcvppeur fdg',"dateOffre":new Date("2020/12/20"),"entreprise":"Poulina"},
-      {"id":20,"titre":'sfdgfg JAVsfgsfA',"dateOffre":new Date("2020/12/20"),"entreprise":"Poulina"}
+      {"id":20,"titre":'sfdgfg JAVsfgsfA',"dateOffre":new Date("2020/12/20"),"entreprise":"Poulina"},
+      {"id":21,"titre":'sfdgfg JAVsfgsfA',"dateOffre":new Date("2020/12/20"),"entreprise":"Poulina"}
     ];
     this.offresSubject=new BehaviorSubject(this.offres);
     this.offresObservable=this.offresSubject.asObservable();

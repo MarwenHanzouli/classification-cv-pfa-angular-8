@@ -1,20 +1,17 @@
-import { Component, OnInit, ElementRef, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ElementRef, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy, DoCheck } from '@angular/core';
 import { Router } from '@angular/router';
 import { faEdit, faTrash, faEye, faPlusCircle} from '@fortawesome/free-solid-svg-icons';
 import { BehaviorSubject, Subscription, Observable } from 'rxjs';
 import { GestionOffresService } from 'src/app/services/gestion-offres.service';
 import { Offre } from 'src/app/models/Offre.model';
+import { first } from 'rxjs/operators';
 @Component({
   selector: 'app-offres',
   templateUrl: './offres.component.html',
   styleUrls: ['./offres.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class OffresComponent implements OnInit, OnDestroy{
-  
-  ngOnDestroy(): void {
-    this.offresSubcription.unsubscribe();
-  }
+export class OffresComponent implements OnInit, OnDestroy, DoCheck{
 
   faEdit=faEdit;
   faTrash=faTrash;
@@ -24,17 +21,18 @@ export class OffresComponent implements OnInit, OnDestroy{
   private offresSubcription:Subscription;
   private offres:Offre[];
 
-  private taille=6;
+  private taille;
   private taillePage:number;
   private pages=[];
   private postionCourant:number=0;
   private offresCourants:Offre[];
   private offresCourantsObservable:Observable<any[]>;
 
-  private objStyles={'values':[false,false,true,false]};
-  private objStylesDelete={'values':[true,true,false,false]};
-  private objStylesModifer={'values':[false,false,false,false]};
-  private objStylesDetails={'values':[false,false,false,false]};
+  private objStyles;
+  private objStylesDelete;
+  private objStylesModifer;
+  private objStylesDetails;
+
   constructor(private router: Router,
               private el: ElementRef,
               private offresService:GestionOffresService,
@@ -44,9 +42,14 @@ export class OffresComponent implements OnInit, OnDestroy{
   
 
   ngOnInit() {
+    this.objStyles={'values':[false,false,true,false]};
+    this.taille=6;
     //this.offresCourantsObservable=this.offresService.offresObservable
-    this.offresSubcription=this.offresService.offresSubject.subscribe((data)=>{
-      console.log("new subscription");
+    this.offresSubcription=this.offresService.offresSubject.pipe(first()).subscribe((data)=>{
+      console.log("first subscription");
+      this.objStylesDelete={'values':[true,true,false,false]};
+      this.objStylesModifer={'values':[false,false,false,false]};
+      this.objStylesDetails={'values':[false,false,false,false]};
       this.offres=data;
       this.taillePage=Math.ceil(this.offres.length/this.taille);
       this.pages=Array(this.taillePage).fill(this.taillePage).map((x,i)=>i);
@@ -68,6 +71,7 @@ export class OffresComponent implements OnInit, OnDestroy{
       }
     });
     this.offresCourants=this.offres.slice(i*this.taille,i*this.taille+this.taille);
+    console.log(this.offresCourants)
   }
   deleteOffre(id){
     let indice=0;
@@ -75,8 +79,18 @@ export class OffresComponent implements OnInit, OnDestroy{
       indice++;
     }
     this.offres.splice(indice,1);
-    console.log(this.offres)
+    //console.log(this.offres)
     this.offresService.offresSubject.next(this.offres);
+    this.objStylesDelete={'values':[true,true,false,false]};
+    this.objStylesModifer={'values':[false,false,false,false]};
+    this.objStylesDetails={'values':[false,false,false,false]};
+    let newTaillePage=Math.ceil((indice)/this.taille);
+    this.pages=Array(newTaillePage).fill(newTaillePage).map((x,i)=>i);
+    console.log(this.pages)
+    console.log(newTaillePage)
+    console.log(this.pages.length)
+    this.updateActive(newTaillePage-1);
+    
   }
   modifierOffre(id){
 
@@ -86,4 +100,15 @@ export class OffresComponent implements OnInit, OnDestroy{
       detailOffre: [path]
     }}]);
   }
+
+
+
+  ngDoCheck(): void {
+
+  }
+  
+  ngOnDestroy(): void {
+    this.offresSubcription.unsubscribe();
+  }
+
 }

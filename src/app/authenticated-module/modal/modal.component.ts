@@ -7,8 +7,9 @@ import { Component, OnInit, Input, SimpleChanges, OnChanges, OnDestroy, ChangeDe
   changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class ModalComponent implements OnInit , OnChanges, OnDestroy{
+
   ngOnDestroy(): void {
-    console.log("modal destroyed!!!!");
+    //console.log("modal destroyed!!!!");
   }
 
   @Input() titre:string;
@@ -21,9 +22,10 @@ export class ModalComponent implements OnInit , OnChanges, OnDestroy{
   }
 
   ngOnInit() {
-    
+    //console.log("modal initialised!!!!");
   }
   ngOnChanges(changes: SimpleChanges) {
+    //console.log(changes)
     let tableau=JSON.parse(JSON.stringify(changes['tableauClasses'].currentValue))['values'];
     tableau.map((elem,indice)=>{
       this.tableauClasses[indice]=elem;
@@ -34,7 +36,10 @@ export class ModalComponent implements OnInit , OnChanges, OnDestroy{
       'modal-lg':this.tableauClasses[2],
       'modal-xl':this.tableauClasses[3]
     }
-    this.id=changes['idModal'].currentValue.toString();
+    if(changes['idModal']){
+      this.id=changes['idModal'].currentValue.toString();
+    }
+    
   }
 
 }
