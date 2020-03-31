@@ -7,7 +7,7 @@ import { Offre } from '../models/Offre.model';
 export class GestionOffresService {
 
   offresSubject:BehaviorSubject<Offre[]>;
-  offresObservable:Observable<Offre[]>;
+  //offresObservable:Observable<Offre[]>;
   private offres:Offre[];
   constructor() { 
     this.offres=[
@@ -34,6 +34,19 @@ export class GestionOffresService {
       {"id":21,"titre":'sfdgfg JAVsfgsfA',"dateOffre":new Date("2020/12/20"),"entreprise":"Poulina"}
     ];
     this.offresSubject=new BehaviorSubject(this.offres);
-    this.offresObservable=this.offresSubject.asObservable();
+    //this.offresObservable=this.offresSubject.asObservable();
+  }
+
+  getOffreById(id):Observable<Offre>{
+    let o:Observable<Offre>;
+    this.offres.map((elem)=>{
+      if(elem.id==id)
+      {
+        o=new Observable((observer)=>{
+          observer.next(elem);
+        });
+      }
+    })
+    return o;
   }
 }

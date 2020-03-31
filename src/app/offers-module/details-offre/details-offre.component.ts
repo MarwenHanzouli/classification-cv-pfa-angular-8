@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { GestionOffresService } from 'src/app/services/gestion-offres.service';
+import { Offre } from 'src/app/models/Offre.model';
 
 @Component({
   selector: 'app-details-offre',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DetailsOffreComponent implements OnInit {
 
-  constructor() { }
+  @Input() idOffre;
+  private offre:Offre;
+  constructor(private offresService:GestionOffresService) { }
 
   ngOnInit() {
+    this.offresService.getOffreById(this.idOffre).subscribe(offre=>{
+      this.offre=offre;
+    })
   }
 
 }

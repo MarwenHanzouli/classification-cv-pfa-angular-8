@@ -47,10 +47,10 @@
           </td>
           <app-modal titre="Voir les détails de cette offre" idModal="voir-details-offre{{i}}" [tableauClasses]="objStylesDetails">
             <div>
-              <strong>{{offre.titre}}</strong>
+              <app-details-offre idOffre={{offre.id}}></app-details-offre>
               <hr>
               <div class="float-right">
-                <button type="button" class="btn btn-info" data-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-info" data-dismiss="modal">Fermer</button>
               </div>
             </div>
           </app-modal>

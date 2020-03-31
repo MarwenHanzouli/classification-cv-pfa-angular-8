@@ -3,6 +3,15 @@ export class Offre{
         public id:number,
         public titre:string,
         public dateOffre:Date,
-        public entreprise:string
+        public dateFin:Date,
+        public entreprise:string,
+        public poste:string,
+        public lieu:string,
+        public typeOffre:string,
+        public description:string,
+        public anneeExperience:number,
+        public niveauDemande:string,
+        public etat:boolean,
+        
     ){}
 }
