@@ -61,7 +61,7 @@ export class OffresComponent implements OnInit, OnDestroy, DoCheck{
   }
 
   updateActive(i){
-    if(i<0 || i>this.pages.length){
+    if(i<0 || i>=this.pages.length && i!==0){
       return;
     }
     this.postionCourant=i;
@@ -101,23 +101,24 @@ export class OffresComponent implements OnInit, OnDestroy, DoCheck{
     if(indice%this.taille==0 && this.offres[indice])
     {
       this.updateActive(this.postionCourant);
-      console.log(this.postionCourant)
+      console.log("tttttttttttt")
     }
     else if(indice%this.taille==0 && !this.offres[indice] && this.offres.length!==0)
     {
       this.updateActive(this.postionCourant-1);
-      console.log(this.postionCourant)
+      console.log("ffffffffffffffff")
     }
     else if(indice%this.taille==0 && !this.offres[indice] && this.offres.length==0)
     {
       this.updateActive(this.postionCourant);
       console.log(this.postionCourant)
+      console.log("bbbbbbbbbbbbbbb")
     }
     else
     {
       let newPageActive=Math.ceil((indice)/this.taille);
       this.updateActive(newPageActive-1);
-      console.log(this.postionCourant)
+      console.log("gvvvvvvvvvvvvv")
     }
     
   }
