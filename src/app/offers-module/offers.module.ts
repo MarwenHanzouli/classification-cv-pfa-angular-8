@@ -9,6 +9,7 @@ import { DetailsOffreComponent } from './details-offre/details-offre.component';
 import { AuthenticatedModule } from '../authenticated-module/authenticated.module';
 import { CvsComponent } from './cvs/cvs.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { PipeOffresPipe } from '../pipes/pipe-offres.pipe';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     OffreComponent,
     DetailsOffreComponent,
     CvsComponent,
+    PipeOffresPipe
   ],
   imports: [
     CommonModule,

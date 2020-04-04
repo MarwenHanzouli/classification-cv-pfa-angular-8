@@ -25,8 +25,7 @@ import { PipeOffresPipe } from '../pipes/pipe-offres.pipe';
     ActualiteComponent,
     FileUploadComponent,
     MenuComponent,
-    ModalComponent,
-    PipeOffresPipe
+    ModalComponent
   ],
   imports: [
     CommonModule,

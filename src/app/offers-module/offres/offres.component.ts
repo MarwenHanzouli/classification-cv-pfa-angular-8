@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy, DoCheck } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { faEdit, faTrash, faEye, faPlusCircle} from '@fortawesome/free-solid-svg-icons';
-import { BehaviorSubject, Subscription, Observable } from 'rxjs';
+import { BehaviorSubject, Subscription, Observable, from, Scheduler, asyncScheduler, of } from 'rxjs';
 import { GestionOffresService } from 'src/app/services/gestion-offres.service';
 import { Offre } from 'src/app/models/Offre.model';
 import { first } from 'rxjs/operators';
@@ -26,7 +26,7 @@ export class OffresComponent implements OnInit, OnDestroy, DoCheck{
   private pages=[];
   private postionCourant:number=0;
   private offresCourants:Offre[];
-  private offresCourantsObservable:Observable<any[]>;
+  private offresCourantsObservable=new Observable<Offre[]>();
 
   private objStyles;
   private objStylesDelete;
@@ -56,6 +56,7 @@ export class OffresComponent implements OnInit, OnDestroy, DoCheck{
       this.taillePage=Math.ceil(this.offres.length/this.taille);
       this.pages=Array(this.taillePage).fill(this.taillePage).map((x,i)=>i);
       this.offresCourants=this.offres.slice(0,this.taille);
+      this.offresCourantsObservable=of(this.offresCourants);
     });
   }
 
@@ -73,48 +74,52 @@ export class OffresComponent implements OnInit, OnDestroy, DoCheck{
       }
     });
     this.offresCourants=this.offres.slice(i*this.taille,i*this.taille+this.taille);
-    console.log(this.offresCourants)
+    this.offresCourantsObservable=of(this.offresCourants);
   }
   deleteOffre(id){
-    return this.offresService.deleteOffre(id).subscribe((response)=>{
-      console.log(response);
-      if(response==null)
-      {
-        let indice=0;
-        while (this.offres[indice].id!==id){
-          indice++;
-        }
-        this.offres.splice(indice,1);
-        //console.log(this.offres)
-        this.offresService.offresSubject.next(this.offres);
-        this.objStylesDelete={'values':[true,true,false,false]};
-        this.objStylesModifer={'values':[false,false,false,false]};
-        this.objStylesDetails={'values':[false,false,false,false]};
-        this.taillePage=Math.ceil(this.offres.length/this.taille);
-        this.pages=Array(this.taillePage).fill(this.taillePage).map((x,i)=>i);
-        if(indice%this.taille==0 && this.offres[indice])
-        {
-          this.updateActive(this.postionCourant);
-          console.log(this.postionCourant)
-        }
-        else if(indice%this.taille==0 && !this.offres[indice])
-        {
-          this.updateActive(this.postionCourant-1);
-          console.log(this.postionCourant)
-        }
-        else
-        {
-          let newPageActive=Math.ceil((indice)/this.taille);
-          this.updateActive(newPageActive-1);
-          console.log(this.postionCourant)
-        }
-      }
+    // return this.offresService.deleteOffre(id).subscribe((response)=>{
+    //   console.log(response);
+    //   if(response==null)
+    //   {
+        
+    //   }
       
-    });
-    
+    // });
+    let indice=0;
+    while (this.offres[indice].id!==id){
+      indice++;
+    }
+    this.offres.splice(indice,1);
+    //console.log(this.offres)
+    this.offresService.offresSubject.next(this.offres);
+    this.objStylesDelete={'values':[true,true,false,false]};
+    this.objStylesModifer={'values':[false,false,false,false]};
+    this.objStylesDetails={'values':[false,false,false,false]};
+    this.taillePage=Math.ceil(this.offres.length/this.taille);
+    this.pages=Array(this.taillePage).fill(this.taillePage).map((x,i)=>i);
+    if(indice%this.taille==0 && this.offres[indice])
+    {
+      this.updateActive(this.postionCourant);
+      console.log(this.postionCourant)
+    }
+    else if(indice%this.taille==0 && !this.offres[indice])
+    {
+      this.updateActive(this.postionCourant-1);
+      console.log(this.postionCourant)
+    }
+    else
+    {
+      let newPageActive=Math.ceil((indice)/this.taille);
+      this.updateActive(newPageActive-1);
+      console.log(this.postionCourant)
+    }
     
   }
   modifierOffre(id){
+
+  }
+
+  updateObservableCourants(){
 
   }
   naviguer(path) {

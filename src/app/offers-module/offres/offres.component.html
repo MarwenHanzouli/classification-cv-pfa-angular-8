@@ -33,7 +33,7 @@
     </thead>
     <tbody> 
       <tr *ngIf="offres.length==0" class="table-light"> Aucun offre...</tr> 
-      <tr class="table-light" *ngFor="let offre of offresCourants; let i=index">
+      <tr class="table-light" *ngIf="offres.length!==0" *ngFor="let offre of (offresCourantsObservable | async); let i=index">
         <td>{{offre.titre}}</td>
         <td>{{offre.dateOffre | date :'short'}}</td>
         <td>{{offre.organisme.nomOrganisme}}</td>
