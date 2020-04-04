@@ -34,6 +34,7 @@ import { NotificationService } from './services/notification.service';
 import { AuthenticatedModule } from './authenticated-module/authenticated.module';
 import { GestionUsersService } from './services/gestion-users.service';
 import { LoadUserResolver } from './resolvers/load-user.reslover';
+import { LoadOffresResolver } from './resolvers/load-offres.resolver.ts';
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,7 +62,8 @@ import { LoadUserResolver } from './resolvers/load-user.reslover';
     OffersModule,
     AdministrationModule,
     AuthenticatedModule,
-    LoadUserResolver
+    LoadUserResolver,
+    LoadOffresResolver
   ],
   providers: [
     RegistrationService,
