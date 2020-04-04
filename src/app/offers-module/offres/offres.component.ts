@@ -61,7 +61,7 @@ export class OffresComponent implements OnInit, OnDestroy, DoCheck{
   }
 
   updateActive(i){
-    if(i<0 || i>=this.pages.length){
+    if(i<0 || i>this.pages.length){
       return;
     }
     this.postionCourant=i;
@@ -97,14 +97,20 @@ export class OffresComponent implements OnInit, OnDestroy, DoCheck{
     this.objStylesDetails={'values':[false,false,false,false]};
     this.taillePage=Math.ceil(this.offres.length/this.taille);
     this.pages=Array(this.taillePage).fill(this.taillePage).map((x,i)=>i);
+    console.log(this.pages)
     if(indice%this.taille==0 && this.offres[indice])
     {
       this.updateActive(this.postionCourant);
       console.log(this.postionCourant)
     }
-    else if(indice%this.taille==0 && !this.offres[indice])
+    else if(indice%this.taille==0 && !this.offres[indice] && this.offres.length!==0)
     {
       this.updateActive(this.postionCourant-1);
+      console.log(this.postionCourant)
+    }
+    else if(indice%this.taille==0 && !this.offres[indice] && this.offres.length==0)
+    {
+      this.updateActive(this.postionCourant);
       console.log(this.postionCourant)
     }
     else
