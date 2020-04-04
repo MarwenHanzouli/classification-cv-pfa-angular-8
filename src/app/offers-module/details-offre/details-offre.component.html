@@ -1,11 +1,16 @@
 <div class="col-sm-12">
-    <div class="card">
-        <div class="card-header"><strong>Titre : {{offre.titre}}</strong></div>
-            <div class="card-body">
-                    {{offre.titre}}
-            </div>
-            <div class="card-footer">
-                
-            </div>   
+    <div class="card"*ngIf="obs | async as o; else loading">
+        <div class="card-header" >
+            <strong>Titre : {{(o.titre )}}</strong>
+        </div>
+        <div class="card-body">
+                {{(o.id)}}
+        </div>
+        <div class="card-footer">
+            
+        </div>   
     </div>
+    <ng-template #loading>
+        ......
+    </ng-template>
 </div> 

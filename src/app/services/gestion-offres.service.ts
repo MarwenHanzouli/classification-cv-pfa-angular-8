@@ -1,52 +1,58 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Offre } from '../models/Offre.model';
+import { AbstractHttpService } from '../AbstractHttpService';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 @Injectable({
   providedIn: 'root'
 })
-export class GestionOffresService {
+export class GestionOffresService extends AbstractHttpService{
 
+  serverUrl=this.url;
+  headers = new HttpHeaders().set('Content-Type', 'application/json');
   offresSubject:BehaviorSubject<Offre[]>;
-  //offresObservable:Observable<Offre[]>;
-  private offres:Offre[];
-  constructor() { 
-    this.offres=[
-      {"id":1,"titre":'Développeur JAVA',"dateOffre":new Date("2020/12/20"),"entreprise":"Poulina"},
-      {"id":2,"titre":'Développeur C#',"dateOffre":new Date("2020/12/20"),"entreprise":"Poulina"},
-      {"id":3,"titre":'Développeur sdfsdf',"dateOffre":new Date("2020/12/20"),"entreprise":"Poulina"},
-      {"id":4,"titre":'Développeur vxcsdf',"dateOffre":new Date("2020/12/20"),"entreprise":"Poulina"},
-      {"id":5,"titre":'Développeur bdgfv',"dateOffre":new Date("2020/12/20"),"entreprise":"Poulina"},
-      {"id":6,"titre":'Développeur zerfzer',"dateOffre":new Date("2020/12/20"),"entreprise":"Poulina"},
-      {"id":7,"titre":'Développeur JAqsdfqVA',"dateOffre":new Date("2020/12/20"),"entreprise":"Poulina"},
-      {"id":8,"titre":'sqdfxcw sdc',"dateOffre":new Date("2020/12/20"),"entreprise":"Poulina"},
-      {"id":9,"titre":'qscdwxc JAVA',"dateOffre":new Date("2020/12/20"),"entreprise":"Poulina"},
-      {"id":10,"titre":'vvc JAVA',"dateOffre":new Date("2020/12/20"),"entreprise":"Poulina"},
-      {"id":11,"titre":'wxcvxcv JAVA',"dateOffre":new Date("2020/12/20"),"entreprise":"Poulina"},
-      {"id":12,"titre":'esvd JAVA',"dateOffre":new Date("2020/12/20"),"entreprise":"Poulina"},
-      {"id":13,"titre":'efs ssdf',"dateOffre":new Date("2020/12/20"),"entreprise":"Poulina"},
-      {"id":14,"titre":'sfsd sc ',"dateOffre":new Date("2020/12/20"),"entreprise":"Poulina"},
-      {"id":15,"titre":'sdf JAVsdfA',"dateOffre":new Date("2020/12/20"),"entreprise":"Poulina"},
-      {"id":16,"titre":'dv JAVsdvA',"dateOffre":new Date("2020/12/20"),"entreprise":"Poulina"},
-      {"id":17,"titre":'vsdv JAVA',"dateOffre":new Date("2020/12/20"),"entreprise":"Poulina"},
-      {"id":18,"titre":'sff JAVAsdfgs',"dateOffre":new Date("2020/12/20"),"entreprise":"Poulina"},
-      {"id":19,"titre":'Dévelovcxsfvcvppeur fdg',"dateOffre":new Date("2020/12/20"),"entreprise":"Poulina"},
-      {"id":20,"titre":'sfdgfg JAVsfgsfA',"dateOffre":new Date("2020/12/20"),"entreprise":"Poulina"},
-      {"id":21,"titre":'sfdgfg JAVsfgsfA',"dateOffre":new Date("2020/12/20"),"entreprise":"Poulina"}
-    ];
-    this.offresSubject=new BehaviorSubject(this.offres);
-    //this.offresObservable=this.offresSubject.asObservable();
+
+  public offres:Offre[];
+  
+  constructor(private httpClient: HttpClient, private toastr: ToastrService) { 
+    super();
+    this.getAll(); 
+  }
+  getAll(){
+    this.httpClient.get<Offre[]>(this.serverUrl+'/microservice-offers/offres/getAll',
+    {headers: this.headers}).subscribe((data)=>{
+      this.offres=data;
+      this.offresSubject=new BehaviorSubject(this.offres.slice());
+    },
+    (error)=>{
+      this.toastr.warning("Erreur de get all offres!!");
+      console.log(error)
+    });
   }
 
-  getOffreById(id):Observable<Offre>{
-    let o:Observable<Offre>;
-    this.offres.map((elem)=>{
-      if(elem.id==id)
-      {
-        o=new Observable((observer)=>{
-          observer.next(elem);
-        });
-      }
-    })
-    return o;
+  getAllFromServer(){
+    return this.httpClient.get<Offre[]>(this.serverUrl+'/microservice-offers/offres/getAll',
+    {headers: this.headers});
+  }
+
+  deleteOffre(idOffre):Observable<any>{
+    return this.httpClient.delete(this.serverUrl+'/microservice-offers/offres/delete/'+idOffre,
+    {headers: this.headers});
+  }
+
+  getOffreById(idOffre):Observable<Offre>{
+    return this.httpClient.get<Offre>(this.serverUrl+'/microservice-offers/offres/getOffreById/'+idOffre,
+    {headers: this.headers});
+    // let o:Observable<Offre>;
+    // this.offres.map((elem)=>{
+    //   if(elem.id==id)
+    //   {
+    //     o=new Observable((observer)=>{
+    //       observer.next(elem);
+    //     });
+    //   }
+    // })
+    // return o;
   }
 }

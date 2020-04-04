@@ -36,7 +36,7 @@
       <tr class="table-light" *ngFor="let offre of offresCourants; let i=index">
         <td>{{offre.titre}}</td>
         <td>{{offre.dateOffre | date :'short'}}</td>
-        <td>{{offre.entreprise}}</td>
+        <td>{{offre.organisme.nomOrganisme}}</td>
         <td class="actions">
             <button type="button" class="btn btn-outline-info"
             data-toggle="modal" [attr.data-target]="'#voir-details-offre'+i"><fa-icon [icon]="faEye"></fa-icon></button>

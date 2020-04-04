@@ -10,7 +10,6 @@ import { AuthenticatedModule } from '../authenticated-module/authenticated.modul
 import { CvsComponent } from './cvs/cvs.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
-
 @NgModule({
   declarations: [
     OffresComponent,

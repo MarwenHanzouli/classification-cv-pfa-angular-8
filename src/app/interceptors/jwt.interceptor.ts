@@ -13,6 +13,7 @@ export class JwtInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
       this.authService=this.inj.get(AuthentificationService);
+      console.log(request.url);
       if (request.url.indexOf('authenticate') !== -1) {
         console.log("pas de token à l'authentification");
         return next.handle(request); // do nothing
