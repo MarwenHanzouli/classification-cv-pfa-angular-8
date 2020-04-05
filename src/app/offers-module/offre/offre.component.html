@@ -1,1 +1,106 @@
-<p>offre item works!</p>
+<div class="container">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#org">Séléctionner l'organisme</a>
+      </li>
+      <li class="nav-item ">
+        <a class="nav-link disabled" data-toggle="tab" href="#menu1">Menu 1</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" data-toggle="tab" href="#menu2">Menu 2</a>
+      </li>
+    </ul>
+  
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div id="org" class="container tab-pane active"><br>
+        <h3> Lancer cette offre pour l'organisme?</h3>
+        <div class="form-row" *ngIf="!clickedO">
+            <div class="form-group col-md-6">
+                <select id="organisme" class="form-control" 
+                (change)="onChangeOrganimse($event.target.value)"
+                [ngClass]="{ 'is-invalid': false}">
+                  <option selected value="c">Choix...</option>
+                  <option *ngFor="let organisme of organismes | async" value="{{organisme | json }}">{{organisme.nomOrganisme}}</option>
+                </select>
+                <div *ngIf="false" 
+                class="invalid-feedback">
+                    <div *ngIf="">
+                        Le profil est obligatoire.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <select id="secteur" class="form-control" 
+                [ngClass]="{ 'is-invalid': false}">
+                  <option *ngIf="organisme | async as or;" value="{{or.secteur}}">{{or.secteur }}</option>
+                </select>
+                <div *ngIf="false" 
+                class="invalid-feedback">
+                    <div *ngIf="">
+                        Le profil est obligatoire.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="float-left btn btn-outline-success" 
+        *ngIf="!clickedO" (click)="clickedO=true">Ajouter un nouveau organisme</button>
+        <br>
+        <form [formGroup]="organismeForm" (ngSubmit)="submitOrganisme()" *ngIf="clickedO">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="newOr">Entrer le secteur de l'organisme</label>
+                    <input type="text" class="form-control" formControlName="organisme" 
+                    placeholder="Entrer le nom de l'organisme" id="newOr" 
+                    [ngClass]="{ 'is-invalid': fO.organisme.errors && 
+                    (fO.organisme.dirty || fO.organisme.touched || formOrganismeSubmitted) }">
+                    <div *ngIf="fO.organisme.invalid && (fO.organisme.dirty || fO.organisme.touched || formOrganismeSubmitted)" 
+                    class="invalid-feedback">
+                        <div *ngIf="fO.organisme.errors.required">
+                            Champs obligatoire.
+                        </div>
+                        <div *ngIf="fO.organisme.errors.minlength">
+                            2 caractères au minimum.
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="newSec">Entrer le secteur de l'organisme</label>
+                    <input type="text" class="form-control" formControlName="secteur" 
+                    placeholder="Entrer le secteur" id="newSec"[ngClass]="{ 'is-invalid': fO.secteur.errors && 
+                    (fO.secteur.dirty || fO.secteur.touched || formOrganismeSubmitted) }">
+                    <div *ngIf="fO.secteur.invalid && (fO.secteur.dirty || fO.secteur.touched || formOrganismeSubmitted)" 
+                    class="invalid-feedback">
+                        <div *ngIf="fO.secteur.errors.required">
+                            Champs obligatoire.
+                        </div>
+                        <div *ngIf="fO.secteur.errors.minlength">
+                            3 caractères au minimum.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="float-right">
+                <button type="button" class="btn btn-warning" (click)="clickedO=false">Annuler</button>
+                <button type="submit" class="btn btn-success">Ajouter</button>
+            </div>
+            <br>
+        </form>
+        <br>
+        <hr>
+        <div class="clearfix">
+            <button type="button" class="float-left btn btn-outline-info"><</button>
+            <button type="button" class="float-right btn btn-outline-info">></button>
+        </div>
+      </div>
+      <div id="menu1" class="container tab-pane fade"><br>
+        <h3>Menu 1</h3>
+        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      </div>
+      <div id="menu2" class="container tab-pane fade"><br>
+        <h3>Menu 2</h3>
+        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+      </div>
+    </div>
+  </div>

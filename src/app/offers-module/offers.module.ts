@@ -10,6 +10,7 @@ import { AuthenticatedModule } from '../authenticated-module/authenticated.modul
 import { CvsComponent } from './cvs/cvs.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PipeOffresPipe } from '../pipes/pipe-offres.pipe';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,9 @@ import { PipeOffresPipe } from '../pipes/pipe-offres.pipe';
     OffersRoutingModule,
     CandidatModule,
     FontAwesomeModule,
-    AuthenticatedModule
+    AuthenticatedModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports:[
     DetailsOffreComponent

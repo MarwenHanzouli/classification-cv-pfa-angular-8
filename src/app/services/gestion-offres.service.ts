@@ -4,6 +4,7 @@ import { Offre } from '../models/Offre.model';
 import { AbstractHttpService } from '../AbstractHttpService';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import { Organisme } from '../models/Organisme.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -37,7 +38,7 @@ export class GestionOffresService extends AbstractHttpService{
   }
 
   deleteOffre(idOffre):Observable<any>{
-    return this.httpClient.delete(this.serverUrl+'/microservice-offers/offres/delete/'+idOffre,
+    return this.httpClient.delete<any>(this.serverUrl+'/microservice-offers/offres/delete/'+idOffre,
     {headers: this.headers});
   }
 
@@ -54,5 +55,13 @@ export class GestionOffresService extends AbstractHttpService{
     //   }
     // })
     // return o;
+  }
+  getAllOrganisme():Observable<Organisme[]>{
+    return this.httpClient.get<Organisme[]>(this.serverUrl+'/microservice-offers/organismes/getAll',
+    {headers: this.headers});
+  }
+  addOrganisme(organisme):Observable<Organisme>{
+    return this.httpClient.post<Organisme>(this.serverUrl+'/microservice-offers/organismes/add',
+    organisme,{headers: this.headers});
   }
 }

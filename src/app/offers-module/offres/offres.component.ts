@@ -5,6 +5,7 @@ import { BehaviorSubject, Subscription, Observable, from, Scheduler, asyncSchedu
 import { GestionOffresService } from 'src/app/services/gestion-offres.service';
 import { Offre } from 'src/app/models/Offre.model';
 import { first } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-offres',
   templateUrl: './offres.component.html',
@@ -37,7 +38,8 @@ export class OffresComponent implements OnInit, OnDestroy, DoCheck{
               private el: ElementRef,
               private offresService:GestionOffresService,
               private cd:ChangeDetectorRef,
-              private route: ActivatedRoute) { 
+              private route: ActivatedRoute,
+              private toastr: ToastrService) { 
   }
 
   
@@ -75,51 +77,48 @@ export class OffresComponent implements OnInit, OnDestroy, DoCheck{
     });
     this.offresCourants=this.offres.slice(i*this.taille,i*this.taille+this.taille);
     this.offresCourantsObservable=of(this.offresCourants);
+    this.offresSubcription.unsubscribe();
   }
   deleteOffre(id){
-    // return this.offresService.deleteOffre(id).subscribe((response)=>{
-    //   console.log(response);
-    //   if(response==null)
-    //   {
-        
-    //   }
+     this.offresService.deleteOffre(id).subscribe((response)=>{
+       console.log(response);
+       if(response==null)
+       {
+          this.toastr.success("Cette offre a été supprimée avec succès!");
+       }
       
-    // });
-    let indice=0;
-    while (this.offres[indice].id!==id){
-      indice++;
-    }
-    this.offres.splice(indice,1);
-    //console.log(this.offres)
-    this.offresService.offresSubject.next(this.offres);
-    this.objStylesDelete={'values':[true,true,false,false]};
-    this.objStylesModifer={'values':[false,false,false,false]};
-    this.objStylesDetails={'values':[false,false,false,false]};
-    this.taillePage=Math.ceil(this.offres.length/this.taille);
-    this.pages=Array(this.taillePage).fill(this.taillePage).map((x,i)=>i);
-    console.log(this.pages)
-    if(indice%this.taille==0 && this.offres[indice])
-    {
-      this.updateActive(this.postionCourant);
-      console.log("tttttttttttt")
-    }
-    else if(indice%this.taille==0 && !this.offres[indice] && this.offres.length!==0)
-    {
-      this.updateActive(this.postionCourant-1);
-      console.log("ffffffffffffffff")
-    }
-    else if(indice%this.taille==0 && !this.offres[indice] && this.offres.length==0)
-    {
-      this.updateActive(this.postionCourant);
-      console.log(this.postionCourant)
-      console.log("bbbbbbbbbbbbbbb")
-    }
-    else
-    {
-      let newPageActive=Math.ceil((indice)/this.taille);
-      this.updateActive(newPageActive-1);
-      console.log("gvvvvvvvvvvvvv")
-    }
+     },
+     (error)=>{
+       this.toastr.warning(error.message);
+     });
+     let indice=0;
+     while (this.offres[indice].id!==id){
+       indice++;
+     }
+     this.offres.splice(indice,1);
+     this.offresService.offresSubject.next(this.offres);
+     this.objStylesDelete={'values':[true,true,false,false]};
+     this.objStylesModifer={'values':[false,false,false,false]};
+     this.objStylesDetails={'values':[false,false,false,false]};
+     this.taillePage=Math.ceil(this.offres.length/this.taille);
+     this.pages=Array(this.taillePage).fill(this.taillePage).map((x,i)=>i);
+     if(indice%this.taille==0 && this.offres[indice])
+     {
+       this.updateActive(this.postionCourant);
+     }
+     else if(indice%this.taille==0 && !this.offres[indice] && this.offres.length!==0)
+     {
+       this.updateActive(this.postionCourant-1);
+     }
+     else if(indice%this.taille==0 && !this.offres[indice] && this.offres.length==0)
+     {
+       this.updateActive(this.postionCourant);
+     }
+     else
+     {
+       let newPageActive=Math.ceil((indice)/this.taille);
+       this.updateActive(newPageActive-1);
+     }
     
   }
   modifierOffre(id){
