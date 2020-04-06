@@ -12,6 +12,9 @@ export class LoaderInterceptorService implements HttpInterceptor {
     if (req.url.indexOf('/signup') === -1) {
       return next.handle(req); // do nothing
     }
+    if (req.url.indexOf('/offres/add') === -1) {
+      return next.handle(req); // do nothing
+    }
     this.showLoader();
     console.log("chargement--------------------");
     return next.handle(req).pipe(tap((event: HttpEvent<any>) => { 
