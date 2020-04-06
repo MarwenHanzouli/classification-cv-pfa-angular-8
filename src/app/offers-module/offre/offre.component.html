@@ -1,15 +1,16 @@
-<div class="container">
+<app-wrapper [loading]="loadingOf"></app-wrapper>
+<div class="container" *ngIf="!offreSaved">
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
       <li class="nav-item">
-        <a class="nav-link active" data-toggle="tab" href="#org">Séléctionner l'organisme</a>
-      </li>
-      <li class="nav-item ">
-        <a class="nav-link disabled" data-toggle="tab" href="#menu1">Menu 1</a>
+        <a class="nav-link active" [ngClass]="{'active': pageCourant==0}" data-toggle="tab" href="#org">Séléctionner l'organisme</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link disabled" data-toggle="tab" href="#menu2">Menu 2</a>
+        <a class="nav-link" [ngClass]="{'active': pageCourant==1,'disabled': false}" data-toggle="tab" href="#details">Détails</a>
       </li>
+      <!-- <li class="nav-item">
+        <a class="nav-link disabled" [ngClass]="{'active': pageCourant==2,'disabled': false}" data-toggle="tab" href="#desc">Description</a>
+      </li> -->
     </ul>
   
     <!-- Tab panes -->
@@ -26,7 +27,7 @@
                 </select>
                 <div *ngIf="false" 
                 class="invalid-feedback">
-                    <div *ngIf="">
+                    <div *ngIf="false">
                         Le profil est obligatoire.
                     </div>
                 </div>
@@ -50,7 +51,7 @@
         <form [formGroup]="organismeForm" (ngSubmit)="submitOrganisme()" *ngIf="clickedO">
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="newOr">Entrer le secteur de l'organisme</label>
+                    <label for="newOr">Entrer le nom de l'organisme</label>
                     <input type="text" class="form-control" formControlName="organisme" 
                     placeholder="Entrer le nom de l'organisme" id="newOr" 
                     [ngClass]="{ 'is-invalid': fO.organisme.errors && 
@@ -83,24 +84,184 @@
             </div>
             <div class="float-right">
                 <button type="button" class="btn btn-warning" (click)="clickedO=false">Annuler</button>
-                <button type="submit" class="btn btn-success">Ajouter</button>
+                <button type="submit" class="btn btn-success"  [disabled]="loadingO">
+                  <span class="spinner-border spinner-border-sm" *ngIf="loadingO"></span> Ajouter</button>
             </div>
             <br>
         </form>
         <br>
         <hr>
-        <div class="clearfix">
-            <button type="button" class="float-left btn btn-outline-info"><</button>
-            <button type="button" class="float-right btn btn-outline-info">></button>
+      </div>
+
+
+
+      <div id="details" class="container tab-pane fade"><br>
+        <h3>Détails de cette offre</h3>
+        <form [formGroup]="offreForm">
+          <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="titre">Titre:</label>
+                <input class="form-control" id="titre" 
+                placeholder="Entrer le titre" formControlName="titre" 
+                [ngClass]="{ 'is-invalid': fOf.titre.errors 
+                &&(fOf.titre.dirty || fOf.titre.touched || submittedOffre)}">
+                <div *ngIf="fOf.titre.errors && (fOf.titre.dirty || fOf.titre.touched || submittedOffre)" class="invalid-feedback">
+                    <div *ngIf="fOf.titre.errors.required">Le titre est obligatoire</div>
+                    <div *ngIf="fOf.titre.errors.minlength">
+                        Le titre doit comporter au moins 3 caractères.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="poste">Poste:</label>
+              <input class="form-control" id="poste" 
+              placeholder="Entrer le titre" formControlName="poste" 
+              [ngClass]="{ 'is-invalid': fOf.poste.errors 
+              &&(fOf.poste.dirty || fOf.poste.touched || submittedOffre)}">
+              <div *ngIf="fOf.poste.errors && (fOf.poste.dirty || fOf.poste.touched || submittedOffre)" class="invalid-feedback">
+                  <div *ngIf="fOf.poste.errors.required">Le poste est obligatoire</div>
+                  <div *ngIf="fOf.poste.errors.minlength">
+                      Le poste doit comporter au moins 3 caractères.
+                  </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="dateOffre">La date de lancement:</label>
+                <input type="date" class="form-control" id="dateOffre" 
+                 formControlName="dateOffre" 
+                [ngClass]="{ 'is-invalid': fOf.dateOffre.errors 
+                &&(fOf.dateOffre.dirty || fOf.dateOffre.touched || submittedOffre)}">
+                <div *ngIf="fOf.dateOffre.errors && (fOf.dateOffre.dirty || fOf.dateOffre.touched || submittedOffre)" class="invalid-feedback">
+                    <div *ngIf="fOf.dateOffre.errors.required">
+                      La date de lancement est obligatoire
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="dateFin">La date de fin:</label>
+              <input type="date" class="form-control" id="dateFin" 
+              formControlName="dateFin" 
+              [ngClass]="{ 'is-invalid': fOf.dateFin.errors 
+              &&(fOf.dateFin.dirty || fOf.dateFin.touched || submittedOffre)}">
+              <div *ngIf="fOf.dateFin.errors && (fOf.dateFin.dirty || fOf.dateFin.touched || submittedOffre)" 
+              class="invalid-feedback">
+                  <div *ngIf="fOf.dateFin.errors.required">
+                    La date de fin est obligatoire
+                  </div>
+                  <div *ngIf="fOf.dateFin.errors.mustMoreThan">
+                    La date de fin doit être après la date de lancement
+                  </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="anneeExp">Années d'expérience demandé:</label>
+                <input class="form-control" id="anneeExp" 
+                placeholder="Entrer le nombre d'années d'expérience" formControlName="anneeExp" 
+                [ngClass]="{ 'is-invalid': fOf.anneeExp.errors 
+                &&(fOf.anneeExp.dirty || fOf.anneeExp.touched || submittedOffre)}">
+                <div *ngIf="fOf.anneeExp.errors && (fOf.anneeExp.dirty || fOf.anneeExp.touched || submittedOffre)" class="invalid-feedback">
+                    <div *ngIf="fOf.anneeExp.errors.required">Le nombre d'années d'expérience est obligatoire</div>
+                    <div *ngIf="fOf.anneeExp.errors.pattern">
+                        Le nombre doit comporter uniquement des chiffres.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="lieu">Lieu:</label>
+              <input class="form-control" id="lieu" 
+              placeholder="Entrer le lieu" formControlName="lieu" 
+              [ngClass]="{ 'is-invalid': fOf.lieu.errors 
+              &&(fOf.lieu.dirty || fOf.lieu.touched || submittedOffre)}">
+              <div *ngIf="fOf.lieu.errors && (fOf.lieu.dirty || fOf.lieu.touched || submittedOffre)" class="invalid-feedback">
+                  <div *ngIf="fOf.lieu.errors.required">Le lieu est obligatoire</div>
+                  <div *ngIf="fOf.lieu.errors.minlength">
+                      Le poste doit comporter au moins 3 caractères.
+                  </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="niveau">Niveau demandé:</label>
+                <select class="form-control" id="niveau" 
+                  formControlName="niveau" 
+                  [ngClass]="{ 'is-invalid': fOf.niveau.errors 
+                  &&(fOf.niveau.dirty || fOf.niveau.touched || submittedOffre)}">
+                  <option selected value="">Choix...</option>
+                  <option *ngFor="let item of niveaux | async">{{ item }}</option>
+                </select>
+                <div *ngIf="fOf.niveau.errors && (fOf.niveau.dirty || fOf.niveau.touched || submittedOffre)" class="invalid-feedback">
+                    <div *ngIf="fOf.niveau.errors.required">Le niveau est obligatoire</div>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="type">Type d'offre:</label>
+              <select class="form-control" id="type" 
+                   formControlName="type" 
+                  [ngClass]="{ 'is-invalid': fOf.type.errors 
+                  &&(fOf.type.dirty || fOf.type.touched || submittedOffre)}">
+                  <option selected value="">Choix...</option>
+                  <option *ngFor="let item of types | async">{{ item }}</option>
+                </select>
+                <div *ngIf="fOf.type.errors && (fOf.type.dirty || fOf.type.touched || submittedOffre)" class="invalid-feedback">
+                    <div *ngIf="fOf.type.errors.required">Le type d'offre est obligatoire</div>
+                </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-12">
+                <label for="description">Description:</label>
+                <textarea class="form-control" id="description" formControlName="description" rows="2">
+                  <span class="badge badge-pill badge-info">Info</span>
+                </textarea>
+                <div *ngIf="fOf.description.errors && (fOf.description.dirty || fOf.description.touched || submittedOffre)" class="invalid-feedback">
+                    <div *ngIf="fOf.description.errors.required">La description est obligatoire</div>
+                </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="competences">Séléctionner les compétences demandé:</label>
+              <div id="competences">
+                <button type="button" class="btn btn-outline-info"
+                *ngFor="let item of competences | async" (click)="clickCompetence(item.id)">{{item.titre}}</button>
+              </div>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="competencesSelected">Les compétences demandé:</label>
+              <div id="competencesSelected">
+                <button type="button" class="btn btn-outline-success"
+                *ngFor="let item of competencesSelected | async" (click)="removeCompetence(item.id,item.titre)">{{item.titre}}</button>
+              </div>
+            </div>
+          </div>
+        </form>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Ajouter une autre compétence"
+          [(ngModel)]="newComp">
+          <div class="input-group-append">
+            <button class="btn btn-success" type="button" (click)="ajouter()">Ajouter</button>
+          </div>
+        </div>
+        <hr>
+        <div class="float-right">
+          <button type="button" class="btn btn-warning" (click)="reset()">Annuler</button>
+          <button type="button" class="btn btn-success" (click)="enregistrerOffre()">Ajouter</button>
         </div>
       </div>
-      <div id="menu1" class="container tab-pane fade"><br>
-        <h3>Menu 1</h3>
-        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-      </div>
-      <div id="menu2" class="container tab-pane fade"><br>
+      <!-- <div id="desc" class="container tab-pane fade"><br>
         <h3>Menu 2</h3>
         <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-      </div>
+      </div> -->
     </div>
+    <!-- <div class="clearfix">
+      <button type="button" class="float-left btn btn-outline-info"><</button>
+      <button type="button" class="float-right btn btn-outline-info" (click)="passer(pageCourant+1)">></button>
+    </div> -->
   </div>
