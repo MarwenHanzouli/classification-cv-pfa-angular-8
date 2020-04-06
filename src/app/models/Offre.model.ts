@@ -1,6 +1,7 @@
 import { Organisme } from './Organisme.model';
 import { TypeOffre } from './enums/type-offre.enum';
 import { Niveau } from './enums/niveau.enum';
+import { Competence } from './Competence.model';
 
 export class Offre{
     constructor(
@@ -16,6 +17,7 @@ export class Offre{
         public niveauDemande:Niveau,
         public etat:boolean=true,
         public idManager:number,
+        public competences?:Competence[],
         public id?:number
     ){}
 }

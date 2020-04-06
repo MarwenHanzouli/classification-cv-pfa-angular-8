@@ -1,7 +1,7 @@
 export enum Niveau {
-    Bac= "BAC",
+    Bac= "Bac",
     Licence= "Licence",
-    Mastere= "Mastère",
-    Ingenieur= "Ingénieur",
-    Autre= "Autre niveau"
+    Mastere= "Mastere",
+    Ingenieur= "Ingenieur",
+    Autre= "Autre"
 }

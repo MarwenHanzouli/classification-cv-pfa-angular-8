@@ -1,7 +1,7 @@
 export enum TypeOffre {
-    TempsPlein= "Temps Plein",
-    TempsPartiel= "Temps Partiel",
-    CDD= "CDD ou mission ponctuelle",
-    TravailTemporaire= "Travail Temporaire",
+    TempsPlein= "TempsPlein",
+    TempsPartiel= "TempsPartiel",
+    CDD= "CDD",
+    TravailTemporaire= "TravailTemporaire",
     Stagiaire= "Stagiaire"
 }
