@@ -5,6 +5,7 @@ import { AbstractHttpService } from '../AbstractHttpService';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { Organisme } from '../models/Organisme.model';
+import { Competence } from '../models/Competence.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,7 +13,7 @@ export class GestionOffresService extends AbstractHttpService{
 
   serverUrl=this.url;
   headers = new HttpHeaders().set('Content-Type', 'application/json');
-  offresSubject:BehaviorSubject<Offre[]>;
+  public offresSubject:BehaviorSubject<Offre[]>;
 
   public offres:Offre[];
   
@@ -63,5 +64,22 @@ export class GestionOffresService extends AbstractHttpService{
   addOrganisme(organisme):Observable<Organisme>{
     return this.httpClient.post<Organisme>(this.serverUrl+'/microservice-offers/organismes/add',
     organisme,{headers: this.headers});
+  }
+
+  getAllType():Observable<string[]>{
+    return this.httpClient.get<string[]>(this.serverUrl+'/microservice-offers/offres/getAllTypes',
+    {headers: this.headers});
+  }
+  getAllNiveau():Observable<string[]>{
+    return this.httpClient.get<string[]>(this.serverUrl+'/microservice-offers/offres/getAllNiveau',
+    {headers: this.headers});
+  }
+  getAllCompetences():Observable<Competence[]>{
+    return this.httpClient.get<Competence[]>(this.serverUrl+'/microservice-offers/competences/getAll',
+    {headers: this.headers});
+  }
+  addOffre(offre):Observable<Offre>{
+    return this.httpClient.post<Offre>(this.serverUrl+'/microservice-offers/offres/add/'+offre.idManager,
+    offre,{headers: this.headers});
   }
 }

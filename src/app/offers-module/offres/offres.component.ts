@@ -4,7 +4,7 @@ import { faEdit, faTrash, faEye, faPlusCircle} from '@fortawesome/free-solid-svg
 import { BehaviorSubject, Subscription, Observable, from, Scheduler, asyncScheduler, of } from 'rxjs';
 import { GestionOffresService } from 'src/app/services/gestion-offres.service';
 import { Offre } from 'src/app/models/Offre.model';
-import { first } from 'rxjs/operators';
+import { first, skip } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-offres',
@@ -46,7 +46,7 @@ export class OffresComponent implements OnInit, OnDestroy, DoCheck{
 
   ngOnInit() {
     this.objStyles={'values':[false,false,true,false]};
-    this.taille=2;
+    this.taille=6;
     //this.offresService.getAll();
     //this.offresCourantsObservable=this.offresService.offresObservable
     this.offresSubcription=this.offresService.offresSubject.pipe(first()).subscribe((data)=>{
@@ -60,6 +60,11 @@ export class OffresComponent implements OnInit, OnDestroy, DoCheck{
       this.offresCourants=this.offres.slice(0,this.taille);
       this.offresCourantsObservable=of(this.offresCourants);
     });
+    this.offresService.offresSubject.pipe(skip(1)).subscribe(
+      (data)=>{
+        console.log("thisssssss")
+      }
+    );
   }
 
   updateActive(i){
