@@ -36,3 +36,23 @@ export function requiredFileType( type: string ) {
         }
     }
   }
+
+  export function  MustMoreThan(controlName: string, matchingControlName: string) 
+  {
+    return (formGroup: FormGroup) => {
+        const control = formGroup.controls[controlName];
+        const matchingControl = formGroup.controls[matchingControlName];
+
+        if (matchingControl.errors && !matchingControl.errors.mustMoreThan) {
+            // return if another validator has already found an error on the matchingControl
+            return;
+        }
+
+        // set error on matchingControl if validation fails
+        if (Date.parse(control.value) <= Date.parse(matchingControl.value)) {
+            control.setErrors({ mustMoreThan: true });
+        } else {
+            control.setErrors(null);
+        }
+    }
+  } 
