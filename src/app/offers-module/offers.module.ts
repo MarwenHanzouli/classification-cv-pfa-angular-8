@@ -11,6 +11,8 @@ import { CvsComponent } from './cvs/cvs.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PipeOffresPipe } from '../pipes/pipe-offres.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { WrapperComponent } from '../components/wrapper/wrapper.component';
+import { LoaderComponent } from '../components/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     OffreComponent,
     DetailsOffreComponent,
     CvsComponent,
-    PipeOffresPipe
+    PipeOffresPipe,
+    LoaderComponent,
+    WrapperComponent
   ],
   imports: [
     CommonModule,
@@ -30,7 +34,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule
   ],
   exports:[
-    DetailsOffreComponent
+    DetailsOffreComponent,
+    LoaderComponent,
+    WrapperComponent
   ]
 })
 export class OffersModule { }

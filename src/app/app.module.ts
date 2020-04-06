@@ -44,8 +44,6 @@ import { LoadOffresResolver } from './resolvers/load-offres.resolver.ts';
     AuthentificationComponent,
     FourOhFourComponent,
     FooterComponent,
-    LoaderComponent,
-    WrapperComponent,
     SuccesInscriptionComponent,
     MotDePasseOublierComponent
   ],
