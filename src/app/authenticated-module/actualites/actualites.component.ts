@@ -20,19 +20,33 @@ export class ActualitesComponent implements OnInit , OnDestroy{
               private authService:AuthentificationService) { }
 
   ngOnInit() {
+    // this.offres=this.offresService.getAllFromServer();
     this.offresSubcription=this.offresService.offresSubject.subscribe((data)=>{
       data.sort((a,b)=> Date.parse(a.createdDate)<=Date.parse(b.createdDate) ? 1 :-1);
       console.log(data)
       this.offres=of(data);
     });
     this.userSubscription=this.authService.currentUser.subscribe(
-      (user)=>{
-        this.user=of(user['user']);
-        console.log(this.user)
+      (data)=>{
+        if(data!==null)
+        {
+          console.log(data)
+          if(data['user'])
+          {
+            this.user=of(data['user']);
+            console.log(this.user)
+          }
+          else {
+            this.user=of(data);
+            console.log(this.user)
+          }
+          
+        }  
     },
     (er)=>{console.log(er)});
   }
   ngOnDestroy(): void {
     this.userSubscription.unsubscribe();
+    this.offresSubcription.unsubscribe();
   }
 }
