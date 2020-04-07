@@ -17,7 +17,7 @@ import { AuthentificationService } from 'src/app/services/authentification.servi
 })
 export class OffreComponent implements OnInit , OnDestroy{
 
-  private pageCourant:number=0;
+  //private pageCourant:number=0;
   private idManager:number;
 
   organismeForm:FormGroup;
@@ -27,7 +27,8 @@ export class OffreComponent implements OnInit , OnDestroy{
   private os:Organisme[];
   private clickedO:boolean;
   private formOrganismeSubmitted:boolean;
-  private loadingO:boolean;
+  private loadingOrganisme:boolean;
+  private organismeSelected:boolean=false;
 
 
   private offreForm:FormGroup;
@@ -43,7 +44,8 @@ export class OffreComponent implements OnInit , OnDestroy{
   private competencesSelected:Observable<Competence[]>=new Observable<Competence[]>();
   private compsSelected:Competence[]=[];
   private newComp:string="";
-  private loadingOf:boolean;
+  private loadingOf:boolean=false;
+
   private offreSaved:boolean;
   constructor(private offresService:GestionOffresService,
               private toastr: ToastrService,
@@ -51,12 +53,12 @@ export class OffreComponent implements OnInit , OnDestroy{
               private authService:AuthentificationService) { }
   
   ngOnInit() {
-    this.loadingO=false;
+    this.loadingOrganisme=false;
     this.offreSaved=false;
     this.submittedOffre=false;
     this.clickedO=false;
     this.formOrganismeSubmitted=false;
-    this.loadingO=false;
+    this.loadingOf=false;
     this.authService.currentUser.subscribe(
       (user)=>{
         this.idManager=user['user'].id;
@@ -82,7 +84,8 @@ export class OffreComponent implements OnInit , OnDestroy{
     if(value!=='c')
     {
       this.organisme=of(JSON.parse(value));
-      this.pageCourant++;
+      //this.pageCourant++;
+      this.organismeSelected=true;
     }
     else{
       this.organisme=of()
@@ -95,19 +98,20 @@ export class OffreComponent implements OnInit , OnDestroy{
     {
       return;
     }
-    this.loadingO=true;
+    this.loadingOrganisme=true;
     let o:Organisme=new Organisme(this.organismeForm.value['organisme'],this.organismeForm.value['secteur']);
     this.organisme=of(o);
     this.orgSubscription=this.offresService.addOrganisme(o).subscribe((rep)=>{
-      this.loadingO=false;
-      this.offreSaved=true;
+      this.loadingOrganisme=false;
+      console.log(this.loadingOrganisme)
       this.toastr.success("Cet organisme a été ajouté avec succès!");
       this.os.push(o);
       this.organismes=of(this.os);
-      this.pageCourant++;
+      //this.pageCourant++;
+      this.organismeSelected=true;
     },
     (error)=>{
-      this.loadingO=false;
+      this.loadingOrganisme=false;
       this.toastr.warning(error.error.message);
     });
   }
@@ -270,7 +274,9 @@ export class OffreComponent implements OnInit , OnDestroy{
       this.offresService.offresSubject.next(this.offresService.offres);
       this.toastr.success("Cette offre a été ajoutée avec succès");
       this.loadingOf=false;
+      this.offreSaved=true;
       console.log(data);
+      console.log(this.loadingOf)
     },
     (error)=>{
       this.toastr.warning(error.error.message);

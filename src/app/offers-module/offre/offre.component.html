@@ -1,12 +1,12 @@
-<app-wrapper [loading]="loadingOf"></app-wrapper>
+<!-- <app-wrapper [loading]="loadingOf" style="height: 100%;"></app-wrapper> -->
 <div class="container" *ngIf="!offreSaved">
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
       <li class="nav-item">
-        <a class="nav-link active" [ngClass]="{'active': pageCourant==0}" data-toggle="tab" href="#org">Séléctionner l'organisme</a>
+        <a class="nav-link active"  data-toggle="tab" href="#org">Séléctionner l'organisme</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [ngClass]="{'active': pageCourant==1,'disabled': false}" data-toggle="tab" href="#details">Détails</a>
+        <a class="nav-link" [ngClass]="{'disabled': !organismeSelected}" data-toggle="tab" href="#details">Détails</a>
       </li>
       <!-- <li class="nav-item">
         <a class="nav-link disabled" [ngClass]="{'active': pageCourant==2,'disabled': false}" data-toggle="tab" href="#desc">Description</a>
@@ -46,7 +46,7 @@
             </div>
         </div>
         <button type="button" class="float-left btn btn-outline-success" 
-        *ngIf="!clickedO" (click)="clickedO=true">Ajouter un nouveau organisme</button>
+        *ngIf="!clickedO" (click)="clickedO=true; organismeSelected=false">Ajouter un nouveau organisme</button>
         <br>
         <form [formGroup]="organismeForm" (ngSubmit)="submitOrganisme()" *ngIf="clickedO">
             <div class="form-row">
@@ -84,8 +84,8 @@
             </div>
             <div class="float-right">
                 <button type="button" class="btn btn-warning" (click)="clickedO=false">Annuler</button>
-                <button type="submit" class="btn btn-success"  [disabled]="loadingO">
-                  <span class="spinner-border spinner-border-sm" *ngIf="loadingO"></span> Ajouter</button>
+                <button type="submit" class="btn btn-success"  [disabled]="loadingOrganisme">
+                  <span class="spinner-border spinner-border-sm" *ngIf="loadingOrganisme"></span> Ajouter</button>
             </div>
             <br>
         </form>
@@ -252,7 +252,8 @@
         <hr>
         <div class="float-right">
           <button type="button" class="btn btn-warning" (click)="reset()">Annuler</button>
-          <button type="button" class="btn btn-success" (click)="enregistrerOffre()">Ajouter</button>
+          <button type="button" class="btn btn-success" (click)="enregistrerOffre()" [disabled]="loadingOf">
+            <span class="spinner-border spinner-border-sm" *ngIf="loadingOf"></span> Ajouter</button>
         </div>
       </div>
       <!-- <div id="desc" class="container tab-pane fade"><br>
@@ -265,3 +266,13 @@
       <button type="button" class="float-right btn btn-outline-info" (click)="passer(pageCourant+1)">></button>
     </div> -->
   </div>
+  <div class="container" *ngIf="offreSaved">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10 alert alert-success m-5">
+            <strong>Succès!</strong> Cette offre a été ajouté avec succès.<br>
+            <a (click)="offreSaved=false; organismeSelected=false" id="autreOffre" class="float-right"><strong><u> Ajouter une autre </u></strong></a>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+</div>
