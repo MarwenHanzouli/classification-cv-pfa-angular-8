@@ -1,3 +1,20 @@
 .invalid-feedback{
     display: inline;
 }
+
+.btns-photo{
+    display: flex;
+    justify-content: flex-end;
+}
+.btns-photo>button{
+    margin-left: 3px;
+}
+@media screen and (max-width: 967px) and (min-width: 576px), (max-width: 376px) {
+    .btns-photo{
+        display: flex;
+        flex-direction: column;
+    }
+    .btns-photo>button{
+        margin-top: 3px;
+    }
+}

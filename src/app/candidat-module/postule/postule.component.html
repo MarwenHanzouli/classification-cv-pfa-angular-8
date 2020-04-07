@@ -1,9 +1,9 @@
-<form [formGroup]="form">
+<form [formGroup]="form" enctype="multipart/form-data" (ngSubmit)="postulerCv()">
     <app-file-upload formControlName="file" (fileUrlToSend)="getFile($event)"></app-file-upload>
-    <div class="progress">
+    <div class="progress" *ngIf="loadingFile">
         <div class="progress-bar progress-bar-striped progress-bar-animated" style="width:40%"></div>
     </div>
-    <div *ngIf="f.file.errors && (f.file.dirty || f.file.touched || photoSubmitted)" 
+    <div *ngIf="f.file.errors && (f.file.dirty || f.file.touched || cvSubmitted)" 
             class="invalid-feedback">
         <div *ngIf="f.file.errors.required">
             Uploader un CV
@@ -14,9 +14,9 @@
     </div>
     <br><br>
     <div class="btns-photo">
-        <button type="button"   class="btn btn-info">Appliquer</button>
-        <button type="reset"   class="btn btn-danger" style="color: white;">Annuler</button>
-        <button type="submit"  class="btn btn-success" [disabled]="loadingPhoto">
-            <span class="spinner-border spinner-border-sm" *ngIf="loadingPhoto"></span>Modifier</button>
+        <button type="reset" (click)="annuler()"  class="btn btn-danger"
+         style="color: white;" [disabled]="loadingFile">Annuler</button>
+        <button type="submit"  class="btn btn-success" [disabled]="loadingFile">
+            <span class="spinner-border spinner-border-sm" *ngIf="loadingFile"></span>Uploader</button>
     </div>
 </form>

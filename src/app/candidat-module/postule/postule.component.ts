@@ -11,7 +11,8 @@ export class PostuleComponent implements OnInit {
 
   private form:FormGroup;
   private urlImg:any;
-
+  private cvSubmitted:boolean=false;
+  private loadingFile:boolean=false;
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
@@ -27,5 +28,18 @@ export class PostuleComponent implements OnInit {
   getFile(fileData:any){
     this.urlImg=fileData;
     //this.photoSubmitted=false;
+  }
+
+  postulerCv(){
+    this.cvSubmitted=true;
+    if(this.form.invalid)
+    {
+      return;
+    }
+    this.loadingFile=true;
+    
+  }
+  annuler(){
+    this.loadingFile=false;
   }
 }
