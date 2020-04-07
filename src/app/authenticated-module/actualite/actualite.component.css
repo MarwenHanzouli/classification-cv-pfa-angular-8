@@ -6,3 +6,7 @@
 #voir-details-btn{
     float: right;
 }
+.l1{
+    display: flex;
+    justify-content: space-between;
+}

@@ -13,6 +13,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ModalComponent } from './modal/modal.component';
 import { LoadUserResolver } from '../resolvers/load-user.reslover';
 import { PipeOffresPipe } from '../pipes/pipe-offres.pipe';
+import { OffersModule } from '../offers-module/offers.module';
+import { DetailsOffreComponent } from '../offers-module/details-offre/details-offre.component';
 
 
 
@@ -25,7 +27,8 @@ import { PipeOffresPipe } from '../pipes/pipe-offres.pipe';
     ActualiteComponent,
     FileUploadComponent,
     MenuComponent,
-    ModalComponent
+    ModalComponent,
+    DetailsOffreComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +36,7 @@ import { PipeOffresPipe } from '../pipes/pipe-offres.pipe';
     ReactiveFormsModule,
     FontAwesomeModule,
     AuthenticatedRoutingModule,
-    LoadUserResolver  
+    LoadUserResolver
   ],
   exports:[
     MenuComponent,
@@ -43,7 +46,8 @@ import { PipeOffresPipe } from '../pipes/pipe-offres.pipe';
     MonCompteComponent,
     ActualiteComponent,
     FileUploadComponent,
-    ModalComponent
+    ModalComponent,
+    DetailsOffreComponent
   ],
   providers:[
   ]
