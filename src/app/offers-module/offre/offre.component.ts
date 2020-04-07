@@ -61,7 +61,12 @@ export class OffreComponent implements OnInit , OnDestroy{
     this.loadingOf=false;
     this.authService.currentUser.subscribe(
       (user)=>{
-        this.idManager=user['user'].id;
+        if(user)
+        {
+          if(this.idManager=user['user'])
+          this.idManager=user['user'].id;
+        }
+        
     },
     (er)=>{console.log(er)});
     
