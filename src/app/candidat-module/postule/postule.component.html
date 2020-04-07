@@ -1,0 +1,22 @@
+<form [formGroup]="form" enctype="multipart/form-data" (ngSubmit)="postulerCv()">
+    <app-file-upload formControlName="file" (fileUrlToSend)="getFile($event)"></app-file-upload>
+    <div class="progress" *ngIf="loadingFile">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" style="width:40%"></div>
+    </div>
+    <div *ngIf="f.file.errors && (f.file.dirty || f.file.touched || cvSubmitted)" 
+            class="invalid-feedback">
+        <div *ngIf="f.file.errors.required">
+            Uploader un CV
+        </div>
+        <div *ngIf="f.file.errors.requiredFileType">
+            Le CV doit être de type .pdf,.jpg,.png,.jpeg,.bmp,.gif,.tif,.tiff,.webp
+        </div>
+    </div>
+    <br><br>
+    <div class="btns-photo">
+        <button type="reset" (click)="annuler()"  class="btn btn-danger"
+         style="color: white;" [disabled]="loadingFile">Annuler</button>
+        <button type="submit"  class="btn btn-success" [disabled]="loadingFile">
+            <span class="spinner-border spinner-border-sm" *ngIf="loadingFile"></span>Uploader</button>
+    </div>
+</form>

@@ -1,0 +1,11 @@
+<div *ngFor="let notification of notifications">
+    <div class="alert alert-success alert-dismissible fade show" *ngIf="notification.status=='Y'">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Success!</strong> This alert box could indicate a successful or positive action.
+    </div>
+    <div class="alert alert-danger alert-dismissible fade show" *ngIf="notification.status=='N'">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Success!</strong> This alert box could indicate a successful or positive action.
+    </div>
+</div>
+

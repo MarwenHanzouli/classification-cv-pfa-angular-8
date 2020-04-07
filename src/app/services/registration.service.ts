@@ -2,16 +2,20 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../models/User.model';
 import { Observable } from 'rxjs';
+import { AbstractHttpService } from '../AbstractHttpService';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RegistrationService {
+export class RegistrationService extends AbstractHttpService{
 
-  constructor(private httpClient: HttpClient) { }
+  serverUrl=this.url;
+  constructor(private httpClient: HttpClient) {
+    super();
+  }
   headers = new HttpHeaders().set('Content-Type', 'application/json');
   register(user:User): Observable<any>{
-    return this.httpClient.post('http://127.0.0.1:9004/microservice-users/users/signup',
+    return this.httpClient.post(this.serverUrl+'/microservice-users/users/signup',
      user, {headers: this.headers});
   }
 }

@@ -1,0 +1,64 @@
+.card{
+    border-radius: 15px;
+    margin: 30px;
+}
+#voir-details-btn{
+    float: right;
+}
+
+/*.photo{
+    position: absolute;
+    right: 30%;
+    bottom: 25%;
+    height: 160px;
+    width: 186px;
+    z-index: 2;
+}*/
+
+.btns-photo{
+    display: flex;
+    justify-content: flex-end;
+}
+.btns-photo>button{
+    margin-left: 3px;
+}
+.btns-donnees-personnelles{
+    display: flex;
+    justify-content: flex-end;
+}
+.btns-donnees-personnelles>button{
+    margin-left: 3px;
+}
+@media screen and (max-width: 967px) and (min-width: 576px), (max-width: 376px) {
+    .btns-photo{
+        display: flex;
+        flex-direction: column;
+    }
+    .btns-photo>button{
+        margin-top: 3px;
+    }
+}
+@media screen and (max-width: 282px){
+    .btns-donnees-personnelles{
+        display: flex;
+        flex-direction: column;
+    }
+    .btns-donnees-personnelles>button{
+        margin-top: 3px;
+    }
+}
+.invalid-feedback{
+    display: inline;
+}
+#photoDeProfil{
+    max-width: 100%;
+    max-height: 20%;
+}
+
+.input-group-text{
+    cursor: pointer;
+    background-color: rgb(45, 107, 117);
+}
+.input-group-text>fa-icon{
+    color: white;
+}

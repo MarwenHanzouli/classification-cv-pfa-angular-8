@@ -1,0 +1,21 @@
+<div class="col-sm-12">
+    <div class="card" *ngIf="obs | async as o; else loading">
+        <div class="card-header" >
+            <strong>Titre : {{(o.titre )}}</strong>
+        </div>
+        <div class="card-body">
+            <label><strong>Date de lancement: </strong>{{o.dateOffre | date}}</label><br>
+            <label><strong>Date de fin: </strong>{{o.dateFin | date}}</label><br>
+            <label><strong>Poste demandé: </strong>{{o.poste}}</label><br>
+            <label><strong>Lieu: </strong>{{o.lieu}}</label><br>
+            <label><strong>Organisme: </strong>{{o.organisme.nomOrganisme}},<strong> secteur </strong>{{o.organisme.secteur}}</label><br>
+            <label><strong>Le type: </strong>{{o.typeOffre}}</label><br>
+            <label><strong>Le niveau demandé: </strong>{{o.niveauDemande }}</label><br>
+            <label><strong>Détails: </strong>{{o.description}}</label><br>
+            <label><strong>Les compétences: </strong><span *ngFor="let item of o.competences"> {{item.titre}},</span></label><br>
+        </div>
+    </div>
+    <ng-template #loading>
+        ......
+    </ng-template>
+</div> 

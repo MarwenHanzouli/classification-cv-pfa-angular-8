@@ -27,9 +27,16 @@ import { MotDePasseOublierComponent } from './components/mot-de-passe-oublier/mo
 import { AuthentificationService } from './services/authentification.service';
 
 import { ErrServeurInterceptor } from './interceptors/err-serveur.interceptor';
-import { CandidatModule } from './candidat/candidat.module';
-import { OffersModule } from './offers/offers.module';
-import { AdministrationModule } from './administration/administration.module';
+import { CandidatModule } from './candidat-module/candidat.module';
+import { OffersModule } from './offers-module/offers.module';
+import { AdministrationModule } from './administration-module/administration.module';
+import { NotificationService } from './services/notification.service';
+import { AuthenticatedModule } from './authenticated-module/authenticated.module';
+import { GestionUsersService } from './services/gestion-users.service';
+import { LoadUserResolver } from './resolvers/load-user.reslover';
+import { LoadOffresResolver } from './resolvers/load-offres.resolver.ts';
+import { GestionCandidaturesService } from './services/gestion-candidatures.service';
+import { GestionCvsService } from './services/gestion-cvs.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,10 +46,8 @@ import { AdministrationModule } from './administration/administration.module';
     AuthentificationComponent,
     FourOhFourComponent,
     FooterComponent,
-    LoaderComponent,
-    WrapperComponent,
     SuccesInscriptionComponent,
-    MotDePasseOublierComponent,
+    MotDePasseOublierComponent
   ],
   imports: [
     BrowserModule,
@@ -55,12 +60,19 @@ import { AdministrationModule } from './administration/administration.module';
     ToastrModule.forRoot(), // ToastrModule added
     CandidatModule,
     OffersModule,
-    AdministrationModule
+    AdministrationModule,
+    AuthenticatedModule,
+    LoadUserResolver,
+    LoadOffresResolver
   ],
   providers: [
     RegistrationService,
     LoaderService,
     AuthentificationService,
+    NotificationService,
+    GestionUsersService,
+    GestionCandidaturesService,
+    GestionCvsService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptorService, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrServeurInterceptor, multi: true }

@@ -1,0 +1,81 @@
+<div class="entete">
+  <h2>Gérer les offres</h2>
+  <button type="button" id="btn-ajouter" class="btn btn-outline-success" data-toggle="modal" data-target="#ajouter-offre">
+    Ajouter <fa-icon [icon]="faPlusCircle"></fa-icon>
+  </button>
+</div>
+<app-modal titre="Ajouter une offre" idModal="ajouter-offre" [tableauClasses]="objStyles">
+  <app-offre></app-offre>
+</app-modal>
+<hr>
+<div class="container">
+  <ul class="pagination justify-content-end" >
+      <li class="page-item" [ngClass]="{'disabled':postionCourant==0}" (click)="updateActive(postionCourant-1)">
+        <a class="page-link" href="javascript:void(0);">Précédent</a>
+      </li>
+      <div *ngFor="let page of pages; let i=index">
+          <li class="page-item" id="p{{i}}" (click)="updateActive(i)" [ngClass]="{'active':i==0}">
+              <a class="page-link" href="javascript:void(0);">{{i+1}}</a>
+          </li>
+      </div>
+      <li class="page-item" [ngClass]="{'disabled':postionCourant>=pages.length-1}" (click)="updateActive(postionCourant+1)">
+        <a class="page-link" href="javascript:void(0);">Suivant</a>
+      </li>
+  </ul>
+  <table class="table table-hover">
+    <thead class="thead-dark">
+      <tr>
+        <th>Titre</th>
+        <th>Date de lancement</th>
+        <th>Entreprise</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody> 
+      <tr *ngIf="offres.length==0" class="table-light"> Aucun offre...</tr> 
+      <tr class="table-light" *ngFor="let offre of (offresCourantsObservable | async); let i=index">
+        <td>{{offre.titre}}</td>
+        <td>{{offre.dateOffre | date :'short'}}</td>
+        <td>{{offre.organisme.nomOrganisme}}</td>
+        <td class="actions">
+            <button type="button" class="btn btn-outline-info"
+            data-toggle="modal" [attr.data-target]="'#voir-details-offre'+i"><fa-icon [icon]="faEye"></fa-icon></button>
+            <button type="button" class="btn btn-outline-primary"
+            data-toggle="modal" [attr.data-target]="'#modifier-offre'+i"><fa-icon [icon]="faEdit" ></fa-icon></button>
+            <button type="button" class="btn btn-outline-danger"
+            data-toggle="modal" [attr.data-target]="'#supprimer-offre'+i"><fa-icon [icon]="faTrash"></fa-icon></button>
+          </td>
+          <app-modal titre="Voir les détails de cette offre" idModal="voir-details-offre{{i}}" [tableauClasses]="objStylesDetails">
+            <div>
+              <app-details-offre idOffre={{offre.id}}></app-details-offre>
+              <hr>
+              <div class="float-right">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Fermer</button>
+              </div>
+            </div>
+          </app-modal>
+          <app-modal titre="Modifier cette offre" idModal="modifier-offre{{i}}" [tableauClasses]="objStylesModifer">
+            <div>
+              <strong>{{offre.titre}}</strong>
+              <hr>
+              <div class="float-right">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-success" (click)="modifierOffre(offre.id)" data-dismiss="modal">Oui</button>
+              </div>
+            </div>
+          </app-modal>
+          <app-modal titre="Confirmer" idModal="supprimer-offre{{i}}" [tableauClasses]="objStylesDelete">
+            <div>
+              <h6>Voulez-vous supprimer cette offre?</h6>
+              <strong>{{offre.titre}}</strong>
+              <hr>
+              <div class="float-right">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Non</button>
+                <button type="button" class="btn btn-danger" (click)="deleteOffre(offre.id)" data-dismiss="modal">Oui</button>
+              </div>
+            </div>
+          </app-modal>
+      </tr>
+    </tbody>
+  </table>
+</div>

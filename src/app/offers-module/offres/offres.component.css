@@ -1,0 +1,31 @@
+.actions{  
+    display: flex;
+    justify-content: space-between;
+}
+
+
+@media screen and (max-width:540px){
+    .actions{  
+        display: flex;
+        flex-direction: column;
+    }
+}
+.entete{
+    display: flex;
+    justify-content: space-between;
+}
+hr{
+    margin-top: 4px;
+}
+#btn-ajouter{
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 4px;
+    cursor: pointer;
+}

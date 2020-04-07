@@ -1,0 +1,3 @@
+<div *ngIf="user | async as u;">
+    <app-actualite role={{u.role}} *ngFor="let item of offres | async" idOffre={{item.id}}></app-actualite>
+</div>

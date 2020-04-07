@@ -1,0 +1,383 @@
+<div class="card">
+    <div class="card-header">Modifier les informations personnelles</div>
+    <form [formGroup]="userForm" (ngSubmit)="onSubmitForm()">
+        <div class="card-body">
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="nom">Nom:</label>
+                    <div class="input-group mb-3">
+                        <input class="form-control" id="nom" 
+                        placeholder="Entrer votre nom" formControlName="nom" 
+                        [ngClass]="{ 'is-invalid': f.nom.errors 
+                        &&(f.nom.dirty || f.nom.touched || submitted)}">
+                        <div class="input-group-append">
+                            <span class="input-group-text" (click)="changeDisabled(0)"><fa-icon [icon]="faEdit"></fa-icon></span>
+                        </div>
+                    </div>
+                    <div *ngIf="f.nom.errors && (f.nom.dirty || f.nom.touched || submitted)" class="invalid-feedback">
+                        <div *ngIf="f.nom.errors.required">Nom est obligatoire</div>
+                        <div *ngIf="f.nom.errors.minlength">
+                            Le nom doit comporter au moins 3 caractères.
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="prenom">Prénom:</label>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="prenom" 
+                        placeholder="Entrer votre prénom" formControlName="prenom"
+                        [ngClass]="{ 'is-invalid': f.prenom.errors
+                        &&(f.prenom.dirty || f.prenom.touched || submitted)}">
+                        <div class="input-group-append">
+                            <span class="input-group-text" (click)="changeDisabled(1)"><fa-icon [icon]="faEdit"></fa-icon></span>
+                        </div>
+                    </div>
+                    <div *ngIf="f.prenom.errors && (f.prenom.dirty || f.prenom.touched || submitted)"
+                        class="invalid-feedback">
+                        <div *ngIf="f.prenom.errors.required">
+                            Le prénom est obligatoire.
+                        </div>
+                        <div *ngIf="f.prenom.errors.minlength">
+                            Le prénom doit comporter au moins 3 caractères.
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="telephone">Téléphone:</label>
+                    <div class="input-group mb-3">
+                        <input type="tel" class="form-control" id="telephone" 
+                        placeholder="Entrer le téléphone" formControlName="telephone"
+                        [ngClass]="{ 'is-invalid': f.telephone.errors && 
+                        (f.telephone.dirty || f.telephone.touched || submitted) }">
+                        <!-- oninput="this.value=this.value.replace(/(?![0-9\-\+])./gmi,'')" -->
+                        <div class="input-group-append">
+                            <span class="input-group-text" (click)="changeDisabled(2)"><fa-icon [icon]="faEdit"></fa-icon></span>
+                        </div>
+                    </div>
+                    <div *ngIf="f.telephone.errors && 
+                    (f.telephone.dirty || f.telephone.touched || submitted)" 
+                    class="invalid-feedback">
+                        <div *ngIf="f.telephone.errors.required">
+                            Le téléphone est obligatoire.
+                        </div>
+                        <div *ngIf="f.telephone.errors.pattern && f.telephone.touched">
+                            Le téléphone doit être sous le format international.
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="email">Email:</label>
+                    <div class="input-group mb-3">
+                        <input type="email" class="form-control" id="email"
+                        placeholder="Entrer l'email" formControlName="email"
+                        [ngClass]="{ 'is-invalid': f.email.errors && 
+                        (f.email.dirty || f.email.touched || submitted) }">
+                        <div class="input-group-append">
+                            <span class="input-group-text" (click)="changeDisabled(3)"><fa-icon [icon]="faEdit"></fa-icon></span>
+                        </div>
+                    </div>
+                    <div *ngIf="f.email.errors && (f.email.dirty || f.email.touched || submitted)"
+                    class="invalid-feedback">
+                    <div *ngIf="f.email.errors.required">
+                        L'email est obligatoire.
+                    </div>
+                    <div *ngIf="f.email.errors.email">
+                        L'email doit être sous le format correct.
+                    </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="username">Nom d'utilisateur:</label>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="username"
+                        placeholder="Entrer le nom d'utilisateur" formControlName="username"
+                        [ngClass]="{ 'is-invalid': f.username.errors && 
+                        (f.username.dirty || f.username.touched || submitted) }">
+                        <div class="input-group-append">
+                            <span class="input-group-text" (click)="changeDisabled(4)"><fa-icon [icon]="faEdit"></fa-icon></span>
+                        </div>
+                    </div>
+                    <div *ngIf="f.username.errors && 
+                        (f.username.dirty || f.username.touched || submitted)" class="invalid-feedback">
+                        <div *ngIf="f.username.errors.required">
+                            Le nom d'utilisateur est obligatoire.
+                        </div>
+                        <div *ngIf="f.username.errors.minlength">
+                            Minimum 3 caractères.
+                        </div>
+                    </div> 
+                </div>
+            </div>
+            <div *ngIf="user['role']==='CANDIDAT'">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="daten">Date de naissance</label>
+                        <input type="text" class="form-control" disabled value="{{user.date_naissance | date : 'dd/MM/yyyy'}}">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="niveau">Niveau ?</label>
+                        <div class="input-group mb-3">
+                            <select id="niveau" class="form-control" formControlName="niveau"
+                            [ngClass]="{ 'is-invalid': f.niveau.errors && 
+                            (f.niveau.dirty || f.niveau.touched || submitted) }">
+                                <option value="Bac">Bac</option>
+                                <option value="Licence">Licence</option>
+                                <option value="Mastère">Mastère</option>
+                                <option value="Ingénieur">Ingénieur</option>
+                                <option value="Autre">Autre</option>
+                            </select>
+                            <div class="input-group-append">
+                                <span class="input-group-text" (click)="changeDisabled(5)"><fa-icon [icon]="faEdit"></fa-icon></span>
+                            </div>
+                        </div>
+                        
+                        <div *ngIf="f.niveau.invalid && (f.niveau.dirty || f.niveau.touched || submitted)"
+                            class="invalid-feedback">
+                            <div *ngIf="f.niveau.errors.required">
+                                Le niveau est obligatoire.
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="diplome">Diplôme</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="diplome" 
+                            formControlName="diplome" placeholder="Dipôme national..."
+                            [ngClass]="{ 'is-invalid': f.diplome.errors && 
+                            (f.diplome.dirty || f.diplome.touched || submitted) }">
+                            <div class="input-group-append">
+                                <span class="input-group-text" (click)="changeDisabled(6)"><fa-icon [icon]="faEdit"></fa-icon></span>
+                            </div>
+                        </div>
+                        <div *ngIf="f.diplome.invalid && (f.diplome.dirty || f.diplome.touched || submitted)"
+                            class="invalid-feedback">
+                            <div *ngIf="f.diplome.errors.required">
+                                Le diplôme est obligatoire.
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="institut">Institut</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="institut" 
+                            formControlName="institut" placeholder="ISAMM, ISG, ISCAE..."
+                            [ngClass]="{ 'is-invalid': f.institut.errors && 
+                            (f.institut.dirty || f.institut.touched || submitted) }">
+                            <div class="input-group-append">
+                                <span class="input-group-text" (click)="changeDisabled(7)"><fa-icon [icon]="faEdit"></fa-icon></span>
+                            </div>
+                        </div>      
+                        <div *ngIf="f.institut.invalid && (f.institut.dirty || f.institut.touched || submitted)"
+                            class="invalid-feedback">
+                            <div *ngIf="f.institut.errors.required">
+                                L'institut est obligatoire.
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="inputAddress">Adresse</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="inputAddress" 
+                            formControlName="adresse" placeholder="Rue, Appartement, ..."
+                            [ngClass]="{ 'is-invalid': f.adresse.errors && 
+                            (f.adresse.dirty || f.adresse.touched || submitted) }">
+                            <div class="input-group-append">
+                                <span class="input-group-text" (click)="changeDisabled(8)"><fa-icon [icon]="faEdit"></fa-icon></span>
+                            </div>
+                        </div>
+                        
+                        <div *ngIf="f.adresse.invalid && (f.adresse.dirty || f.adresse.touched || submitted)"
+                            class="invalid-feedback">
+                            <div *ngIf="f.adresse.errors.required">
+                                L'adresse est obligatoire.
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputCity">Ville</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="inputCity" 
+                            formControlName="ville" placeholder="Ville"
+                            [ngClass]="{ 'is-invalid': f.ville.errors && 
+                            (f.ville.dirty || f.ville.touched || submitted) }">
+                            <div class="input-group-append">
+                                <span class="input-group-text" (click)="changeDisabled(9)"><fa-icon [icon]="faEdit"></fa-icon></span>
+                            </div>
+                        </div>
+                        <div *ngIf="f.ville.invalid && (f.ville.dirty || f.ville.touched || submitted)"
+                            class="invalid-feedback">
+                            <div *ngIf="f.ville.errors.required">
+                                La ville est obligatoire.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputState">Pays</label>
+                        <div class="input-group mb-3">
+                            <select id="inputState" class="form-control" formControlName="etat"
+                            [ngClass]="{ 'is-invalid': f.etat.errors && 
+                            (f.etat.dirty || f.etat.touched || submitted) }">
+                                <option value="Tunisie">Tunisie</option>
+                                <option value="Libye">Libye</option>
+                                <option value="Algérie">Algérie</option>
+                                <option value="France">France</option>
+                                <option value="Maroc">Maroc</option>
+                                <option value="Egypt">Egypt</option>
+                                <option value="Italy">Italy</option>
+                                <option value="Espagne">Espagne</option>
+                                <option value="Portugal">Portugal</option>
+                            </select>
+                            <div class="input-group-append">
+                                <span class="input-group-text" (click)="changeDisabled(10)"><fa-icon [icon]="faEdit"></fa-icon></span>
+                            </div>
+                        </div>
+                        <div *ngIf="f.etat.invalid && (f.etat.dirty || f.etat.touched || submitted)"
+                            class="invalid-feedback">
+                            <div *ngIf="f.etat.errors.required">
+                                Le pays est obligatoire.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="inputZip"><code>C. postal</code></label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" formControlName="cp" id="inputZip" 
+                            [ngClass]="{ 'is-invalid': f.cp.errors && 
+                            (f.cp.dirty || f.cp.touched || submitted) }">
+                            <div class="input-group-append">
+                                <span class="input-group-text" (click)="changeDisabled(11)"><fa-icon [icon]="faEdit"></fa-icon></span>
+                            </div>
+                        </div>
+                        <div *ngIf="f.cp.invalid && (f.cp.dirty || f.cp.touched || submitted)"
+                            class="invalid-feedback">
+                            <div *ngIf="f.cp.errors.required">
+                                Le code postal est obligatoire.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row" *ngIf="user['role']==='MANAGER'">
+                <div class="form-group col-md-12">
+                    <label for="entreprise">Nom d'entreprise:</label>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="entreprise" formControlName="entreprise"
+                        placeholder="Nom d'entreprise"
+                        [ngClass]="{ 'is-invalid': f.entreprise.errors && 
+                        (f.entreprise.dirty || f.entreprise.touched || submitted) }">
+                        <div class="input-group-append">
+                            <span class="input-group-text" (click)="changeDisabled(12)"><fa-icon [icon]="faEdit"></fa-icon></span>
+                        </div>
+                    </div>
+                    <div *ngIf="f.entreprise.errors && (f.entreprise.dirty || f.entreprise.touched || submitted)"
+                        class="invalid-feedback">
+                        <div *ngIf="f.entreprise.errors.required">
+                            L'entreprise est obligatoire.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="btns-donnees-personnelles">
+                <button type="button" (click)="initForm()"   class="btn btn-danger" style="color: white;">Annuler</button>
+                <button type="submit"  class="btn btn-success" [disabled]="loading">
+                    <span class="spinner-border spinner-border-sm" *ngIf="loading"></span> Modifier
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-header">Modifier la photo</div>
+            <div class="card-body">
+              <img class="rounded-circle img-fluid float-right" 
+              [src]="(urlImg && photoSubmitted) ? urlImg : '../../../assets/images/taswirti.JPG'" 
+              alt="Photo de profil" id="photoDeProfil">
+              <form [formGroup]="formPhoto" (ngSubmit)="submitPhoto()">
+                <app-file-upload formControlName="file" (fileUrlToSend)="getFile($event)"></app-file-upload>
+                <div *ngIf="fPh.file.errors && (fPh.file.dirty || fPh.file.touched || photoSubmitted)" 
+                        class="invalid-feedback">
+                    <div *ngIf="fPh.file.errors.required">
+                        Uploader une photo
+                    </div>
+                    <div *ngIf="fPh.file.errors.requiredFileType">
+                        L'image doit être de type .png .jpg .jpeg .bmp
+                    </div>
+                </div>
+                <br><br>
+                <div class="btns-photo">
+                    <button type="button" (click)="updatePhoto()"  class="btn btn-info">Appliquer</button>
+                    <button type="reset" (click)="annulerPhoto()"   class="btn btn-danger" style="color: white;">Annuler</button>
+                    <button type="submit"  class="btn btn-success" [disabled]="loadingPhoto">
+                        <span class="spinner-border spinner-border-sm" *ngIf="loadingPhoto"></span>Modifier</button>
+                </div>
+              </form>
+            </div>
+        </div>  
+    </div>
+
+
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-header">Modifier le mot de passe</div>
+            <form [formGroup]="formPassword" (ngSubmit)="submitPassword()">
+                <div class="card-body">
+                        <div class="form-group">
+                          <label for="pwd">Mot de passe:</label>
+                          <input type="password" class="form-control" id="pwd" 
+                          placeholder="Entrer le nouveau mot de passe" formControlName="mdp1"
+                          [ngClass]="{ 'is-invalid': fPass.mdp1.errors && 
+                           (fPass.mdp1.dirty || fPass.mdp1.touched || passSubmitted) }">
+                          <div *ngIf="fPass.mdp1.errors && 
+                          (fPass.mdp1.dirty || fPass.mdp1.touched || passSubmitted)" 
+                          class="invalid-feedback">
+                              <div *ngIf="fPass.mdp1.errors.required">
+                                  Le mot de passe est obligatoire.
+                              </div>
+                              <div *ngIf="fPass.mdp1.errors.minlength">
+                                  Le mot de passe doit comporter au moins 6 caractères..
+                              </div>
+                          </div> 
+                        </div>
+                        <div class="form-group">
+                          <label for="cpwd">Confirmer le nouveau mot de passe:</label>
+                          <input type="password" class="form-control"
+                          placeholder="Confirmer le mot de passe" formControlName="mdp2"
+                          [ngClass]="{ 'is-invalid': fPass.mdp2.errors &&  passSubmitted}">
+                          <div *ngIf="passSubmitted && fPass.mdp2.errors" class="invalid-feedback">
+                              <div *ngIf="fPass.mdp2.errors.required">
+                                  Confirme le mot de passe.
+                              </div>
+                              <div *ngIf="fPass.mdp2.errors.mustMatch">
+                                  Les 2 mots de passe doivent correspondre.
+                              </div>
+                          </div> 
+                        </div>
+                </div>
+                <div class="card-footer">
+                    <div class="btns-donnees-personnelles">
+                        <button type="reset"   class="btn btn-danger" style="color: white;">Annuler</button>
+                        <button type="submit"  class="btn btn-success" [disabled]="loadingPass">
+                            <span class="spinner-border spinner-border-sm" *ngIf="loadingPass"></span> Modifier
+                        </button>
+                    </div>
+                </div>
+                
+            </form>
+            
+        </div>
+    </div> 
+</div>
