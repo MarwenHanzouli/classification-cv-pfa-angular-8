@@ -23,5 +23,5 @@ export class DetailsOffreComponent implements OnInit , OnChanges{
   ngOnChanges(changes:SimpleChanges): void {
       this.id=changes['idOffre'].currentValue;
       this.obs=this.offresService.getOffreById(this.id);
-    }
+  }
 }
