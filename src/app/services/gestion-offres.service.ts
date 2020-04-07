@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, EMPTY } from 'rxjs';
 import { Offre } from '../models/Offre.model';
 import { AbstractHttpService } from '../AbstractHttpService';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { Organisme } from '../models/Organisme.model';
 import { Competence } from '../models/Competence.model';
+import { catchError } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
