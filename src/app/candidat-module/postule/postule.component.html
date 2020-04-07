@@ -1,12 +1,15 @@
 <form [formGroup]="form">
     <app-file-upload formControlName="file" (fileUrlToSend)="getFile($event)"></app-file-upload>
+    <div class="progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" style="width:40%"></div>
+    </div>
     <div *ngIf="f.file.errors && (f.file.dirty || f.file.touched || photoSubmitted)" 
             class="invalid-feedback">
         <div *ngIf="f.file.errors.required">
-            Uploader une photo
+            Uploader un CV
         </div>
         <div *ngIf="f.file.errors.requiredFileType">
-            L'image doit être de type .png
+            Le CV doit être de type .pdf,.jpg,.png,.jpeg,.bmp,.gif,.tif,.tiff,.webp
         </div>
     </div>
     <br><br>

@@ -20,7 +20,7 @@ export class PostuleComponent implements OnInit {
   initForm(){
     //.pdf,.jpg,.png,.jpeg,.bmp,.gif,.tif,.tiff,.webp"
     this.form=this.formBuilder.group({
-      file: [null, [Validators.required, requiredFileType('png')]]
+      file: [null, [Validators.required, requiredFileType(['png','jpg','pdf','jpeg','bmp','gif','tif','tiff','webp'])]]
     });
   }
   get f() { return this.form.controls; }

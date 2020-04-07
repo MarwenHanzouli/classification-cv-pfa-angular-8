@@ -1,19 +1,28 @@
 import { FormControl, FormGroup } from '@angular/forms';
 
-export function requiredFileType( type: string ) {
+export function requiredFileType( type: string[] ) {
     return function (control: FormControl) {
       const file = control.value;
       if ( file ) {
         const extension = file.name.split('.')[1].toLowerCase();
-        if ( type.toLowerCase() !== extension.toLowerCase() ) {
+        let valid:boolean=false;
+        let i=0;
+        while(i<type.length && !valid)
+        {
+          if(type[i].toLowerCase() === extension.toLowerCase())
+          {
+            valid=true;
+          }
+          else i++;
+        }
+        if (!valid) {
+            
           return {
             requiredFileType: true
           };
         }
-        
         return null;
       }
-  
       return null;
     };
   }

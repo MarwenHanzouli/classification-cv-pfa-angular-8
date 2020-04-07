@@ -248,7 +248,7 @@ export class MonCompteComponent implements OnInit {
   /*******************update photo**************************/
   initFormPhoto(){
     this.formPhoto=this.fb.group({
-      file:[null, [Validators.required, requiredFileType('png')]]
+      file:[null, [Validators.required, requiredFileType(['png','jpg','jpeg','bmp'])]]
     })
   }
   get fPh() { return this.formPhoto.controls; }
