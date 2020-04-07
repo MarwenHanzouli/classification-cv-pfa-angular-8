@@ -35,6 +35,7 @@ import { AuthenticatedModule } from './authenticated-module/authenticated.module
 import { GestionUsersService } from './services/gestion-users.service';
 import { LoadUserResolver } from './resolvers/load-user.reslover';
 import { LoadOffresResolver } from './resolvers/load-offres.resolver.ts';
+import { GestionCandidaturesService } from './services/gestion-candidatures.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,6 +70,7 @@ import { LoadOffresResolver } from './resolvers/load-offres.resolver.ts';
     AuthentificationService,
     NotificationService,
     GestionUsersService,
+    GestionCandidaturesService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptorService, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrServeurInterceptor, multi: true }
