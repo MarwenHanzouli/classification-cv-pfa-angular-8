@@ -4,6 +4,7 @@ import { Niveau } from './enums/niveau.enum';
 import { Competence } from './Competence.model';
 
 export class Offre{
+  createdDate: string;
     constructor(
         public titre:string,
         public dateOffre:Date,
