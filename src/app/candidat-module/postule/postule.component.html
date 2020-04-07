@@ -1,0 +1,19 @@
+<form [formGroup]="form">
+    <app-file-upload formControlName="file" (fileUrlToSend)="getFile($event)"></app-file-upload>
+    <div *ngIf="f.file.errors && (f.file.dirty || f.file.touched || photoSubmitted)" 
+            class="invalid-feedback">
+        <div *ngIf="f.file.errors.required">
+            Uploader une photo
+        </div>
+        <div *ngIf="f.file.errors.requiredFileType">
+            L'image doit être de type .png
+        </div>
+    </div>
+    <br><br>
+    <div class="btns-photo">
+        <button type="button"   class="btn btn-info">Appliquer</button>
+        <button type="reset"   class="btn btn-danger" style="color: white;">Annuler</button>
+        <button type="submit"  class="btn btn-success" [disabled]="loadingPhoto">
+            <span class="spinner-border spinner-border-sm" *ngIf="loadingPhoto"></span>Modifier</button>
+    </div>
+</form>
