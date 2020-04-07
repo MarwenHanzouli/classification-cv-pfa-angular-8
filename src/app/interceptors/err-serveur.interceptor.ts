@@ -21,14 +21,14 @@ export class ErrServeurInterceptor implements HttpInterceptor {
                 console.log(error);
                 return throwError(error);
             }
-            if (err.status === 401 && localStorage.getItem('currentUser')) {
-                this.toastr.warning("La session est exiprée");
-                //location.reload(true);
-                const error = err.error.message || err.statusText;
-                console.log(error);
-                this.authService.logout();
-                return throwError(error);
-            }
+            // if (err.status === 401 && localStorage.getItem('currentUser')) {
+            //     this.toastr.warning("La session est exiprée");
+            //     location.reload(true);
+            //     const error = err.error.message || err.statusText;
+            //     console.log(error);
+            //     this.authService.logout();
+            //     return throwError(error);
+            // }
             return throwError(err) ;
         }));
     }
