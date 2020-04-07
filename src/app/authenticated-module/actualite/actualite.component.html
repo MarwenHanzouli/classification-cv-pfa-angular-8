@@ -15,10 +15,10 @@
         </span>
       </h5>
       <a class="btn btn-success" id="voir-details-btn" 
-      data-toggle="modal" [attr.data-target]="'#voir-details-offree'+o.id">Voir détails</a>
+      data-toggle="modal" [attr.data-target]="'#voir-details-offree'+o.id" style="color: white;">Voir détails</a>
     </div>
     <app-modal titre="Voir les détails de cette offre" idModal="voir-details-offree{{o.id}}" [tableauClasses]="objStylesDetails">
-      <div>
+      <div *ngIf="postul==false">
         <app-details-offre idOffre={{o.id}}></app-details-offre>
         <hr>
         <div class="float-right">
@@ -26,10 +26,10 @@
         </div>
         <div>
           <button type="button" class="btn btn-success"
-            *ngIf="roleU=='CANDIDAT'">Postuler
+            *ngIf="roleU=='CANDIDAT' && postul==false" (click)="postul=true">Postuler
           </button>
         </div>
-        
       </div>
+      <app-postule *ngIf="postul==true"></app-postule>
     </app-modal>
 </div>

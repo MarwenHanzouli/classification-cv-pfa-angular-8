@@ -20,7 +20,7 @@ export class ActualiteComponent implements OnInit , OnChanges{
   private obs:Observable<Offre>=new Observable<Offre>();
   private objStylesDetails;
   private ajourdhui:Date=new Date();
-  
+  private postul:boolean=false;
 
   constructor(private offresService:GestionOffresService) {}
                 
