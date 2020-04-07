@@ -15,6 +15,7 @@ import { LoadUserResolver } from '../resolvers/load-user.reslover';
 import { PipeOffresPipe } from '../pipes/pipe-offres.pipe';
 import { OffersModule } from '../offers-module/offers.module';
 import { DetailsOffreComponent } from '../offers-module/details-offre/details-offre.component';
+import { PostuleComponent } from '../candidat-module/postule/postule.component';
 
 
 
@@ -28,7 +29,8 @@ import { DetailsOffreComponent } from '../offers-module/details-offre/details-of
     FileUploadComponent,
     MenuComponent,
     ModalComponent,
-    DetailsOffreComponent
+    DetailsOffreComponent,
+    PostuleComponent
   ],
   imports: [
     CommonModule,
@@ -47,7 +49,8 @@ import { DetailsOffreComponent } from '../offers-module/details-offre/details-of
     ActualiteComponent,
     FileUploadComponent,
     ModalComponent,
-    DetailsOffreComponent
+    DetailsOffreComponent,
+    PostuleComponent
   ],
   providers:[
   ]

@@ -24,6 +24,8 @@ import { LoadUserResolver } from '../resolvers/load-user.reslover';
     MonCvComponent
   ],
   exports:[
+    MesPostulesComponent,
+    MonCvComponent
   ],
   providers:[]
   
