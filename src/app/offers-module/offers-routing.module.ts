@@ -11,7 +11,7 @@ import { LoadOffresResolver } from '../resolvers/load-offres.resolver.ts';
 const offersRoutes: Routes = [
     { path:'', component: OffreComponent },
     { path:'notifications', component: NotificationsComponent ,outlet: "authenticated"},
-    { path:'actualites', component: ActualitesComponent ,outlet: "authenticated"},
+    { path:'actualites', component: ActualitesComponent ,outlet: "authenticated", resolve: {  offress: LoadOffresResolver }},
     { path:'mon-compte', component: MonCompteComponent ,outlet: "authenticated"},
     { path:'cvs', component: CvsComponent ,outlet: "authenticated"},
     { path:'offres', component: OffresComponent ,outlet: "authenticated",resolve: {  offress: LoadOffresResolver }},

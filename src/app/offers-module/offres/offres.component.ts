@@ -62,7 +62,15 @@ export class OffresComponent implements OnInit, OnDestroy, DoCheck{
     });
     this.offresService.offresSubject.pipe(skip(1)).subscribe(
       (data)=>{
-        console.log("thisssssss")
+        console.log("autre subscription");
+        this.objStylesDelete={'values':[true,true,false,false]};
+        this.objStylesModifer={'values':[false,false,false,false]};
+        this.objStylesDetails={'values':[false,false,false,false]};
+        this.offres=data;
+        this.taillePage=Math.ceil(this.offres.length/this.taille);
+        this.pages=Array(this.taillePage).fill(this.taillePage).map((x,i)=>i);
+        this.offresCourants=this.offres.slice(0,this.taille);
+        this.offresCourantsObservable=of(this.offresCourants);
       }
     );
   }

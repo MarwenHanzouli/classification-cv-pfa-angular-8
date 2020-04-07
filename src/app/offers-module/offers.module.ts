@@ -5,7 +5,6 @@ import { OffersRoutingModule } from './offers-routing.module';
 import { OffresComponent } from './offres/offres.component';
 import { OffreComponent } from './offre/offre.component';
 import { CandidatModule } from '../candidat-module/candidat.module';
-import { DetailsOffreComponent } from './details-offre/details-offre.component';
 import { AuthenticatedModule } from '../authenticated-module/authenticated.module';
 import { CvsComponent } from './cvs/cvs.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -18,7 +17,6 @@ import { LoaderComponent } from '../components/loader/loader.component';
   declarations: [
     OffresComponent,
     OffreComponent,
-    DetailsOffreComponent,
     CvsComponent,
     PipeOffresPipe,
     LoaderComponent,
@@ -34,7 +32,10 @@ import { LoaderComponent } from '../components/loader/loader.component';
     ReactiveFormsModule
   ],
   exports:[
-    DetailsOffreComponent,
+    OffresComponent,
+    OffreComponent,
+    CvsComponent,
+    PipeOffresPipe,
     LoaderComponent,
     WrapperComponent
   ]
