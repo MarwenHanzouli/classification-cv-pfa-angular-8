@@ -7,10 +7,11 @@ import { NotificationsComponent } from '../authenticated-module/notifications/no
 import { ActualitesComponent } from '../authenticated-module/actualites/actualites.component';
 import { MonCompteComponent } from '../authenticated-module/mon-compte/mon-compte.component';
 import { LoadUserResolver } from '../resolvers/load-user.reslover';
+import { LoadOffresResolver } from '../resolvers/load-offres.resolver.ts';
 
 const candidatRoutes: Routes = [
   { path:'notifications', component: NotificationsComponent ,outlet: "authenticated"},
-  { path:'actualites', component: ActualitesComponent ,outlet: "authenticated"},
+  { path:'actualites', component: ActualitesComponent ,outlet: "authenticated", resolve: {  offress: LoadOffresResolver }},
   { path:'mes-postules', component: MesPostulesComponent ,outlet: "authenticated"},
   { path:'mon-cv', component: MonCvComponent ,outlet: "authenticated"},
   { path:'mon-compte', component: MonCompteComponent ,outlet: "authenticated"},
