@@ -3,10 +3,12 @@ import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
+import { AuthentificationService } from '../services/authentification.service';
 
 @Injectable()
 export class ErrServeurInterceptor implements HttpInterceptor {
-    constructor(private toastr: ToastrService) {}
+    constructor(private toastr: ToastrService,
+                private authService:AuthentificationService) {}
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
   
@@ -17,6 +19,14 @@ export class ErrServeurInterceptor implements HttpInterceptor {
                 //location.reload(true);
                 const error = err.error.message || err.statusText;
                 console.log(error);
+                return throwError(error);
+            }
+            if (err.status === 401 && localStorage.getItem('currentUser')) {
+                this.toastr.warning("La session est exiprée");
+                //location.reload(true);
+                const error = err.error.message || err.statusText;
+                console.log(error);
+                this.authService.logout();
                 return throwError(error);
             }
             return throwError(err) ;
