@@ -10,8 +10,8 @@
   </thead>
   <tbody>
     <tr *ngFor="let cv of cvsObservable | async">
-      <td>cv.fichier.nom</td>
-      <td>cv.dateDepot | date</td>
+      <td>{{cv.fichier.nom}}</td>
+      <td>{{cv.dateDepot | date}}</td>
     </tr>
   </tbody>
 </table>

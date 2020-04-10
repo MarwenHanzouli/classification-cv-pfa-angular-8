@@ -32,7 +32,7 @@ export class PostuleComponent implements OnInit {
       (data)=>{
         if(data!==null)
         {
-          console.log(data)
+          //console.log(data)
           if(data['user'])
           {
             this.idCandidat=data['user']['id'];

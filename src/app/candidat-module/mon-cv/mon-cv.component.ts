@@ -26,7 +26,7 @@ export class MonCvComponent implements OnInit {
       (data)=>{
         if(data!==null)
         {
-          console.log(data)
+          //console.log(data)
           if(data['user'])
           {
             this.idCandidat=data['user']['id'];
@@ -34,13 +34,28 @@ export class MonCvComponent implements OnInit {
           else {
             this.idCandidat=data.id;
           }
-          
+          this.gestionCv.getAllByCandidat(this.idCandidat).subscribe((data)=>{
+            //console.log(data[9]);
+            data.forEach(element => {
+              console.log(element)
+              this.gestionCv.emitNewCv(element);
+            });
+            // for(let i=0;i<data.length;i++)
+            // {
+            //   //this.gestionCv.emitNewCv(data[i]);
+            //   console.log(data[i])
+            // }
+            
+          });
+          this.cvsObservable=this.gestionCv.cvsPerCandidatObservable;
+          console.log(this.cvsObservable)
+          //this.cvsObservable=this.gestionCv.getAllByCandidat(this.idCandidat);
         }  
     },
     (er)=>{console.log(er)});
-    this.gestionCv.getAllByCandidat(this.idCandidat);
-    this.cvsObservable=this.gestionCv.cvsPerCandidatObservable;
-	console.log(this.cvsObservable);
+    
+    
+	  //console.log(this.cvsObservable);
     // this.gestionCv.getAllByCandidat(this.idCandidat).subscribe((data)=>{
     //   this.cvs=data;
     //   this.cvsSubject=new BehaviorSubject(this.cvs);

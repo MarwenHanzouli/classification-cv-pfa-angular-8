@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AbstractHttpService } from '../AbstractHttpService';
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import { Cv } from '../models/Cv.model';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
@@ -17,13 +17,15 @@ export class GestionCvsService extends AbstractHttpService{
   public cvsObservable:Observable<Cv[]>;
   private cvs:Cv[];
 
-  private cvsPerCandidatSubject:BehaviorSubject<Cv[]>;
-  public cvsPerCandidatObservable:Observable<Cv[]>;
-  private cvsPerCandidat:Cv[];
+  private cvsPerCandidatSubject:Subject<Cv[]>=new Subject<Cv[]>();
+  public cvsPerCandidatObservable:Observable<Cv[]>=this.cvsPerCandidatSubject.asObservable();
+  private cvsPerCandidat=[];
 
   constructor(private httpClient: HttpClient,
               private toastr: ToastrService) {
     super();
+    this.cvsPerCandidatSubject=new Subject();
+    this.cvsPerCandidatObservable=this.cvsPerCandidatSubject.asObservable();
     //this.getAll();
   }
 
@@ -49,21 +51,17 @@ export class GestionCvsService extends AbstractHttpService{
       console.log(error)
     });
   }
-  getAllByCandidat(id){
-    this.httpClient.get<Cv[]>(this.serverUrl+'/microservice-cv/cvs/getByCandidat/'+id,
-    {headers: this.headers}).subscribe((data)=>{
-      this.cvsPerCandidat=data;
-      this.cvsPerCandidatSubject=new BehaviorSubject(this.cvsPerCandidat);
-      this.cvsPerCandidatObservable=this.cvsPerCandidatSubject.asObservable();
-    },
-    (err)=>{
-
-    });
+  getAllByCandidat(id):Observable<Cv[]>{
+    return this.httpClient.get<Cv[]>(this.serverUrl+'/microservice-cv/cvs/getByCandidat/'+id,
+    {headers: this.headers});
   }
-  emitNewCv(data:Cv){
+  deleteCv(cv){
+    this.httpClient.delete(this.serverUrl+'/microservice-cv/cvs/delete/'+cv.idCandidat+
+    '/'+cv.id,{headers: this.headers});
+  }
+  emitNewCv(data){
     this.cvsPerCandidat.push(data);
     this.cvsPerCandidatSubject.next(this.cvsPerCandidat);
     //this.cvsPerCandidatObservable.subscribe(console.log)
-    
   }
 }
