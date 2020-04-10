@@ -1,7 +1,7 @@
 <form [formGroup]="form" enctype="multipart/form-data" (ngSubmit)="postulerCv()">
     <app-file-upload formControlName="file" (fileUrlToSend)="getFile($event)"></app-file-upload>
     <div class="progress" *ngIf="loadingFile">
-        <div class="progress-bar progress-bar-striped progress-bar-animated" style="width:40%"></div>
+        <div class="progress-bar progress-bar-striped progress-bar-animated" [ngStyle]="{width: loadingValue+'%'}"></div>
     </div>
     <div *ngIf="f.file.errors && (f.file.dirty || f.file.touched || cvSubmitted)" 
             class="invalid-feedback">
