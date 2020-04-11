@@ -14,6 +14,7 @@ import { ModalComponent } from './modal/modal.component';
 import { LoadUserResolver } from '../resolvers/load-user.reslover';
 import { DetailsOffreComponent } from '../offers-module/details-offre/details-offre.component';
 import { PostuleComponent } from '../candidat-module/postule/postule.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { PostuleComponent } from '../candidat-module/postule/postule.component';
     ReactiveFormsModule,
     FontAwesomeModule,
     AuthenticatedRoutingModule,
-    LoadUserResolver
+    LoadUserResolver,
+    PdfViewerModule
   ],
   exports:[
     MenuComponent,
