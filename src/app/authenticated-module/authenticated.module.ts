@@ -12,10 +12,9 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ModalComponent } from './modal/modal.component';
 import { LoadUserResolver } from '../resolvers/load-user.reslover';
-import { PipeOffresPipe } from '../pipes/pipe-offres.pipe';
-import { OffersModule } from '../offers-module/offers.module';
 import { DetailsOffreComponent } from '../offers-module/details-offre/details-offre.component';
 import { PostuleComponent } from '../candidat-module/postule/postule.component';
+import { PdfViewerComponent } from 'ng2-pdf-viewer'; 
 
 
 
@@ -30,7 +29,8 @@ import { PostuleComponent } from '../candidat-module/postule/postule.component';
     MenuComponent,
     ModalComponent,
     DetailsOffreComponent,
-    PostuleComponent
+    PostuleComponent,
+    PdfViewerComponent
   ],
   imports: [
     CommonModule,
@@ -50,7 +50,8 @@ import { PostuleComponent } from '../candidat-module/postule/postule.component';
     FileUploadComponent,
     ModalComponent,
     DetailsOffreComponent,
-    PostuleComponent
+    PostuleComponent,
+    PdfViewerComponent
   ],
   providers:[
   ]

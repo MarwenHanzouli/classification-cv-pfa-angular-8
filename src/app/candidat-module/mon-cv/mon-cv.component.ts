@@ -4,6 +4,7 @@ import { AuthentificationService } from 'src/app/services/authentification.servi
 import { ToastrService } from 'ngx-toastr';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Cv } from 'src/app/models/Cv.model';
+import { faTrash,faEye} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-mon-cv',
@@ -12,21 +13,25 @@ import { Cv } from 'src/app/models/Cv.model';
 })
 export class MonCvComponent implements OnInit {
 
+  faTrash=faTrash;
+  faEye=faEye;
   private idCandidat:number;
-  private cvsSubject:BehaviorSubject<Cv[]>;
   private cvsObservable:Observable<Cv[]>;
   private cvs:Cv[];
-
+  private objStylesDelete;
+  private objStylesDetails;
+  
   constructor(private gestionCv:GestionCvsService,
               private authService:AuthentificationService,
               private toastr: ToastrService) { }
 
   ngOnInit() {
+    this.objStylesDelete={'values':[true,true,false,false]};
+    this.objStylesDetails={'values':[false,false,true,false,true]};
     this.authService.currentUser.subscribe(
       (data)=>{
         if(data!==null)
         {
-          //console.log(data)
           if(data['user'])
           {
             this.idCandidat=data['user']['id'];
@@ -34,36 +39,41 @@ export class MonCvComponent implements OnInit {
           else {
             this.idCandidat=data.id;
           }
+          this.gestionCv.emitNewCvs([]);
           this.gestionCv.getAllByCandidat(this.idCandidat).subscribe((data)=>{
-            //console.log(data[9]);
+            this.cvs=data;
             data.forEach(element => {
               console.log(element)
               this.gestionCv.emitNewCv(element);
             });
-            // for(let i=0;i<data.length;i++)
-            // {
-            //   //this.gestionCv.emitNewCv(data[i]);
-            //   console.log(data[i])
-            // }
-            
           });
           this.cvsObservable=this.gestionCv.cvsPerCandidatObservable;
-          console.log(this.cvsObservable)
-          //this.cvsObservable=this.gestionCv.getAllByCandidat(this.idCandidat);
         }  
     },
     (er)=>{console.log(er)});
-    
-    
-	  //console.log(this.cvsObservable);
-    // this.gestionCv.getAllByCandidat(this.idCandidat).subscribe((data)=>{
-    //   this.cvs=data;
-    //   this.cvsSubject=new BehaviorSubject(this.cvs);
-    //   this.cvsObservable=this.cvsSubject.asObservable();
-    // },
-    // (err)=>{
-    //   console.log(err);
-    // });
+  }
+  deleteCv(id){
+    this.gestionCv.deleteCv(id,this.idCandidat).subscribe(()=>{
+      this.cvsObservable=this.gestionCv.getAllByCandidat(this.idCandidat);
+    });
   }
 
+  showPdf(id) {
+    let i=0;
+    while(i<this.cvs.length && this.cvs[i].id!==id)
+    {
+      i++;
+    }
+    console.log(i)
+    return 'data:application/pdf;base64,'+this.cvs[i].fichier.encoded;
+  }
+  showImage(id){
+    let i=0;
+    while(i<this.cvs.length && this.cvs[i].id!==id)
+    {
+      i++;
+    }
+    console.log(i)
+    return 'data:'+this.cvs[i].fichier.type+';base64,'+this.cvs[i].fichier.encoded;
+  }
 }
