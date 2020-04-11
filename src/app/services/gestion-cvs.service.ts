@@ -26,6 +26,7 @@ export class GestionCvsService extends AbstractHttpService{
     super();
     this.cvsPerCandidatSubject=new Subject();
     this.cvsPerCandidatObservable=this.cvsPerCandidatSubject.asObservable();
+    this.cvs=[];
     //this.getAll();
   }
 
@@ -55,13 +56,17 @@ export class GestionCvsService extends AbstractHttpService{
     return this.httpClient.get<Cv[]>(this.serverUrl+'/microservice-cv/cvs/getByCandidat/'+id,
     {headers: this.headers});
   }
-  deleteCv(cv){
-    this.httpClient.delete(this.serverUrl+'/microservice-cv/cvs/delete/'+cv.idCandidat+
-    '/'+cv.id,{headers: this.headers});
+  deleteCv(id,idCandidat){
+   return this.httpClient.delete(this.serverUrl+'/microservice-cv/cvs/delete/'+idCandidat+
+    '/'+id,{headers: this.headers});
   }
   emitNewCv(data){
     this.cvsPerCandidat.push(data);
     this.cvsPerCandidatSubject.next(this.cvsPerCandidat);
     //this.cvsPerCandidatObservable.subscribe(console.log)
+  }
+  emitNewCvs(data){
+    this.cvsPerCandidat=data;
+    this.cvsPerCandidatSubject.next(this.cvsPerCandidat)
   }
 }
