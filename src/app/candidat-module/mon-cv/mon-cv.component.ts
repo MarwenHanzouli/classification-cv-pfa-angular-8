@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Cv } from 'src/app/models/Cv.model';
 import { faTrash,faEye} from '@fortawesome/free-solid-svg-icons';
+import { PDFDocumentProxy } from 'ng2-pdf-viewer';
 
 @Component({
   selector: 'app-mon-cv',
@@ -27,7 +28,7 @@ export class MonCvComponent implements OnInit {
 
   ngOnInit() {
     this.objStylesDelete={'values':[true,true,false,false]};
-    this.objStylesDetails={'values':[false,false,true,false,true]};
+    this.objStylesDetails={'values':[false,false,false,true,true]};
     this.authService.currentUser.subscribe(
       (data)=>{
         if(data!==null)
@@ -43,7 +44,6 @@ export class MonCvComponent implements OnInit {
           this.gestionCv.getAllByCandidat(this.idCandidat).subscribe((data)=>{
             this.cvs=data;
             data.forEach(element => {
-              console.log(element)
               this.gestionCv.emitNewCv(element);
             });
           });
@@ -55,25 +55,20 @@ export class MonCvComponent implements OnInit {
   deleteCv(id){
     this.gestionCv.deleteCv(id,this.idCandidat).subscribe(()=>{
       this.cvsObservable=this.gestionCv.getAllByCandidat(this.idCandidat);
+      this.cvsObservable.subscribe(res=>this.cvs=res);
     });
   }
-
-  showPdf(id) {
+  showFile(id){
     let i=0;
     while(i<this.cvs.length && this.cvs[i].id!==id)
     {
       i++;
     }
-    console.log(i)
-    return 'data:application/pdf;base64,'+this.cvs[i].fichier.encoded;
-  }
-  showImage(id){
-    let i=0;
-    while(i<this.cvs.length && this.cvs[i].id!==id)
+    if(i>=this.cvs.length)
     {
-      i++;
+      return;
     }
-    console.log(i)
     return 'data:'+this.cvs[i].fichier.type+';base64,'+this.cvs[i].fichier.encoded;
   }
+
 }

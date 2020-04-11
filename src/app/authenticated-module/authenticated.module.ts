@@ -14,9 +14,6 @@ import { ModalComponent } from './modal/modal.component';
 import { LoadUserResolver } from '../resolvers/load-user.reslover';
 import { DetailsOffreComponent } from '../offers-module/details-offre/details-offre.component';
 import { PostuleComponent } from '../candidat-module/postule/postule.component';
-import { PdfViewerComponent } from 'ng2-pdf-viewer'; 
-
-
 
 @NgModule({
   declarations: [
@@ -29,8 +26,7 @@ import { PdfViewerComponent } from 'ng2-pdf-viewer';
     MenuComponent,
     ModalComponent,
     DetailsOffreComponent,
-    PostuleComponent,
-    PdfViewerComponent
+    PostuleComponent
   ],
   imports: [
     CommonModule,
@@ -50,8 +46,7 @@ import { PdfViewerComponent } from 'ng2-pdf-viewer';
     FileUploadComponent,
     ModalComponent,
     DetailsOffreComponent,
-    PostuleComponent,
-    PdfViewerComponent
+    PostuleComponent
   ],
   providers:[
   ]

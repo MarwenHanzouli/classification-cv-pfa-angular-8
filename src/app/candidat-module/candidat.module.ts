@@ -7,7 +7,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthenticatedModule } from '../authenticated-module/authenticated.module';
 import { LoadUserResolver } from '../resolvers/load-user.reslover';
-
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 @NgModule({
   imports: [
@@ -17,7 +17,8 @@ import { LoadUserResolver } from '../resolvers/load-user.reslover';
     CandidatRoutingModule,
     FontAwesomeModule,
     AuthenticatedModule,
-    LoadUserResolver
+    LoadUserResolver,
+    PdfViewerModule
   ],
   declarations: [  
     MesPostulesComponent,
