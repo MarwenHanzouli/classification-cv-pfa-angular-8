@@ -35,7 +35,7 @@ export class ActualiteComponent implements OnInit , OnChanges{
   private error:boolean=false;
   private cvSelected:boolean=false;
   private cvsObservable:Observable<Cv[]>;
-  private cvs:Cv[];
+  private cvs:Cv[]=[];
   private cv=null;
 
   constructor(private toastr: ToastrService,
@@ -64,7 +64,6 @@ export class ActualiteComponent implements OnInit , OnChanges{
     this.loadingPostule=true;
     let candidature:Candidature=new Candidature("",true,this.userAtt.id,this.cv.id,idOffre);
     this.gestionCandidature.addCandidature(candidature).subscribe((data)=>{
-      console.log(data)
       this.toastr.success("La candidature pour cette offre a été postulée avec succès");
       this.loadingPostule=false;
     },
