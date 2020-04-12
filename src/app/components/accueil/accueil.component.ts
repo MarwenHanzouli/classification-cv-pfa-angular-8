@@ -8,9 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class AccueilComponent implements OnInit {
 
  
-  constructor() { }
-  private objStyles={'values':[true,false,false,false]}
-  ngOnInit() {
+  constructor() { }  ngOnInit() {
   }
 
 }

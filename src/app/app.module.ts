@@ -17,21 +17,16 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LoaderComponent } from './components/loader/loader.component';
 
 import { LoaderInterceptorService } from './interceptors/loader.interceptor';
 import { LoaderService } from './services/loader.service';
-import { WrapperComponent } from './components/wrapper/wrapper.component';
 import { SuccesInscriptionComponent } from './components/succes-inscription/succes-inscription.component';
 import { MotDePasseOublierComponent } from './components/mot-de-passe-oublier/mot-de-passe-oublier.component';
 import { AuthentificationService } from './services/authentification.service';
 
 import { ErrServeurInterceptor } from './interceptors/err-serveur.interceptor';
-import { CandidatModule } from './candidat-module/candidat.module';
 import { OffersModule } from './offers-module/offers.module';
-import { AdministrationModule } from './administration-module/administration.module';
 import { NotificationService } from './services/notification.service';
-import { AuthenticatedModule } from './authenticated-module/authenticated.module';
 import { GestionUsersService } from './services/gestion-users.service';
 import { LoadUserResolver } from './resolvers/load-user.reslover';
 import { LoadOffresResolver } from './resolvers/load-offres.resolver.ts';
@@ -58,10 +53,7 @@ import { GestionCvsService } from './services/gestion-cvs.service';
     HttpClientModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
-    CandidatModule,
     OffersModule,
-    AdministrationModule,
-    AuthenticatedModule,
     LoadUserResolver,
     LoadOffresResolver
   ],
