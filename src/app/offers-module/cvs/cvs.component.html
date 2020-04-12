@@ -1,1 +1,35 @@
-<p>cvs works!</p>
+<div class="container">
+    <h3>Rechercher les CVs selon un mot clé</h3>
+    <hr>
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Entrer le mot"
+        [ngClass]="{ 'is-invalid': error && rechercheSubmitted }" [(ngModel)]="mot" (keyup)="error=false">
+        <div class="input-group-append">
+            <button class="btn btn-success" type="button" (click)="rechercher()">Classer</button>
+        </div>
+        <div *ngIf="error && rechercheSubmitted" 
+            class="invalid-feedback">
+            Entrer un mot pour lancer la requête.
+        </div>
+    </div>
+    <hr>
+    <div class="d-flex flex-wrap bg-light justify-content-between">
+        <div class="card" style="width:450px;" *ngFor="let cv of cvs | async;">
+            <div *ngIf="showFile(cv.id) ? true : false">
+                <pdf-viewer  [src]="showFile(cv.id)" 
+                  [render-text]="true"
+                  style="display: block;height: 200px;" *ngIf="cv.fichier.type==='application/pdf'; else displayImage">
+                </pdf-viewer>
+                <ng-template #displayImage>
+                  <img [src]="showFile(cv.id)" style="width:100%">
+                </ng-template>
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">{{cv.fichier.nom}}</h4>
+              <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+              <a href="#" class="btn btn-primary">See Profile</a>
+            </div>
+        </div>
+    </div>
+    
+</div>
