@@ -41,6 +41,13 @@
               </div> 
             </td>
           </tr>
+          <tr *ngIf="cvs.length===0">
+            <td>
+              Aucun CV à postuler<br>
+              <a [routerLink]="['/authenticated/candidat',{outlets:{authenticated:['mon-cv']}}]" routerLinkActive="router-link-active"
+              data-dismiss="modal" >  Postuler un CV</a>
+            </td>
+          </tr>
         </table>
         <div *ngIf="error" class="invalid-feedback">
           Séléctionner un cv
@@ -48,7 +55,7 @@
         <hr>
         <div class="float-right">
           <button type="button" class="btn btn-warning" (click)="postul=false">Annuler</button>
-          <button type="button" class="btn btn-success" (click)="postulerCandidature(o.id)" [disabled]="loadingPostule">
+          <button type="button" class="btn btn-success" (click)="postulerCandidature(o.id)" [disabled]="loadingPostule || cvs.length==0">
             <span class="spinner-border spinner-border-sm" *ngIf="loadingPostule"></span> Postuler</button>
         </div>
       </div>
