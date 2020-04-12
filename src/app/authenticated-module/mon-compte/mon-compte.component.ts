@@ -18,6 +18,7 @@ export class MonCompteComponent implements OnInit {
 
   private user:User;
   private subscription: Subscription;
+  private photoInitial:string;
 
   private userForm:FormGroup;
   private submitted:boolean=false;
@@ -62,6 +63,12 @@ export class MonCompteComponent implements OnInit {
     //     }
     // });
     this.user=JSON.parse(localStorage.getItem("currentUser"))["user"];
+    console.log(this.user.photo)
+    if(this.user.photo==null){
+      this.photoInitial='../../../assets/images/anonyme.jpg';
+    }else{
+      this.photoInitial='data:'+this.user.photo.photo_type+';base64,'+this.user.photo.encoded_string;
+    }
     this.initForm();
     this.initFormPhoto();
     this.initFormPassword();
@@ -227,7 +234,7 @@ export class MonCompteComponent implements OnInit {
       this.gestionUsersService.updateUser(this.user).subscribe((reponse)=>{
         console.log("succes de modification");
         console.log(reponse);
-        //this.authService.changeInfoUserWhenUpdateHisProfile(this.user);
+        this.gestionUsersService.changeInfoUserWhenUpdateHisProfile(this.user);
         this.loading=false;
         this.toastr.success("La modification a été éffectutée!","Succès");
       },
@@ -281,6 +288,8 @@ export class MonCompteComponent implements OnInit {
     this.gestionUsersService.updatePhoto(this.formPhoto.get("file").value,this.user.id)
     .subscribe((reponse)=>{
       console.log(reponse);
+      this.user.photo=reponse['photo'];
+      this.gestionUsersService.changeInfoUserWhenUpdateHisProfile(this.user);
       this.toastr.success("La photo a été modifiée!","Succès");
       this.loadingPhoto=false;
     },

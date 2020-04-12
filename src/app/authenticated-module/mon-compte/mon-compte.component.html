@@ -304,7 +304,7 @@
             <div class="card-header">Modifier la photo</div>
             <div class="card-body">
               <img class="rounded-circle img-fluid float-right" 
-              [src]="(urlImg && photoSubmitted) ? urlImg : '../../../assets/images/taswirti.JPG'" 
+              [src]="(urlImg && photoSubmitted) ? urlImg : photoInitial" 
               alt="Photo de profil" id="photoDeProfil">
               <form [formGroup]="formPhoto" (ngSubmit)="submitPhoto()">
                 <app-file-upload formControlName="file" (fileUrlToSend)="getFile($event)"></app-file-upload>
