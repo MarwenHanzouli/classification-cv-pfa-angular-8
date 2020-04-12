@@ -287,9 +287,9 @@ export class MonCompteComponent implements OnInit {
     this.loadingPhoto=true;
     this.gestionUsersService.updatePhoto(this.formPhoto.get("file").value,this.user.id)
     .subscribe((reponse)=>{
-      console.log(reponse);
       this.user.photo=reponse['photo'];
       this.gestionUsersService.changeInfoUserWhenUpdateHisProfile(this.user);
+      this.photoInitial='data:'+this.user.photo.photo_type+';base64,'+this.user.photo.encoded_string;
       this.toastr.success("La photo a été modifiée!","Succès");
       this.loadingPhoto=false;
     },

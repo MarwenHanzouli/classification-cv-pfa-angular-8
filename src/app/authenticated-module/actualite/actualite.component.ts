@@ -46,8 +46,11 @@ export class ActualiteComponent implements OnInit , OnChanges{
   
   ngOnInit() {
     this.objStylesDetails={'values':[false,false,false,false]};
-    this.cvsObservable=this.gestionCv.getAllByCandidat(this.userAtt.id);
-    this.cvsObservable.subscribe(res=>this.cvs=res);
+    if(this.roleU=='CANDIDAT')
+    {
+      this.cvsObservable=this.gestionCv.getAllByCandidat(this.userAtt.id);
+      this.cvsObservable.subscribe(res=>this.cvs=res);
+    }
   }
   ngOnChanges(changes:SimpleChanges): void {
       this.id=changes['idOffre'].currentValue;

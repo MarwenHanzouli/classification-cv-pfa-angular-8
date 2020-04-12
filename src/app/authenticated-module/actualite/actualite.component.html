@@ -30,7 +30,7 @@
           </button>
         </div>
       </div>
-      <div *ngIf="postul">
+      <div *ngIf="postul && roleU=='CANDIDAT'">
         <h4>Séléctionner un CV pour cette offre</h4>
         <table>
           <tr *ngFor="let cv of cvsObservable | async;let i=index">
