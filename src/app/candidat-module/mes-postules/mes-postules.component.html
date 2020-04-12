@@ -1,23 +1,30 @@
 <div class="container">
-    <h2>Mes candidatures</h2>
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>Offre</th>
-          <th>CV</th>
-          <th>Date de dépôt</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of candidatures | async;">
-          <td>{{item.offre.titre}}</td>
-          <td>{{item.idCv}}</td>
-          <td>{{item.dateCandidature | date }}</td>
-        </tr>
-        <tr *ngIf="candidaturesTab.length==0">
-          <td>Aucune postule</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="card" style="margin-top: 25px;">
+        <div class="card-header" ><h3>Mes candidatures</h3></div>
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Offre</th>
+                    <th>Date de dépôt</th>
+                    <th>Statut</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of candidatures | async">
+                    <td>{{item.offre.titre}}</td>
+                    <td>{{item.dateCandidature | date }}</td>
+                    <td>
+                      <div class="btn-true" *ngIf="item.etat"></div>
+                      <div class="btn-false" *ngIf="!item.etat"></div>
+                    </td>
+                  </tr>
+                  <tr *ngIf="candidaturesTab.length==0">
+                    <td>Aucune postule</td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+    </div> 
   </div>
   

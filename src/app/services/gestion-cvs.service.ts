@@ -60,6 +60,10 @@ export class GestionCvsService extends AbstractHttpService{
    return this.httpClient.delete(this.serverUrl+'/microservice-cv/cvs/delete/'+idCandidat+
     '/'+id,{headers: this.headers});
   }
+  getOneCv(id):Observable<Cv>{
+    return this.httpClient.get<Cv>(this.serverUrl+'/microservice-cv/cvs/getOne/'+id,
+    {headers: this.headers});
+   }
   emitNewCv(data){
     this.cvsPerCandidat.push(data);
     this.cvsPerCandidatSubject.next(this.cvsPerCandidat);

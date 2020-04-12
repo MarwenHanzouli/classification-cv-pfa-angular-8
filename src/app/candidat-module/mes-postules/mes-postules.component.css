@@ -1,0 +1,14 @@
+.btn-true{
+    margin-left: 10px;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    background-color: greenyellow;
+}
+.btn-false{
+    margin-left: 10px;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    background-color: red;
+}
