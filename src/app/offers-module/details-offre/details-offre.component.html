@@ -12,7 +12,9 @@
             <label><strong>Le type: </strong>{{o.typeOffre}}</label><br>
             <label><strong>Le niveau demandé: </strong>{{o.niveauDemande }}</label><br>
             <label><strong>Détails: </strong>{{o.description}}</label><br>
-            <label><strong>Les compétences: </strong><span *ngFor="let item of o.competences"> {{item.titre}},</span></label><br>
+            <label><strong>Les compétences: </strong>
+                <span class="badge badge-info" *ngFor="let item of o.competences" style="margin-right: 2px;"> {{item.titre}}</span>
+            </label><br>
         </div>
     </div>
     <ng-template #loading>

@@ -32,6 +32,8 @@ import { LoadUserResolver } from './resolvers/load-user.reslover';
 import { LoadOffresResolver } from './resolvers/load-offres.resolver.ts';
 import { GestionCandidaturesService } from './services/gestion-candidatures.service';
 import { GestionCvsService } from './services/gestion-cvs.service';
+import { OffresAccueilComponent } from './components/offres-accueil/offres-accueil.component';
+import { AuthenticatedModule } from './authenticated-module/authenticated.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +44,8 @@ import { GestionCvsService } from './services/gestion-cvs.service';
     FourOhFourComponent,
     FooterComponent,
     SuccesInscriptionComponent,
-    MotDePasseOublierComponent
+    MotDePasseOublierComponent,
+    OffresAccueilComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +58,8 @@ import { GestionCvsService } from './services/gestion-cvs.service';
     ToastrModule.forRoot(), // ToastrModule added
     OffersModule,
     LoadUserResolver,
-    LoadOffresResolver
+    LoadOffresResolver,
+    AuthenticatedModule
   ],
   providers: [
     RegistrationService,

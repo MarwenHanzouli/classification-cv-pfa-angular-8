@@ -1,0 +1,7 @@
+<div class="container">
+    <div class="row">
+        <div *ngFor="let offre of offres | async" class="offres">
+            <app-details-offre idOffre="{{offre.id}}" style="max-width: 380px;"></app-details-offre>
+        </div>
+    </div>
+</div>
