@@ -42,28 +42,7 @@ export class MonCompteComponent implements OnInit {
   }
   
   ngOnInit() {
-    //console.log("xx");
-    // this.subscription=this.route.data.subscribe((data: {rep: User})=>{
-    //   this.user=data.rep['user'];
-    //   console.log(this.user);
-    //       this.initForm();
-    //       this.initFormPhoto();
-    //       this.initFormPassword();
-    // });
-    // this.authService.currentUser.subscribe(
-    //   (rep)=>{
-    //     if(rep)
-    //     {
-    //       this.user=rep['user'];
-    //       // console.log(rep);
-    //       console.log(this.user);
-    //       this.initForm();
-    //       this.initFormPhoto();
-    //       this.initFormPassword();
-    //     }
-    // });
     this.user=JSON.parse(localStorage.getItem("currentUser"))["user"];
-    console.log(this.user.photo)
     if(this.user.photo==null){
       this.photoInitial='../../../assets/images/anonyme.jpg';
     }else{
@@ -190,12 +169,8 @@ export class MonCompteComponent implements OnInit {
       this.user.address.city=formValue['ville'] || this.user.address.city;
       this.user.address.country=formValue['etat']  || this.user.address.country;
       this.user.address.postcode=formValue['cp'] || this.user.address.postcode;
-      //console.log(this.user);
       this.gestionUsersService.updateCandidat(this.user).subscribe((reponse)=>{
-        console.log("succes de modification");
-        //console.log(reponse);
         this.gestionUsersService.changeInfoUserWhenUpdateHisProfile(this.user);
-        //this.authService.currentUserSubject.next(this.user);
         this.loading=false;
         this.toastr.success("La modification a été éffectutée!","Succès");
       },
@@ -214,7 +189,6 @@ export class MonCompteComponent implements OnInit {
       this.user.nameEntreprise=formValue['entreprise'] || this.user.nameEntreprise;
       this.gestionUsersService.updateManager(this.user).subscribe((reponse)=>{
         console.log("succes de modification");
-        //console.log(reponse);
         this.gestionUsersService.changeInfoUserWhenUpdateHisProfile(this.user);
         this.loading=false;
         this.toastr.success("La modification a été éffectutée!","Succès");
@@ -233,7 +207,6 @@ export class MonCompteComponent implements OnInit {
     {
       this.gestionUsersService.updateUser(this.user).subscribe((reponse)=>{
         console.log("succes de modification");
-        console.log(reponse);
         this.gestionUsersService.changeInfoUserWhenUpdateHisProfile(this.user);
         this.loading=false;
         this.toastr.success("La modification a été éffectutée!","Succès");
@@ -249,7 +222,6 @@ export class MonCompteComponent implements OnInit {
       });
     
     }
-    //console.log(this.user);
 
   }
   /*******************update photo**************************/

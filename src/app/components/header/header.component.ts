@@ -27,7 +27,6 @@ export class HeaderComponent implements OnInit {
         if(user)
         {
           this.currentUser=user;
-          console.log(user);
           this.connected=true;
         }
         else {

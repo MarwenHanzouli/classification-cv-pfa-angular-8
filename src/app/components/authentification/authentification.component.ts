@@ -69,7 +69,6 @@ export class AuthentificationComponent implements OnInit {
         this.router.navigate(['/accueil']);
       }
       if (response && response['token']) {
-        console.log(response)
         // store user details and jwt token in local storage to keep user logged in between page refreshes
         localStorage.setItem('currentUser', JSON.stringify(response));
         this.authService.currentUserSubject.next(response);
