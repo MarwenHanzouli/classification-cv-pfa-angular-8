@@ -1,3 +1,18 @@
 .is-invalid{
     display: inline;
 }
+#card{
+    width:450px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+.result{
+    display: flex;
+    justify-content: center;
+}
+.loader-waiting{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 430px; 
+}

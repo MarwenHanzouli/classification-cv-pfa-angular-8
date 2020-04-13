@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { User } from '../models/User.model';
 import { AbstractHttpService } from '../AbstractHttpService';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +38,10 @@ export class GestionUsersService extends AbstractHttpService{
     return this.httpClient.put(this.serverUrl+'/microservice-users/users/addPhoto/'+id,
     formData);
   }
-
+  getCandidatById(id):Observable<User>{
+    return this.httpClient.get<User>(this.serverUrl+'/microservice-users/candidats/findById/'+id,
+    {headers:this.headers});
+  }
   changeInfoUserWhenUpdateHisProfile(user:User)
   {
     let newCurrentUser={
