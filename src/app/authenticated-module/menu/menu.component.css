@@ -31,7 +31,7 @@
     justify-content: space-around;
 }
 .choix{
-    border-radius: 20%;
+    border-radius: 5%;
     /*border: 1px solid red;*/
     align-items: center;
     align-self: flex-start;

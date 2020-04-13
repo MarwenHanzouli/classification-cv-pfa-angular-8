@@ -7,10 +7,10 @@
     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
         <li class="nav-item" routerLinkActive="active">
-          <a routerLink="accueil" class="nav-link">Accueil</a>
+          <a routerLink="accueil" class="nav-link" *ngIf="!connected">Accueil</a>
         </li>
         <li class="nav-item" routerLinkActive="active">
-          <a routerLink="offres" class="nav-link">Offres</a>
+          <a routerLink="offres" class="nav-link" *ngIf="!connected">Offres</a>
         </li>
       </ul>
       <ul class="navbar-nav my-2 my-lg-0" *ngIf="!connected">
