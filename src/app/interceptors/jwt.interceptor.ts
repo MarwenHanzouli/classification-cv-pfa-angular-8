@@ -26,6 +26,7 @@ export class JwtInterceptor implements HttpInterceptor {
         return next.handle(request); // do nothing
       }
       let currentUser = this.authService.currentUserValue;
+      //console.log(currentUser.token)
       if (currentUser && currentUser.token) {
         console.log("token---------------------");
           request = request.clone({
