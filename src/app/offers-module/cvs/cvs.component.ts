@@ -18,15 +18,20 @@ export class CvsComponent implements OnInit {
   private cvs:Observable<Cv[]>;
   private cvsR:Cv[];
   private loading:boolean=false;
-  private result:boolean=false;
-
+  private initial:boolean;
+  private result:boolean;
+  private objStylesDetails;
   constructor(private gestionCv:GestionCvsService,
               private toastr: ToastrService,
               private gestionUser:GestionUsersService) { }
 
   ngOnInit() {
+    this.initial=true;
+    this.result=false;
+    this.objStylesDetails={'values':[false,false,false,true,true]};
   }
   rechercher(){
+    this.initial=true;
     this.result=false;
     this.rechercheSubmitted=true;
     if(this.mot==="")
@@ -37,11 +42,13 @@ export class CvsComponent implements OnInit {
     this.loading=true;
     this.error=false;
     this.gestionCv.getAllByTag(this.mot).subscribe((data)=>{
+      this.loading=false;
+      this.initial=false;
+      this.result=true;
       console.log(data);
       this.cvsR=data;
       this.cvs=of(data);
-      this.loading=false;
-      this.result=true;
+      
       if(data.length==0)
       {
         this.toastr.warning("Aucun CV a répondu à cette demande");
@@ -65,9 +72,24 @@ export class CvsComponent implements OnInit {
     }
     return 'data:'+this.cvsR[i].fichier.type+';base64,'+this.cvsR[i].fichier.encoded;
   }
+  showFile2(id){
+    let i=0;
+    while(i<this.cvsR.length && this.cvsR[i].id!==id)
+    {
+      i++;
+    }
+    if(i>=this.cvsR.length)
+    {
+      return;
+    }
+    return 'data:'+this.cvsR[i].fichier.type+';base64,'+this.cvsR[i].fichier.encoded;
+  }
   getCandidatById(id)
   {
 	console.log("jjjj")
     return this.gestionUser.getCandidatById(id);
+  }
+  voirCv(cv){
+    console.log(cv)
   }
 }

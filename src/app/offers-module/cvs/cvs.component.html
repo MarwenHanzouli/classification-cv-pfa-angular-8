@@ -5,8 +5,10 @@
         <input type="text" class="form-control" placeholder="Entrer le mot"
         [ngClass]="{ 'is-invalid': error && rechercheSubmitted }" [(ngModel)]="mot" (keyup)="error=false">
         <div class="input-group-append">
-            <button class="btn btn-success" type="button" (click)="rechercher()" [disabled]="loading">
-                <span class="spinner-border spinner-border-sm" *ngIf="loading"></span> Classer</button>
+            <button class="btn btn-success" type="button" (click)="rechercher()" 
+            [disabled]="loading">
+                <span class="spinner-border spinner-border-sm" *ngIf="loading"></span> Classer
+            </button>
         </div>
         <div *ngIf="error && rechercheSubmitted" 
             class="invalid-feedback">
@@ -15,26 +17,46 @@
     </div>
     <hr>
     <!-- class="d-flex flex-wrap bg-light justify-content-between" -->
-    <div class="bg-light d-flex flex-wrap bg-light justify-content-between" *ngIf="result">
-        <div id="card" class="card" *ngFor="let cv of cvs | async;">
+    <div class="bg-light d-flex flex-wrap bg-light justify-content-around" *ngIf="result">
+        <div id="card" class="card" *ngFor="let cv of cvs | async;let i=index" style="width: 200px;">
             <div *ngIf="showFile(cv.id) ? true : false">
                 <pdf-viewer [original-size]="false" [autoresize]="true"
                  [render-text]="true" [src]="showFile(cv.id)" 
-                  [render-text]="true" [zoom]="1" [show-all]="true"
-                  style="display: block; height: 100vh;" *ngIf="cv.fichier.type==='application/pdf'; else displayImage">
+                  [render-text]="true" [zoom]="0.4" [show-all]="true"
+                  style="display: block;" *ngIf="cv.fichier.type==='application/pdf'; else displayImage">
                 </pdf-viewer>
                 <ng-template #displayImage>
                   <img [src]="showFile(cv.id)" style="width:100%">
                 </ng-template>
             </div>
-            <div class="card-body">
-              <!-- <h4 class="card-title">{{cv.fichier.nom}}</h4>
-              <p class="card-text"></p> -->
-              <a class="btn btn-primary float-right" style="color: white; cursor: pointer;">Voir profil</a>
+            <hr>
+            <div>
+              <h6>{{cv.fichier.nom}}</h6>
+              <!-- <p class="card-text"></p>  -->
+              <a class="btn btn-primary float-right" 
+               style="color: white; cursor: pointer;"
+               data-toggle="modal" [attr.data-target]="'#voir-details-cv'+i">Voir</a>
             </div>
+            <app-modal titre="Voir les détails de CV" idModal="voir-details-cv{{i}}" [tableauClasses]="objStylesDetails">
+                <div>
+                  <div *ngIf="showFile2(cv.id) ? true : false">
+                    <pdf-viewer [src]="showFile2(cv.id)" 
+                      [render-text]="true"
+                      style="display: block;" *ngIf="cv.fichier.type==='application/pdf'; else displayImage">
+                    </pdf-viewer>
+                    <ng-template #displayImage>
+                      <img [src]="showFile2(cv.id)">
+                    </ng-template>
+                  </div>
+                  <hr>
+                  <div class="float-right">
+                    <button type="button" class="btn btn-info" data-dismiss="modal">Fermer</button>
+                  </div>
+                </div>
+            </app-modal>
         </div>
     </div>
-    <div class="bg-light loader-waiting">
+    <div class="bg-light loader-waiting" >
         <app-custom-loader></app-custom-loader>
     </div>
     
