@@ -1,2 +1,30 @@
-
-
+.carousel-inner img {
+    width: 100%;
+    height: 400px;
+}
+#demo{
+    margin-top: 10px;
+}
+@media screen and (max-width:574px){
+    .carousel-inner img {
+        width: 100%;
+        height: 100%;
+    }
+}
+.recherche{
+    margin-top: 10px;
+    border-radius: 13px;
+    width: 100%;
+    background-color: #eb812e;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+}
+.nbr-offres{
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+.nbr-offres>h1{
+    color: #36ade7;
+}

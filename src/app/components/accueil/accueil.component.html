@@ -1,0 +1,43 @@
+<div class="container">
+    <div id="demo" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ul class="carousel-indicators">
+          <li data-target="#demo" data-slide-to="0" class="active"></li>
+          <li data-target="#demo" data-slide-to="1"></li>
+        </ul>
+        <!-- The slideshow -->
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="../../../assets/images/bg1.jpg" alt="Image 1">
+          </div>
+          <div class="carousel-item">
+            <img src="../../../assets/images/bg2.jpg" alt="Image 2">
+          </div>
+        </div>
+        <!-- Left and right controls -->
+        <a class="carousel-control-prev" href="#demo" data-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#demo" data-slide="next">
+          <span class="carousel-control-next-icon"></span>
+        </a>
+    </div>
+    <div class="recherche">
+        <form>
+            <div class="form-row">
+                <div class="form-group col-sm-4">
+                    <input type="text" class="form-control" placeholder="Enter un mot clé" id="mot">
+                </div>
+                <div class="form-group col-sm-4">
+                    <input type="text" class="form-control" placeholder="Enter un lieu" id="lieu">
+                </div>
+                <div class="form-group col-sm-4">
+                    <button type="submit" class="btn btn-secondary">Rechercher</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="nbr-offres">
+       <h1><strong>{{nbrOffres}}</strong> offres d'emploi</h1> 
+    </div>
+</div>

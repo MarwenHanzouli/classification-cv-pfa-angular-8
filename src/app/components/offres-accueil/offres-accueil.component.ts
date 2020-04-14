@@ -11,7 +11,7 @@ import { GestionOffresService } from 'src/app/services/gestion-offres.service';
 export class OffresAccueilComponent implements OnInit {
 
   private offres:Observable<Offre[]>;
-  private subscription:Subscription;
+ 
 
   constructor(private gestionOffres:GestionOffresService) { }
 
