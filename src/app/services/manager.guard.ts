@@ -4,12 +4,12 @@ import { Observable } from 'rxjs';
 import { AuthentificationService } from './authentification.service';
 import { ToastrService } from 'ngx-toastr';
 import { GestionUsersService } from './gestion-users.service';
-
+import * as jwt_decode from 'jwt-decode';
 @Injectable({
   providedIn: 'root'
 })
 export class ManagerGuard implements CanActivate {
-  
+
   constructor(private authService:AuthentificationService,
     private router: Router,
     private toastr: ToastrService,
@@ -18,15 +18,10 @@ export class ManagerGuard implements CanActivate {
     canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      let user=this.authService.currentUserValue['user'];
-      if(user['role']==='MANAGER')
+      let token=this.authService.currentUserValue['token'];
+      console.log(jwt_decode(token)['authorities'][0]['authority'])
+      if(jwt_decode(token)['authorities'][0]['authority']==='MANAGER')
       {
-        this.gestionUsersService.getCandidatById(user['id']).subscribe((data)=>{
-          if(data)
-          {
-            
-          }
-        });
         return true;
       }
       else
