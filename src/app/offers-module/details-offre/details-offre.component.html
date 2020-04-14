@@ -4,15 +4,16 @@
             <strong>Titre : {{(o.titre )}}</strong>
         </div>
         <div class="card-body">
-            <label><strong>Date de lancement: </strong>{{o.dateOffre | date}}</label><br>
-            <label><strong>Date de fin: </strong>{{o.dateFin | date}}</label><br>
-            <label><strong>Poste demandé: </strong>{{o.poste}}</label><br>
-            <label><strong>Lieu: </strong>{{o.lieu}}</label><br>
-            <label><strong>Organisme: </strong>{{o.organisme.nomOrganisme}},<strong> secteur </strong>{{o.organisme.secteur}}</label><br>
-            <label><strong>Le type: </strong>{{o.typeOffre}}</label><br>
-            <label><strong>Le niveau demandé: </strong>{{o.niveauDemande }}</label><br>
+            <label><strong><fa-icon [icon]="faCalendarAlt" class="icon-style"></fa-icon>Date de lancement: </strong>{{o.dateOffre | date}}</label><br>
+            <label><strong><fa-icon [icon]="faCalendarAlt" class="icon-style"></fa-icon>Date de fin: </strong>{{o.dateFin | date}}</label><br>
+            <label><strong><fa-icon [icon]="faChalkboardTeacher" class="icon-style"></fa-icon>Poste demandé: </strong>{{o.poste}}</label><br>
+            <label><strong><fa-icon [icon]="faMapMarkedAlt" class="icon-style"></fa-icon>Lieu: </strong>{{o.lieu}}</label><br>
+            <label><strong><fa-icon [icon]="faStoreAlt" class="icon-style"></fa-icon>Organisme: </strong>{{o.organisme.nomOrganisme}},<strong> secteur </strong>{{o.organisme.secteur}}</label><br>
+            <label><strong><fa-icon [icon]="faGraduationCap" class="icon-style"></fa-icon>Niveau demandé: </strong>{{o.niveauDemande }}</label><br>
+            <label><strong>Expérience: </strong>{{o.anneeExperience+(o.anneeExperience==1 ? ' an':' ans')}} </label><br>
+            <label><strong>Type: </strong>{{o.typeOffre}}</label><br>
             <label><strong>Détails: </strong>{{o.description}}</label><br>
-            <label><strong>Les compétences: </strong>
+            <label><strong>Compétences: </strong>
                 <span class="badge badge-info" *ngFor="let item of o.competences" style="margin-right: 2px;"> {{item.titre}}</span>
             </label><br>
         </div>
