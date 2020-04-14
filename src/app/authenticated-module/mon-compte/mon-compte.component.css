@@ -62,3 +62,7 @@
 .input-group-text>fa-icon{
     color: white;
 }
+.header{
+    display: flex;
+    justify-content: space-between;
+}
