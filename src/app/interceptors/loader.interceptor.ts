@@ -14,17 +14,26 @@ export class LoaderInterceptorService implements HttpInterceptor {
       return next.handle(req); // do nothing
     }
     this.showLoader();
-    console.log("chargement--------------------");
+    if(req.url.indexOf('cvs/getByTag') !== -1)
+    {
+      return next.handle(req).pipe(delay(4000),tap((event: HttpEvent<any>) => { 
+        if (event instanceof HttpResponse) {
+          
+          this.onEnd();
+        }
+      },
+        (err: any) => {
+          this.onEnd();
+      }));
+    }
     return next.handle(req).pipe(delay(4000),tap((event: HttpEvent<any>) => { 
       if (event instanceof HttpResponse) {
         
         this.onEnd();
-        console.log("déééééchargement--------------------");
       }
     },
       (err: any) => {
         this.onEnd();
-        console.log("errorchargement--------------------");
     }));
   }
   private onEnd(): void {
