@@ -34,6 +34,9 @@ import { GestionCandidaturesService } from './services/gestion-candidatures.serv
 import { GestionCvsService } from './services/gestion-cvs.service';
 import { OffresAccueilComponent } from './components/offres-accueil/offres-accueil.component';
 import { AuthenticatedModule } from './authenticated-module/authenticated.module';
+import { AuthGuard } from './services/auth.guard';
+import { CandidatGuard } from './services/candidat.guard';
+import { ManagerGuard } from './services/manager.guard';
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,6 +72,9 @@ import { AuthenticatedModule } from './authenticated-module/authenticated.module
     GestionUsersService,
     GestionCandidaturesService,
     GestionCvsService,
+    AuthGuard,
+    CandidatGuard,
+    ManagerGuard,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptorService, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrServeurInterceptor, multi: true }
