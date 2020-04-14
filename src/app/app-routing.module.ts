@@ -7,6 +7,8 @@ import { AuthentificationComponent } from './components/authentification/authent
 import { FourOhFourComponent } from './components/four-oh-four/four-oh-four.component';
 import { MotDePasseOublierComponent } from './components/mot-de-passe-oublier/mot-de-passe-oublier.component';
 import { AccueilAuthUserComponent } from './authenticated-module/accueil-authenticated-user/accueil-auth-user.component';
+import { OffresAccueilComponent } from './components/offres-accueil/offres-accueil.component';
+import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
   { path:'', component:AccueilComponent },
@@ -15,15 +17,14 @@ const routes: Routes = [
   { path:'authentification', component: AuthentificationComponent },
   { path:'authentification/motDePasseOublier', component: MotDePasseOublierComponent },
   { 
-    path:'offres', component: OffresComponent ,
-    loadChildren:'./offers-module/offers.module#OffersModule'
+    path:'offres', component: OffresAccueilComponent
   },
   // { 
   //   path:'candidat', component: AccueilAuthUserComponent ,
   //   loadChildren: './candidat-module/candidat.module#CandidatModule'
   // },
   { 
-    path:'authenticated', component: AccueilAuthUserComponent ,
+    path:'authenticated',canActivate: [AuthGuard], component: AccueilAuthUserComponent ,
     loadChildren: './authenticated-module/authenticated.module#AuthenticatedModule'
   },
   { path: 'not-found', component: FourOhFourComponent },

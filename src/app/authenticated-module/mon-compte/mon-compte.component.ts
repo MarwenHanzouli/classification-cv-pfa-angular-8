@@ -18,6 +18,7 @@ export class MonCompteComponent implements OnInit {
 
   private user:User;
   private subscription: Subscription;
+  private photoInitial:string;
 
   private userForm:FormGroup;
   private submitted:boolean=false;
@@ -41,27 +42,12 @@ export class MonCompteComponent implements OnInit {
   }
   
   ngOnInit() {
-    //console.log("xx");
-    // this.subscription=this.route.data.subscribe((data: {rep: User})=>{
-    //   this.user=data.rep['user'];
-    //   console.log(this.user);
-    //       this.initForm();
-    //       this.initFormPhoto();
-    //       this.initFormPassword();
-    // });
-    // this.authService.currentUser.subscribe(
-    //   (rep)=>{
-    //     if(rep)
-    //     {
-    //       this.user=rep['user'];
-    //       // console.log(rep);
-    //       console.log(this.user);
-    //       this.initForm();
-    //       this.initFormPhoto();
-    //       this.initFormPassword();
-    //     }
-    // });
     this.user=JSON.parse(localStorage.getItem("currentUser"))["user"];
+    if(this.user.photo==null){
+      this.photoInitial='../../../assets/images/anonyme.jpg';
+    }else{
+      this.photoInitial='data:'+this.user.photo.photo_type+';base64,'+this.user.photo.encoded_string;
+    }
     this.initForm();
     this.initFormPhoto();
     this.initFormPassword();
@@ -183,12 +169,8 @@ export class MonCompteComponent implements OnInit {
       this.user.address.city=formValue['ville'] || this.user.address.city;
       this.user.address.country=formValue['etat']  || this.user.address.country;
       this.user.address.postcode=formValue['cp'] || this.user.address.postcode;
-      //console.log(this.user);
       this.gestionUsersService.updateCandidat(this.user).subscribe((reponse)=>{
-        console.log("succes de modification");
-        //console.log(reponse);
         this.gestionUsersService.changeInfoUserWhenUpdateHisProfile(this.user);
-        //this.authService.currentUserSubject.next(this.user);
         this.loading=false;
         this.toastr.success("La modification a été éffectutée!","Succès");
       },
@@ -207,7 +189,6 @@ export class MonCompteComponent implements OnInit {
       this.user.nameEntreprise=formValue['entreprise'] || this.user.nameEntreprise;
       this.gestionUsersService.updateManager(this.user).subscribe((reponse)=>{
         console.log("succes de modification");
-        //console.log(reponse);
         this.gestionUsersService.changeInfoUserWhenUpdateHisProfile(this.user);
         this.loading=false;
         this.toastr.success("La modification a été éffectutée!","Succès");
@@ -226,8 +207,7 @@ export class MonCompteComponent implements OnInit {
     {
       this.gestionUsersService.updateUser(this.user).subscribe((reponse)=>{
         console.log("succes de modification");
-        console.log(reponse);
-        //this.authService.changeInfoUserWhenUpdateHisProfile(this.user);
+        this.gestionUsersService.changeInfoUserWhenUpdateHisProfile(this.user);
         this.loading=false;
         this.toastr.success("La modification a été éffectutée!","Succès");
       },
@@ -242,7 +222,6 @@ export class MonCompteComponent implements OnInit {
       });
     
     }
-    //console.log(this.user);
 
   }
   /*******************update photo**************************/
@@ -280,7 +259,9 @@ export class MonCompteComponent implements OnInit {
     this.loadingPhoto=true;
     this.gestionUsersService.updatePhoto(this.formPhoto.get("file").value,this.user.id)
     .subscribe((reponse)=>{
-      console.log(reponse);
+      this.user.photo=reponse['photo'];
+      this.gestionUsersService.changeInfoUserWhenUpdateHisProfile(this.user);
+      this.photoInitial='data:'+this.user.photo.photo_type+';base64,'+this.user.photo.encoded_string;
       this.toastr.success("La photo a été modifiée!","Succès");
       this.loadingPhoto=false;
     },

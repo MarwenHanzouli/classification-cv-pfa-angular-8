@@ -12,6 +12,8 @@ import { PipeOffresPipe } from '../pipes/pipe-offres.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { WrapperComponent } from '../components/wrapper/wrapper.component';
 import { LoaderComponent } from '../components/loader/loader.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { CustomLoaderComponent } from './custom-loader/custom-loader.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import { LoaderComponent } from '../components/loader/loader.component';
     CvsComponent,
     PipeOffresPipe,
     LoaderComponent,
-    WrapperComponent
+    WrapperComponent,
+    CustomLoaderComponent
   ],
   imports: [
     CommonModule,
@@ -29,7 +32,8 @@ import { LoaderComponent } from '../components/loader/loader.component';
     FontAwesomeModule,
     AuthenticatedModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PdfViewerModule
   ],
   exports:[
     OffresComponent,

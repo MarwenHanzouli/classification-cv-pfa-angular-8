@@ -12,12 +12,9 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ModalComponent } from './modal/modal.component';
 import { LoadUserResolver } from '../resolvers/load-user.reslover';
-import { PipeOffresPipe } from '../pipes/pipe-offres.pipe';
-import { OffersModule } from '../offers-module/offers.module';
 import { DetailsOffreComponent } from '../offers-module/details-offre/details-offre.component';
 import { PostuleComponent } from '../candidat-module/postule/postule.component';
-
-
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 @NgModule({
   declarations: [
@@ -38,7 +35,8 @@ import { PostuleComponent } from '../candidat-module/postule/postule.component';
     ReactiveFormsModule,
     FontAwesomeModule,
     AuthenticatedRoutingModule,
-    LoadUserResolver
+    LoadUserResolver,
+    PdfViewerModule
   ],
   exports:[
     MenuComponent,

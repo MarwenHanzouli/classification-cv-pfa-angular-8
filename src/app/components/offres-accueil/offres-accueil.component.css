@@ -1,0 +1,13 @@
+.offres{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+.top{
+    margin-top: 5px;
+}
+.offre{
+    max-width: 405px;
+    margin-bottom: 3px;
+}

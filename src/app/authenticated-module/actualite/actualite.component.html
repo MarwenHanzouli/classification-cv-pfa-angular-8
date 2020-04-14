@@ -30,6 +30,34 @@
           </button>
         </div>
       </div>
-      <app-postule *ngIf="postul==true"></app-postule>
+      <div *ngIf="postul && roleU=='CANDIDAT'">
+        <h4>Séléctionner un CV pour cette offre</h4>
+        <table>
+          <tr *ngFor="let cv of cvsObservable | async;let i=index">
+            <td>
+              <div class="custom-control custom-radio">
+                <input type="radio" (click)="select($event.target.value)" value="{{cv | json}}" class="custom-control-input" id="customRadio{{i}}" name="choixCv{{o.id}}">
+                <label class="custom-control-label" for="customRadio{{i}}">{{cv.fichier.nom}}</label>
+              </div> 
+            </td>
+          </tr>
+          <tr *ngIf="cvs.length===0">
+            <td>
+              Aucun CV à postuler<br>
+              <a [routerLink]="['/authenticated/candidat',{outlets:{authenticated:['mon-cv']}}]" routerLinkActive="router-link-active"
+              data-dismiss="modal" >  Postuler un CV</a>
+            </td>
+          </tr>
+        </table>
+        <div *ngIf="error" class="invalid-feedback">
+          Séléctionner un cv
+        </div>
+        <hr>
+        <div class="float-right">
+          <button type="button" class="btn btn-warning" (click)="postul=false">Annuler</button>
+          <button type="button" class="btn btn-success" (click)="postulerCandidature(o.id)" [disabled]="loadingPostule || cvs.length==0">
+            <span class="spinner-border spinner-border-sm" *ngIf="loadingPostule"></span> Postuler</button>
+        </div>
+      </div>
     </app-modal>
 </div>

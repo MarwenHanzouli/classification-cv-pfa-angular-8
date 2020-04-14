@@ -216,7 +216,10 @@ export class InscriptionComponent implements OnInit,OnDestroy {
       {
         this.toastr.error("Répéter votre demande","Erreur d'inscription");
       }
-      
+      else if(error.status===400)
+      {
+        this.toastr.error(error['error']['message'],"Erreur d'inscription");
+      }
       console.log(error);
       this.loading=false;
       //console.log(error['error']['message']);

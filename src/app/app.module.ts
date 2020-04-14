@@ -17,26 +17,26 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LoaderComponent } from './components/loader/loader.component';
 
 import { LoaderInterceptorService } from './interceptors/loader.interceptor';
 import { LoaderService } from './services/loader.service';
-import { WrapperComponent } from './components/wrapper/wrapper.component';
 import { SuccesInscriptionComponent } from './components/succes-inscription/succes-inscription.component';
 import { MotDePasseOublierComponent } from './components/mot-de-passe-oublier/mot-de-passe-oublier.component';
 import { AuthentificationService } from './services/authentification.service';
 
 import { ErrServeurInterceptor } from './interceptors/err-serveur.interceptor';
-import { CandidatModule } from './candidat-module/candidat.module';
 import { OffersModule } from './offers-module/offers.module';
-import { AdministrationModule } from './administration-module/administration.module';
 import { NotificationService } from './services/notification.service';
-import { AuthenticatedModule } from './authenticated-module/authenticated.module';
 import { GestionUsersService } from './services/gestion-users.service';
 import { LoadUserResolver } from './resolvers/load-user.reslover';
 import { LoadOffresResolver } from './resolvers/load-offres.resolver.ts';
 import { GestionCandidaturesService } from './services/gestion-candidatures.service';
 import { GestionCvsService } from './services/gestion-cvs.service';
+import { OffresAccueilComponent } from './components/offres-accueil/offres-accueil.component';
+import { AuthenticatedModule } from './authenticated-module/authenticated.module';
+import { AuthGuard } from './services/auth.guard';
+import { CandidatGuard } from './services/candidat.guard';
+import { ManagerGuard } from './services/manager.guard';
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,7 +47,8 @@ import { GestionCvsService } from './services/gestion-cvs.service';
     FourOhFourComponent,
     FooterComponent,
     SuccesInscriptionComponent,
-    MotDePasseOublierComponent
+    MotDePasseOublierComponent,
+    OffresAccueilComponent
   ],
   imports: [
     BrowserModule,
@@ -58,12 +59,10 @@ import { GestionCvsService } from './services/gestion-cvs.service';
     HttpClientModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
-    CandidatModule,
     OffersModule,
-    AdministrationModule,
-    AuthenticatedModule,
     LoadUserResolver,
-    LoadOffresResolver
+    LoadOffresResolver,
+    AuthenticatedModule
   ],
   providers: [
     RegistrationService,
@@ -73,6 +72,9 @@ import { GestionCvsService } from './services/gestion-cvs.service';
     GestionUsersService,
     GestionCandidaturesService,
     GestionCvsService,
+    AuthGuard,
+    CandidatGuard,
+    ManagerGuard,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptorService, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrServeurInterceptor, multi: true }

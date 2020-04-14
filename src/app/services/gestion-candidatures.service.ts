@@ -19,10 +19,14 @@ export class GestionCandidaturesService extends AbstractHttpService{
 
   addCandidature(candidature: Candidature):Observable<Candidature>{
     return this.httpClient.post<Candidature>(this.serverUrl+
-      '/microservice-offers/candidatures/add/'
+      '/microservice-offers/candidatures/add/candidat/'
       +candidature.idCandidat+'/offre/'
       +candidature.idOffre
       +'/cv/'+candidature.idCv,
       candidature,{headers: this.headers});
+  }
+  getAllCandidatureByCandidat(idCandidat):Observable<Candidature[]>{
+    return this.httpClient.get<Candidature[]>(this.serverUrl+
+      '/microservice-offers/candidatures/getAllByCandidat/'+idCandidat,{headers: this.headers});
   }
 }

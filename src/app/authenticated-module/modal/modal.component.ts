@@ -34,7 +34,8 @@ export class ModalComponent implements OnInit , OnChanges, OnDestroy{
       'modal-dialog-centered':this.tableauClasses[0],
       'modal-sm':this.tableauClasses[1],
       'modal-lg':this.tableauClasses[2],
-      'modal-xl':this.tableauClasses[3]
+      'modal-xl':this.tableauClasses[3],
+      'modal-dialog-scrollable': this.tableauClasses[4] ? this.tableauClasses[4] : false
     }
     if(changes['idModal']){
       this.id=changes['idModal'].currentValue.toString();

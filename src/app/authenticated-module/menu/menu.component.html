@@ -22,18 +22,18 @@
                 <div *ngIf="role=='MANAGER'" (click)="changeStyle(4)" [routerLink]="[URL,{outlets:{authenticated:['offres']}}]"
                  (mouseover)="changeHover(4)" (mouseleave)="hoverLeaved(4)" 
                  class="choix" [ngClass]="{'clicked': tableau_clicked[4]}">
-                    <pre> <a [ngClass]="{'text-blanc': tableau_clicked[4] && tableau_hovered[4]==false}" routerLinkActive="active" ><fa-icon [icon]="faBell"></fa-icon> Gérer les offres <span class="badge badge-success badge-notification">5</span></a></pre>
+                    <pre> <a [ngClass]="{'text-blanc': tableau_clicked[4] && tableau_hovered[4]==false}" routerLinkActive="active" ><fa-icon [icon]="faCogs"></fa-icon> Gérer les offres </a></pre>
                 </div>
                 <div *ngIf="role=='MANAGER'" (click)="changeStyle(5)" [routerLink]="[URL,{outlets:{authenticated:['cvs']}}]"
                  (mouseover)="changeHover(5)" (mouseleave)="hoverLeaved(5)" 
                  class="choix" [ngClass]="{'clicked': tableau_clicked[5]}">
-                    <pre> <a [ngClass]="{'text-blanc': tableau_clicked[5] && tableau_hovered[5]==false}" routerLinkActive="active" ><fa-icon [icon]="faBell"></fa-icon> Rechercher les meilleurs CVs <span class="badge badge-success badge-notification">5</span></a></pre>
+                    <pre> <a [ngClass]="{'text-blanc': tableau_clicked[5] && tableau_hovered[5]==false}" routerLinkActive="active" ><fa-icon [icon]="faSearch"></fa-icon> Rechercher les meilleurs CVs </a></pre>
                 </div>
 
                 <div *ngIf="role=='ADMIN'" (click)="changeStyle(7)" [routerLink]="[URL,{outlets:{authenticated:['gerer-users']}}]"
                  (mouseover)="changeHover(7)" (mouseleave)="hoverLeaved(7)" 
                  class="choix" [ngClass]="{'clicked': tableau_clicked[7]}">
-                    <pre> <a [ngClass]="{'text-blanc': tableau_clicked[7] && tableau_hovered[7]==false}" routerLinkActive="active" ><fa-icon [icon]="faBell"></fa-icon> Gérer les utilisateurs <span class="badge badge-success badge-notification">5</span></a></pre>
+                    <pre> <a [ngClass]="{'text-blanc': tableau_clicked[7] && tableau_hovered[7]==false}" routerLinkActive="active" ><fa-icon [icon]="faUsersCog"></fa-icon> Gérer les utilisateurs </a></pre>
                 </div>
 
                 <div (click)="changeStyle(3)" [routerLink]="[URL,{outlets:{authenticated:['mon-compte']}}]"

@@ -1,0 +1,7 @@
+<div class="container top">
+    <div class="offres">
+        <div *ngFor="let offre of offres | async" class="offres">
+            <app-details-offre idOffre="{{offre.id}}" class="offre"></app-details-offre>
+        </div>
+    </div>
+</div>

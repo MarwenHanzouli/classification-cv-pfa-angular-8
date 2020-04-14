@@ -1,5 +1,17 @@
 <div class="card">
-    <div class="card-header">Modifier les informations personnelles</div>
+    <div class="card-header header">
+        <span> Modifier les informations personnelles</span>
+        <div class="etat">
+            <div *ngIf="user.enabled==true" style="display: flex;">
+                Vérifié
+                <div class="btn-true"></div>
+            </div>
+            <div *ngIf="user.enabled==false" style="display: flex;">
+                Non vérifié
+                <div class="btn-false"></div>
+            </div>
+        </div>
+    </div>
     <form [formGroup]="userForm" (ngSubmit)="onSubmitForm()">
         <div class="card-body">
             <div class="form-row">
@@ -304,7 +316,7 @@
             <div class="card-header">Modifier la photo</div>
             <div class="card-body">
               <img class="rounded-circle img-fluid float-right" 
-              [src]="(urlImg && photoSubmitted) ? urlImg : '../../../assets/images/taswirti.JPG'" 
+              [src]="(urlImg && photoSubmitted) ? urlImg : photoInitial" 
               alt="Photo de profil" id="photoDeProfil">
               <form [formGroup]="formPhoto" (ngSubmit)="submitPhoto()">
                 <app-file-upload formControlName="file" (fileUrlToSend)="getFile($event)"></app-file-upload>

@@ -10,3 +10,6 @@
     display: flex;
     justify-content: space-between;
 }
+.invalid-feedback{
+    display: inline;
+}
